@@ -21,8 +21,21 @@
      em vários pontos; todas resolvem para o mesmo desenho, sem erro.
 
      Inter é SIL OFL, self-hospedada em assets/fonts/inter.css.
-     -------------------------------------------------------------------- */
-  --_fonts---fonts--title-font: Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Narrow Bold", sans-serif;
+
+     ANTON — fallback real para fora de Windows/macOS
+     Haettenschweiler, Franklin Gothic Bold e "Arial Narrow Bold" também são
+     fontes de sistema do Windows (a última nem existe como família própria:
+     "Bold" no nome não força negrito, é só texto). Em Linux, Android e iOS
+     nenhuma das quatro está instalada, e o stack caía direto no sans-serif
+     genérico — fino, sem o peso condensado do desenho original. Essa era a
+     causa do título "sem Impact" no celular.
+
+     Anton entra logo depois do Impact: é a substituta gratuita mais usada
+     pra Impact (SIL OFL, mesma caixa alta pesada, mesma proporção
+     condensada, peso único 400), self-hospedada em assets/fonts/anton.css,
+     então carrega igual em qualquer SO. Os fallbacks de sistema continuam
+     depois dela só para o instante antes do @font-face resolver. */
+  --_fonts---fonts--title-font: Impact, 'Anton', Haettenschweiler, "Franklin Gothic Bold", "Arial Narrow Bold", sans-serif;
   --_fonts---fonts--paragraph-font: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Impact é bem mais estreita e alta que a Instrument Sans que o design
@@ -3096,7 +3109,14 @@ input:focus-visible,
     padding: 6rem 0 7rem;
   }
 
+  /* display:block sobrescreve o design system: .banner-bg-image leva
+     display:none dele mesmo abaixo de 767px (arooth.css, escondia a foto e
+     deixava só a cor solida --diamond por baixo). Aqui embaixo de 991px a
+     foto e o fundo inteiro do hero, tem que ficar visivel. Especificidade
+     de duas classes (0,2,0) bate a de uma (0,1,0) do design system em
+     qualquer largura, entao vale nos dois breakpoints (991 e 767). */
   .banner-bg-wrap .banner-bg-image {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;

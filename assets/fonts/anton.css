@@ -1,0 +1,20 @@
+/* Anton (SIL OFL) — self-hospedada, mesmo padrao de inter.css.
+
+   Fallback para o titulo em Impact: Impact e fonte de sistema (Windows/macOS)
+   e nao existe em Linux, Android nem iOS. Nesses SOs o stack de
+   --_fonts---fonts--title-font caia direto num sans-serif generico, fino e
+   sem o peso condensado do desenho original. Anton e o substituto gratuito
+   mais usado para Impact: mesma caixa alta pesada, mesma proporcao
+   condensada, peso unico 400 (como o proprio Impact). Carregando aqui,
+   o titulo fica visualmente igual em qualquer plataforma.
+
+   So o subset latin: cobre os acentos do portugues (a a c e i o o u), todos
+   dentro de U+0000-00FF. */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(anton-latin-400.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
