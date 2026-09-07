@@ -4315,3 +4315,167 @@ input:focus-visible,
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   4. Mobile — centralização geral de cards, colunas de texto e botões
+
+   Pedido explícito do cliente: nada de conteúdo "puxado" pra um lado dentro
+   de card ou coluna no mobile.
+
+   Cada componente abaixo (dmr-pilar, dmr-dor, dmr-perfil, dmr-stat,
+   dmr-media-card, dmr-split-text/cta, dmr-cta-text, testimonial) foi escrito
+   alinhado à esquerda de propósito — é o que funciona no grid multi-coluna
+   do desktop, ícone e texto lendo da mesma margem em várias colunas lado a
+   lado. Empilhado numa coluna só no mobile, esse mesmo alinhamento sobra
+   como texto colado na borda esquerda de um card bem mais largo que o
+   conteúdo. Os cards de serviço (.single-service-wrap) não entram aqui: são
+   componente do design system e já nascem centralizados
+   (designsystem.css :6558, .service-contents { text-align: center }).
+
+   text-align:center é herdado pelos filhos em bloco (h3, p, span) e também
+   centraliza qualquer <img> solto, porque img é inline-block por padrão
+   (designsystem.css :232) — não precisa de margin:auto extra. Só os
+   contêineres flex em coluna (dmr-dor-head, dmr-ponte, testimonial-user)
+   precisam de align-items:center a mais, porque align-items posiciona a
+   CAIXA do item, o que text-align sozinho não alcança. */
+@media screen and (max-width: 767px) {
+  /* Diferenciais, Problema/Dor, Perfis: ícone, título e texto centralizados. */
+  .dmr-pilar,
+  .dmr-dor,
+  .dmr-perfil {
+    text-align: center;
+  }
+
+  /* ".dmr-pilar > .dmr-pilar-icon { display: block }" (seção 3, reuso do
+     card no blog) tira o ícone do fluxo inline — vira bloco de largura fixa
+     (3.5rem) que text-align não alcança mais. margin:auto centra o bloco. */
+  .dmr-pilar-icon {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* .dmr-perfil é flex-flow:column sem align-items — o link ".dmr-servico-
+     link" (curto, "Quero uma solução completa" + seta) esticava pra largura
+     total do card por causa do align-items:stretch padrão, e o texto+seta
+     dele (que usa justify-content, não text-align) ficava colado à
+     esquerda dessa caixa esticada. align-items:center encolhe a caixa do
+     link ao próprio conteúdo; o text-align:center acima então centra essa
+     caixa já encolhida dentro do card. O parágrafo de descrição não sofre
+     com isso: é texto longo, então o encolhimento por fit-content já bate
+     na largura disponível do card de qualquer forma. */
+  .dmr-perfil {
+    align-items: center;
+  }
+
+  .dmr-dor-head {
+    align-items: center;
+  }
+
+  /* Faixa-ponte (Riscos): ícone, título, texto e botão centralizados —
+     antes ficava tudo alinhado à esquerda mesmo empilhado em coluna. */
+  .dmr-ponte {
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Cards de métrica ("Números"): ícone em cima, número e rótulo embaixo,
+     tudo centralizado — a mesma leitura vertical do resto do site no
+     mobile, em vez do bloco ícone-esquerda/número-direita pensado para o
+     card largo do desktop (.dmr-stat-figures tinha text-align:right ali). */
+  .dmr-stats.is-band .dmr-stat-top {
+    align-items: center;
+    text-align: center;
+  }
+
+  .dmr-stats.is-band .dmr-stat-figures,
+  .dmr-stat-desc {
+    text-align: center;
+  }
+
+  /* Card flutuante ("10+ anos", "3-2-1", "20 min" nas seções Sobre, Riscos
+     e Suporte): número, rótulo e texto centralizados dentro do card. */
+  .dmr-media-card {
+    text-align: center;
+  }
+
+  /* Colunas de texto ao lado da foto (Sobre, Suporte, Riscos): pílula,
+     título, parágrafos e botão centralizados — mesma leitura que o hero já
+     usa no mobile (ver seção 4 do arquivo, .after-banner-content-wrap). */
+  .dmr-split-text {
+    text-align: center;
+  }
+
+  .dmr-split-cta {
+    justify-content: center;
+  }
+
+  /* Cabeçalho com CTA (Sobre, Clientes, todas as páginas de Serviço): sem
+     wrap nem largura, os dois botões dividiam a linha e o texto do primeiro
+     ("Fale Conosco") quebrava em três linhas dentro de uma caixa espremida
+     pela metade. Empilhado e a 100%, mesmo tratamento que .dmr-hero-actions
+     já usa no hero da home (seção 4 deste arquivo). */
+  .dmr-head-cta {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .dmr-head-cta .primary-button,
+  .dmr-head-cta .dmr-ghost-btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* CTA final (Auditoria gratuita): mesma lógica da coluna de texto acima.
+     dmr-cta-text (index.html) e dmr-cta-texto (todas as outras 9 páginas)
+     são o mesmo componente com nomes divergentes — os dois entram aqui. */
+  .dmr-cta-text,
+  .dmr-cta-texto {
+    text-align: center;
+  }
+
+  /* Depoimentos: citação e rodapé de autor (avatar + nome) centralizados
+     dentro do card, em vez de alinhados à esquerda como no card largo do
+     desktop. */
+  .testimonial-glass-card {
+    text-align: center;
+  }
+
+  .testimonial-stars {
+    justify-content: center;
+  }
+
+  .testimonial-user {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Página Clientes: números de resultado de cada caso (100%, 0 min, etc.)
+     — mesmo padrão dos cards de métrica da home, número e legenda
+     centralizados em vez de alinhados à esquerda na coluna. */
+  .dmr-caso-resultado {
+    text-align: center;
+  }
+
+  /* Página Clientes: mural de depoimentos (citação + nome/cargo do autor,
+     sem avatar) — mesmo tratamento dos cards de depoimento da home. */
+  .dmr-mural-card {
+    text-align: center;
+  }
+
+  .dmr-mural-autor {
+    align-items: center;
+  }
+
+  /* Página Clientes: etapas da transição (círculo numerado + título + texto).
+     Empilha em coluna abaixo de 767px (regra já existente, seção 12), mas
+     ficava com align-items:flex-start herdado — número e texto colavam à
+     esquerda. Centralizado como os demais cards de ícone da página. */
+  .dmr-etapa {
+    align-items: center;
+    text-align: center;
+  }
+}
