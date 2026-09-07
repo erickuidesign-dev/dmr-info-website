@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<!--
+  DMR Info Tecnologia — Home
+  Etapa 1 do "Plano - Website DMR Info Tecnologia.md": section Hero.
+
+  As classes w-mod-js / w-mod-ix e os atributos data-wf-* são exigidos pelo
+  runtime do Webflow empacotado em assets/vendor/ para inicializar ix2 e ix3.
+  Os identificadores vieram do design system e são inertes — servem só de
+  chave interna do runtime. Trocar por identificadores próprios é tarefa de
+  limpeza da Etapa 10, não bloqueia nada agora.
+-->
+<html class="w-mod-js w-mod-ix wf-active" lang="pt-BR" data-wf-domain="dmrinfo.com.br" data-wf-page="68dbb9a72b91c794d0cdd10e" data-wf-site="68dbb9a72b91c794d0cdd10c">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+  <link rel="icon" type="image/png" href="assets/img/favicon-dmr.png" />
+  <link rel="apple-touch-icon" href="assets/img/favicon-dmr.png" />
+
+  <title>DMR Info Tecnologia · TI Corporativa e Segurança Cibernética em São Paulo</title>
+  <meta name="description" content="Consultoria, infraestrutura de redes, segurança cibernética e backup empresarial. 10+ anos protegendo empresas com resposta em 20 minutos e SLA de 4 horas. Solicite uma auditoria gratuita." />
+
+  <meta property="og:title" content="DMR Info Tecnologia · TI Corporativa e Segurança Cibernética em São Paulo" />
+  <meta property="og:description" content="Consultoria, infraestrutura de redes, segurança cibernética e backup empresarial. 10+ anos protegendo empresas com resposta em 20 minutos e SLA de 4 horas." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fontes self-hosted: Instrument Sans (títulos) + Poppins (corpo) -->
+  <link href="assets/fonts/fonts.css" rel="stylesheet" type="text/css" />
+  <link href="assets/fonts/inter.css" rel="stylesheet" type="text/css" />
+  <!-- CSS do design system, sem alteração -->
+  <!-- Tabler Icons — mesmo pacote/CDN da referencia do cliente, para os
+       icones da barra de topo saírem identicos -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link href="assets/css/_designsystem.css" rel="stylesheet" type="text/css" />
+  <!-- Camada de marca DMR: tokens e hero. Sempre depois do design system. -->
+  <link href="assets/css/dmr.css" rel="stylesheet" type="text/css" />
+
+  <!--
+    Esconde os elementos animados até o ix3 assumir, evitando flash do estado
+    final. Copiado do design system e estendido para o slot _06, que "DMR INFO"
+    acrescenta. Ver Plano Etapa 1.2.
+  -->
+  <style>
+    html.w-mod-js:not(.w-mod-ix3) :is(.primary-button-text, .primary-button-text-hover, .primary-button-arrow, .primary-button-arrow-hover, .after-banner-wrapper, .banner-letter-o, .after-banner-content-wrap, .after-banner-inner, .after-banner-wrap, .single-banner-letter) { visibility: hidden !important; }
+  </style>
+</head>
+
+<body>
+<div class="page-wrapper">
+
+  <!-- ====================================================================
+       NAVBAR — stub da Etapa 2
+       Presente aqui porque o hero não pode ser avaliado sem ela: o topo do
+       painel é calculado contando com a barra fixa. A versão completa (menu
+       mobile em accordion, dropdown de serviços, CTA Área do Cliente) é
+       entregue na Etapa 2.
+       ==================================================================== -->
+  <!-- ====================================================================
+       BARRA DE TOPO + HEADER
+
+       Porte VERBATIM da referencia do cliente
+       (C:\Users\erick\Desktop\site_dmr_info\src\index.html): mesma
+       estrutura, mesmas classes, mesmo CSS (ver dmr.css) e mesmos icones
+       (Tabler webfont, mesmo CDN). Nao e uma adaptacao da navbar do Webflow.
+
+       Unicos ajustes: os href apontam para as ancoras/rotas deste site e o
+       link da Area do Cliente usa a URL passada nesta conversa
+       (servidorseguro.mysuite2.com.br) - a referencia usava outra
+       (dmrinfo.mysuite2.com.br), divergencia ja reportada ao cliente.
+       Instagram/Facebook/LinkedIn seguem com href="#" porque a referencia
+       tambem nao tinha os links reais. -->
+  <div class="site-header" id="site-header">
+  <div class="top-bar">
+    <div class="container top-bar-container">
+      <div class="contact-info">
+        <span><i class="ti ti-phone"></i> +55 11 3164-7640</span>
+        <span><i class="ti ti-mail"></i> contato@dmrinfo.com.br</span>
+        <span><i class="ti ti-map-pin"></i> Rua Palmera Lacca, 183 – Sala 3 – Sobre Loja</span>
+      </div>
+      <div class="top-bar-right">
+        <div class="social-icons">
+          <a href="https://wa.me/5511983161635" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+          <a href="https://www.instagram.com/dmrinfo_?stkn=MW15MThqa202aDZwcA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
+          <a href="https://www.linkedin.com/company/dmr-info-solucoes-tecnologicas/posts/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+        </div>
+        <a href="https://servidorseguro.mysuite2.com.br/client/login.php?sl=dmri" target="_blank" rel="noopener noreferrer" class="btn-sm">
+          <i class="ti ti-headset"></i> Área do Cliente
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="index.html">
+          <img src="assets/img/logo-header.png" alt="DMR Info Tecnologia" style="height: 50px; width: auto;" width="223" height="101" />
+        </a>
+      </div>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="sobre/index.html">Sobre</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="blog/index.html">Blog</a></li>
+          <li><a href="#depoimentos">Clientes</a></li>
+          <li><a href="contato/index.html">Contato</a></li>
+        </ul>
+      </nav>
+      <a href="https://wa.me/5511983161635" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Obter Orçamento <i class="ti ti-arrow-right"></i></a>
+      <button class="dmr-nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="dmr-mobile-menu">
+        <span class="dmr-nav-toggle-bar" aria-hidden="true"></span>
+        <span class="dmr-nav-toggle-bar" aria-hidden="true"></span>
+        <span class="dmr-nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Painel do menu mobile. Fora do <header> para o blur do header não virar
+       o fundo do painel, e com hidden por padrão: sem JS ele nunca abre, mas o
+       menu completo continua acessível no header em telas grandes. -->
+  <div class="dmr-mobile-menu" id="dmr-mobile-menu" hidden>
+    <nav class="dmr-mobile-nav" aria-label="Menu principal">
+      <a href="index.html">Início</a>
+      <a href="sobre/index.html">Sobre</a>
+      <a href="#servicos">Serviços</a>
+      <a href="blog/index.html">Blog</a>
+      <a href="#depoimentos">Clientes</a>
+      <a href="contato/index.html">Contato</a>
+    </nav>
+    <a href="https://wa.me/5511983161635" target="_blank" rel="noopener noreferrer" class="btn btn-primary dmr-mobile-cta">Obter Orçamento <i class="ti ti-arrow-right"></i></a>
+    <div class="dmr-mobile-contato">
+      <a href="tel:+551131647640"><i class="ti ti-phone"></i> +55 11 3164-7640</a>
+      <a href="https://wa.me/5511983161635" target="_blank" rel="noopener noreferrer"><i class="ti ti-brand-whatsapp"></i> +55 11 98316-1635</a>
+      <a href="mailto:contato@dmrinfo.com.br"><i class="ti ti-mail"></i> contato@dmrinfo.com.br</a>
+      <span><i class="ti ti-map-pin"></i> Rua Palmera Lacca, 183 – Sala 3 – Sobre Loja</span>
+    </div>
+  </div>
+  </div>
+
+  <!-- Indicador de scroll: mouse desenhado em CSS, com a rodinha descendo em
+       loop. Fica aqui, fora do hero, porque e position:fixed e qualquer
+       ancestral com transform (o GSAP anima varios dentro do hero) viraria o
+       container dele. aria-hidden porque e decorativo. -->
+  <div class="dmr-scroll-cue" aria-hidden="true">
+    <span class="dmr-scroll-mouse"><span class="dmr-scroll-wheel"></span></span>
+    <span class="dmr-scroll-chevron"></span>
+    <span class="dmr-scroll-label">Role para explorar</span>
+  </div>
+
+  <!-- Roda durante o parse, antes do primeiro paint: sem isso o header pisca
+       visível na abertura ate o dmr-header.js rodar no DOMContentLoaded.
+       Continua sendo o JS quem esconde - se este script nao rodar, o menu
+       fica visivel, que e a degradacao segura. -->
+  <script>
+    (function () {
+      var h = document.getElementById("site-header");
+      var temHero = document.querySelector(".banner-section");
+      if (h && temHero && window.scrollY < window.innerHeight * 0.5) h.classList.add("is-hidden", "sem-transicao");
+    })();
+  </script>
+
+  <!-- ====================================================================
+       HERO — Etapa 1
+       Estrutura idêntica à .banner-section do design system. A única mudança
+       estrutural são os slots de letra: sete glifos ("DMR INFO") no lugar dos
+       cinco de "VISION". O "O" final é o anel .banner-letter-o, desenhado em
+       CSS, que emoldura o painel .after-banner-wrapper.
+
+       Os glifos são texto vivo em Impact, não imagens: SVG carregado via
+       <img> não herda currentColor, então as letras saíam pretas. O tamanho
+       vem do token --dmr-cap-height e o dmr-hero.js mede a largura real de
+       cada slot no DOM.
+       ==================================================================== -->
+  <section class="banner-section">
+    <div class="banner-vh-wrap">
+      <div class="banner-sticky-wrap">
+        <div class="banner-wrapper">
+
+          <div class="banner-letters-wrap">
+            <div class="banner-letters-row">
+              <div class="banner-letters-flex">
+
+                <div class="single-banner-letter dmr-l1"><span class="banner-letter">D</span></div>
+                <div class="single-banner-letter dmr-l2"><span class="banner-letter">M</span></div>
+                <div class="single-banner-letter dmr-l3"><span class="banner-letter">R</span></div>
+                <div class="single-banner-letter dmr-l4"><span class="banner-letter">I</span></div>
+                <div class="single-banner-letter dmr-l5"><span class="banner-letter">N</span></div>
+                <div class="single-banner-letter dmr-l6"><span class="banner-letter">F</span></div>
+
+                <!-- O "O" de INFO: anel + painel que cresce no scroll -->
+                <div class="after-banner-wrapper">
+                  <div class="after-banner-inner">
+                    <div class="after-banner-wrap">
+
+                      <div class="container navbar-container">
+                        <div class="after-banner-content-wrap">
+                          <h1 class="after-banner-title">Sua empresa não pode parar. <span class="after-banner-title-mark">Sua TI também não.</span></h1>
+                          <p class="after-banner-details">Projetamos, implementamos e mantemos a infraestrutura de TI que mantém sua operação segura, rápida e no ar — com resposta em 20 minutos para emergências.</p>
+                          <div class="dmr-hero-actions">
+                            <a class="primary-button w-inline-block" data-wf--primary-button--variant="white" href="contato/index.html">
+                            <div class="primary-button-flex">
+                              <div class="primary-button-text-wrap">
+                                <div aria-label="Fale Conosco" class="primary-button-text">Fale Conosco</div>
+                                <div aria-label="Fale Conosco" class="primary-button-text-hover">Fale Conosco</div>
+                              </div>
+                              <div class="primary-button-arrow-wrapper">
+                                <div class="primary-button-arrow-wrap">
+                                  <img alt="" class="primary-button-arrow" loading="lazy" src="assets/img/69108960e3284bb1a2e481a4_Butto_2bc450c69045.svg" width="10" height="10" />
+                                  <img alt="" class="primary-button-arrow-hover" loading="lazy" src="assets/img/69108960e3284bb1a2e481a4_Butto_2bc450c69045.svg" width="10" height="10" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="primary-button-hover-bg"></div>
+                          </a>
+                          <a class="dmr-ghost-btn" href="#servicos">Nossos Serviços<span class="dmr-ghost-btn-arrow" aria-hidden="true"></span></a>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--
+                        FUNDO DO HERO — vídeo com poster de imagem
+                        O <img> continua sendo o poster: é ele que conta como
+                        elemento de LCP, não o vídeo. preload="none" e sem o
+                        atributo autoplay — quem decide se o vídeo toca é o
+                        dmr-hero.js, na mesma condição (desktop >= 992px, sem
+                        prefers-reduced-motion) que já rege a animação das
+                        letras. Abaixo dessa condição o <video> some via CSS
+                        e o poster cumpre o mesmo papel sozinho.
+
+                        webm antes do mp4: VP9 é ~25% mais leve e é a
+                        primeira fonte que o navegador aceitar vence: quem
+                        não suporta webm (Safari) cai no H.264.
+
+                        Vídeo verificado quadro a quadro (240 frames, 24fps):
+                        1920x1080, 10s, loop sem salto perceptível (diferença
+                        média entre 1º e último frame: 1,8/255), sem borda
+                        clara nas bordas. Contraste do texto sobre o pior
+                        frame (mais claro) passa AA com folga em qualquer
+                        cor — ver notas em dmr.css.
+                      -->
+                      <div class="banner-bg-wrap">
+                        <video class="banner-bg-video" muted loop playsinline preload="none" poster="assets/img/hero-rack-2000.webp" aria-hidden="true">
+                          <source src="assets/video/dmr-hero-rack-loop.webm" type="video/webm" />
+                          <source src="assets/video/dmr-hero-rack-loop.mp4" type="video/mp4" />
+                        </video>
+                        <img alt="Rack de servidores com cabeamento estruturado organizado" class="banner-bg-image" fetchpriority="high" sizes="100vw" src="assets/img/hero-rack-2000.webp" srcset="assets/img/hero-rack-500.webp 500w, assets/img/hero-rack-800.webp 800w, assets/img/hero-rack-1080.webp 1080w, assets/img/hero-rack-1600.webp 1600w, assets/img/hero-rack-2000.webp 2000w, assets/img/hero-rack-2600.webp 2600w, assets/img/hero-rack-3200.webp 3200w, assets/img/hero-rack-3352.webp 3352w" width="1440" height="801" />
+                        <div class="banner-bg-shape"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="banner-letter-o"></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="container banner-container">
+            <div class="banner-content-wrapper">
+              <div class="banner-content-bottom">
+                <div class="banner-details-wrap" data-w-id="3c7cafd2-ce17-ad7f-9079-2f9d19276a30">
+                  <p class="banner-details">Do cabeamento ao firewall: projeto, instalação e monitoramento 24/7 da infraestrutura que sua operação não pode perder.</p>
+                </div>
+                <div class="banner-button-wrap" data-w-id="501f0b19-4ed6-6324-bf7b-ba48bf2901f7">
+                  <a class="primary-button w-variant-3b35c6e6-bf39-22a4-81e5-2d58550c88a7 w-inline-block" data-wf--primary-button--variant="alice-blue" href="#servicos">
+                    <div class="primary-button-flex">
+                      <div class="primary-button-text-wrap">
+                        <div aria-label="Nossos Serviços" class="primary-button-text">Nossos Serviços</div>
+                        <div aria-label="Nossos Serviços" class="primary-button-text-hover">Nossos Serviços</div>
+                      </div>
+                      <div class="primary-button-arrow-wrapper">
+                        <div class="primary-button-arrow-wrap">
+                          <img alt="" class="primary-button-arrow" loading="lazy" src="assets/img/69108960e3284bb1a2e481a4_Butto_2bc450c69045.svg" width="10" height="10" />
+                          <img alt="" class="primary-button-arrow-hover" loading="lazy" src="assets/img/69108960e3284bb1a2e481a4_Butto_2bc450c69045.svg" width="10" height="10" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="primary-button-hover-bg"></div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="banner-borders-wrapper">
+              <div class="banner-borders-flex">
+                <div class="banner-border-line"></div>
+                <div class="banner-border-line"></div>
+                <div class="banner-border-line"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       TRUST BAR — Etapa 3
+       Marquee horizontal contínuo de parceiros, espelhando a segunda seção
+       da referência: rótulo em maiúsculas, faixa rolante em opacidade baixa
+       que sobe no hover, bordas finas em cima e embaixo.
+
+       A lista aparece DUAS vezes. O track anda até -50% e reinicia, o que
+       dá o loop sem emenda. A cópia leva aria-hidden para o leitor de tela
+       não anunciar os parceiros em dobro.
+
+       NÃO reutiliza .award-item-wrap _01.._06: são alvo da config ix3 do
+       template, que as lança de -200vh. Foi essa armadilha que deformou as
+       letras do hero.
+       ==================================================================== -->
+  <section class="section awards" id="parceiros">
+    <div class="container">
+      <p class="dmr-partners-lead">Tecnologias com que trabalhamos</p>
+      <div class="dmr-partners-marquee" data-reveal="up">
+        <ul class="dmr-partners-track" role="list" data-reveal-group><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/ubiquiti.webp" alt="Ubiquiti" loading="lazy" width="170" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/cisco.webp" alt="Cisco" loading="lazy" width="106" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/fortinet.webp" alt="Fortinet" loading="lazy" width="483" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/pfsense.webp" alt="pfSense" loading="lazy" width="234" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/aws.webp" alt="AWS" loading="lazy" width="93" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/azure.webp" alt="Microsoft Azure" loading="lazy" width="194" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/microsoft.webp" alt="Microsoft" loading="lazy" width="295" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/windows-server.webp" alt="Windows Server" loading="lazy" width="170" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/mikrotik.webp" alt="MikroTik" loading="lazy" width="230" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/netgate.webp" alt="Netgate" loading="lazy" width="279" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/intelbras.webp" alt="Intelbras" loading="lazy" width="291" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/hikvision.webp" alt="Hikvision" loading="lazy" width="437" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/zabbix.webp" alt="Zabbix" loading="lazy" width="214" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/qnap.webp" alt="QNAP" loading="lazy" width="305" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/synology.webp" alt="Synology" loading="lazy" width="217" height="56" /></li><li class="dmr-partner"><img class="dmr-partner-logo-img" src="assets/img/tech/truenas.webp" alt="TrueNAS" loading="lazy" width="224" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/ubiquiti.webp" alt="Ubiquiti" loading="lazy" width="170" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/cisco.webp" alt="Cisco" loading="lazy" width="106" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/fortinet.webp" alt="Fortinet" loading="lazy" width="483" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/pfsense.webp" alt="pfSense" loading="lazy" width="234" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/aws.webp" alt="AWS" loading="lazy" width="93" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/azure.webp" alt="Microsoft Azure" loading="lazy" width="194" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/microsoft.webp" alt="Microsoft" loading="lazy" width="295" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/windows-server.webp" alt="Windows Server" loading="lazy" width="170" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/mikrotik.webp" alt="MikroTik" loading="lazy" width="230" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/netgate.webp" alt="Netgate" loading="lazy" width="279" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/intelbras.webp" alt="Intelbras" loading="lazy" width="291" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/hikvision.webp" alt="Hikvision" loading="lazy" width="437" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/zabbix.webp" alt="Zabbix" loading="lazy" width="214" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/qnap.webp" alt="QNAP" loading="lazy" width="305" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/synology.webp" alt="Synology" loading="lazy" width="217" height="56" /></li><li class="dmr-partner" aria-hidden="true"><img class="dmr-partner-logo-img" src="assets/img/tech/truenas.webp" alt="TrueNAS" loading="lazy" width="224" height="56" /></li></ul>
+      </div>
+    </div>
+    <div class="section-border-top"></div>
+    <div class="section-border-bottom"></div>
+  </section>
+
+
+  <!-- ====================================================================
+       SOBRE + MÉTRICAS — Etapa 3
+       Espelha a terceira seção da referência: split de duas colunas, texto à
+       esquerda e três cards de métrica à direita.
+
+       A copy é a aprovada. O título e o parágrafo vêm da seção "Solução" do
+       documento de Copy; os números, da seção "Prova Social / Métricas".
+       Nada foi inventado aqui.
+
+       Cards com classes próprias em vez de .single-award-wrap: aquele card
+       tem 21,75rem de altura fixa e os irmãos _0N são alvo da config ix3.
+       ==================================================================== -->
+  <section class="section" id="sobre">
+    <div class="container">
+      <div class="dmr-split">
+
+        <div class="dmr-split-text" data-reveal="up">
+          <div class="section-subtile-wrap">
+            <div class="subtitle-wrap w-variant-89dd2e21-7faa-27ca-a536-110057684450" data-wf--subtitle--variant="borders">
+              <div class="subtitle-flex-wrap">
+                <span class="dmr-eyebrow-dot" aria-hidden="true"></span>
+                <div class="subtitle-text">Sobre a DMR Info Tecnologia</div>
+              </div>
+            </div>
+          </div>
+          <h2 class="section-title margin-bottom">Engenharia de TI que elimina vulnerabilidades <span class="section-title-mark">antes que elas custem caro.</span></h2>
+          <p class="dmr-split-lead">A DMR não é um suporte que apaga incêndios. Somos a engenharia que impede o fogo de começar. Projetamos e operamos toda a infraestrutura — do cabeamento físico ao monitoramento em nuvem — combinando prevenção, resposta rápida e compliance.</p>
+          <div class="dmr-split-cta">
+            <a class="primary-button w-variant-3b35c6e6-bf39-22a4-81e5-2d58550c88a7 w-inline-block" data-wf--primary-button--variant="alice-blue" href="sobre/index.html">
+              <div class="primary-button-flex">
+                <div class="primary-button-text-wrap">
+                  <div aria-label="Mais sobre a DMR" class="primary-button-text">Mais sobre a DMR</div>
+                  <div aria-label="Mais sobre a DMR" class="primary-button-text-hover">Mais sobre a DMR</div>
+                </div>
+                <div class="primary-button-arrow-wrapper"><div class="primary-button-arrow-wrap">
+                  <img alt="" class="primary-button-arrow" loading="lazy" src="assets/img/69108960e3284bb1a2e481a4_Butto_2bc450c69045.svg" width="10" height="10" />
+                  <img alt="" class="primary-button-arrow-hover" loading="lazy" src="assets/img/69108960e3284bb1a2e481a4_Butto_2bc450c69045.svg" width="10" height="10" />
+                </div></div>
+              </div>
+              <div class="primary-button-hover-bg"></div>
+            </a>
+          </div>
+        </div>
+
+        <div class="dmr-media is-cutout" data-reveal="up" data-reveal-delay="120">
+          <div class="dmr-media-frame">
+            <img alt="Equipe da DMR Info Tecnologia atendendo um cliente corporativo" class="dmr-media-image"
+                 loading="lazy" decoding="async" sizes="(max-width: 991px) 100vw, 44vw"
+                 src="assets/img/sobre-900.webp" srcset="assets/img/sobre-600.webp 600w, assets/img/sobre-900.webp 900w, assets/img/sobre-1376.webp 1376w" width="900" height="999" />
+          </div>
+          <div class="dmr-media-card">
+            <p class="dmr-media-card-number">10+ anos</p>
+            <p class="dmr-media-card-label">No mercado</p>
+            <p class="dmr-media-card-desc">Protegendo a operação de empresas em São Paulo.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       FAIXA DE NUMEROS — cor saturada
+
+       Os stats saem do split da secao Sobre e viram sua propria secao, na
+       largura toda, sobre --dmr-gradient-linear (aprovado no design system
+       do cliente, ver CSS). Mesmos 3 numeros, mesma copy - so o layout e o
+       fundo mudam, pra dar uma pausa colorida no meio de tanta secao clara.
+       ==================================================================== -->
+  <section class="section dmr-stats-band dmr-dark-band" id="numeros">
+    <div class="glass-bg-glow" aria-hidden="true">
+      <div class="glow-sphere sphere-cyan" style="top: 8%; right: 14%; width: 280px; height: 280px;"></div>
+      <div class="glow-sphere sphere-blue" style="bottom: 6%; left: 10%; width: 320px; height: 320px;"></div>
+    </div>
+    <div class="container">
+      <div class="dmr-head" data-reveal="up">
+        <div class="section-subtile-wrap">
+          <div class="subtitle-wrap w-variant-89dd2e21-7faa-27ca-a536-110057684450" data-wf--subtitle--variant="borders">
+            <div class="subtitle-flex-wrap">
+              <span class="dmr-eyebrow-dot" aria-hidden="true"></span>
+              <div class="subtitle-text">Números</div>
+            </div>
+          </div>
+        </div>
+        <h2 class="section-title margin-bottom">Não prometemos. <span class="section-title-mark">Medimos.</span></h2>
+        <p class="dmr-head-lead">Disponibilidade, base atendida e tempo de resposta — os três indicadores que acompanhamos e documentamos em contrato.</p>
+      </div>
+      <ul class="dmr-stats is-band" role="list" data-reveal-group><li class="dmr-stat"><div class="dmr-stat-top"><img class="dmr-stat-icon" src="assets/img/icons3d/icon-uptime.svg" alt="" loading="lazy" width="220" height="220" /><div class="dmr-stat-figures"><p class="dmr-stat-number">99.9%</p><p class="dmr-stat-label">Uptime</p></div></div><p class="dmr-stat-desc">Estabilidade e servidores no ar para que a operação da sua empresa nunca pare.</p></li><li class="dmr-stat"><div class="dmr-stat-top"><img class="dmr-stat-icon" src="assets/img/icons3d/icon-clientes.svg" alt="" loading="lazy" width="220" height="220" /><div class="dmr-stat-figures"><p class="dmr-stat-number">500+</p><p class="dmr-stat-label">Clientes ativos</p></div></div><p class="dmr-stat-desc">Mais de quinhentas empresas confiam na DMR para manter a própria operação de pé.</p></li><li class="dmr-stat"><div class="dmr-stat-top"><img class="dmr-stat-icon" src="assets/img/icons3d/icon-sla.svg" alt="" loading="lazy" width="220" height="220" /><div class="dmr-stat-figures"><p class="dmr-stat-number">20 min</p><p class="dmr-stat-label">Tempo de resposta</p></div></div><p class="dmr-stat-desc">Primeiro retorno em até vinte minutos, com SLA de quatro horas para o atendimento.</p></li></ul>
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       SUPORTE & INFRAESTRUTURA — Etapa 3
+       Espelha a quarta seção da referência: split invertido, texto à esquerda
+       e imagem à direita com um card de vidro sobreposto.
+
+       Copy do "Serviço 5 — Suporte & Infraestrutura" do documento aprovado.
+       O card flutuante repete o SLA, que é o diferencial nº 2 do briefing.
+       ==================================================================== -->
+  <section class="section" id="suporte">
+    <div class="container">
+      <div class="dmr-split is-media-first">
+
+        <div class="dmr-split-text" data-reveal="up">
+          <div class="section-subtile-wrap">
+            <div class="subtitle-wrap w-variant-89dd2e21-7faa-27ca-a536-110057684450" data-wf--subtitle--variant="borders">
+              <div class="subtitle-flex-wrap">
+                <span class="dmr-eyebrow-dot" aria-hidden="true"></span>
+                <div class="subtitle-text">Suporte &amp; Infraestrutura</div>
+              </div>
+            </div>
+          </div>
+          <h2 class="section-title margin-bottom">Suporte que resolve <span class="section-title-mark">em minutos, não em dias.</span></h2>
+          <p class="dmr-split-lead">Já teve um chamado de TI que levou uma semana para resolver? Na DMR, incidentes críticos recebem resposta em até 20 minutos e são atendidos dentro de um SLA de 4 horas. Tudo documentado e rastreável.</p>
+          <p class="dmr-split-support">Mas o melhor suporte é o que você não precisa usar. Por isso fazemos manutenção preventiva e monitoramento 24/7 — para agir antes do problema virar chamado.</p>
+          <div class="dmr-split-cta">
+            <a class="primary-button w-variant-3b35c6e6-bf39-22a4-81e5-2d58550c88a7 w-inline-block" data-wf--primary-button--variant="alice-blue" href="contato/index.html">
+              <div class="primary-button-flex">
+                <div class="primary-button-text-wrap">
+                  <div aria-label="Fale Conosco" class="primary-button-text">Fale Conosco</div>
+                  <div aria-label="Fale Conosco" class="primary-button-text-hover">Fale Conosco</div>
+                </div>
+                <div class="primary-button-arrow-wrapper"><div class="primary-button-arrow-wrap">
+                  <img alt="" class="primary-button-arrow" loading="lazy" src="assets/img/69108960e3284bb1a2e481a4_Butto_2bc450c69045.svg" width="10" height="10" />
+                  <img alt="" class="primary-button-arrow-hover" loading="lazy" src="assets/img/69108960e3284bb1a2e481a4_Butto_2bc450c69045.svg" width="10" height="10" />
+                </div></div>
+              </div>
+              <div class="primary-button-hover-bg"></div>
+            </a>
+          </div>
+        </div>
+
+        <div class="dmr-media" data-reveal="up" data-reveal-delay="120">
+          <div class="dmr-media-glow" aria-hidden="true"></div>
+          <div class="dmr-media-frame">
+            <img alt="Cronômetro antigo simbolizando a agilidade de resposta da DMR" class="dmr-media-image"
+                 loading="lazy" decoding="async" sizes="(max-width: 991px) 100vw, 44vw"
+                 src="assets/img/suporte-900.webp" srcset="assets/img/suporte-600.webp 600w, assets/img/suporte-900.webp 900w, assets/img/suporte-1376.webp 1376w" width="900" height="503" />
+          </div>
+          <div class="dmr-media-card">
+            <p class="dmr-media-card-number">20 min</p>
+            <p class="dmr-media-card-label">Tempo de resposta</p>
+            <p class="dmr-media-card-desc">SLA de 4 horas para o atendimento, em incidentes críticos.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       DIFERENCIAIS — Etapa 3
+       Espelha a quinta seção da referência: cabeçalho centralizado e grid de
+       quatro cards de vidro.
+
+       Os três primeiros são os "3 Pilares" do documento de Copy. O quarto é
+       o diferencial nº 5 do briefing (co-sourcing). Nada inventado.
+       ==================================================================== -->
+  <section class="section dmr-dark-band" id="diferenciais">
+    <div class="glass-bg-glow" aria-hidden="true">
+      <div class="glow-sphere sphere-cyan" style="top: 12%; left: 12%; width: 260px; height: 260px;"></div>
+      <div class="glow-sphere sphere-blue" style="bottom: 8%; right: 12%; width: 340px; height: 340px;"></div>
+    </div>
+    <div class="container">
+      <div class="dmr-head" data-reveal="up">
+        <div class="section-subtile-wrap">
+          <div class="subtitle-wrap w-variant-89dd2e21-7faa-27ca-a536-110057684450" data-wf--subtitle--variant="borders">
+            <div class="subtitle-flex-wrap">
+              <span class="dmr-eyebrow-dot" aria-hidden="true"></span>
+              <div class="subtitle-text">Diferenciais</div>
+            </div>
+          </div>
+        </div>
+        <h2 class="section-title margin-bottom">Por que 500+ empresas <span class="section-title-mark">confiam na DMR.</span></h2>
+        <p class="dmr-head-lead">Não vendemos pacote genérico. Diagnosticamos a operação e montamos a infraestrutura que faz sentido para o seu porte, seu setor e seu nível de risco.</p>
+      </div>
+      <ul class="dmr-pilares" role="list" data-reveal-group><li class="dmr-pilar"><img class="dmr-pilar-icon" src="assets/img/icons3d/icon-backup.svg" alt="" loading="lazy" width="220" height="220" /><h3 class="dmr-pilar-title">Backup blindado contra ransomware</h3><p class="dmr-pilar-desc">Estratégia 3-2-1: três cópias diárias em duas mídias, com uma cópia offline imutável. Mesmo que o ransomware entre, seus dados não saem.</p></li><li class="dmr-pilar"><img class="dmr-pilar-icon" src="assets/img/icons3d/icon-sla2.svg" alt="" loading="lazy" width="220" height="220" /><h3 class="dmr-pilar-title">SLA de verdade: 4 horas</h3><p class="dmr-pilar-desc">Primeiro retorno em até 20 minutos e atendimento dentro de 4 horas. Sem ticket genérico, sem fila de espera.</p></li><li class="dmr-pilar"><img class="dmr-pilar-icon" src="assets/img/icons3d/icon-integra.svg" alt="" loading="lazy" width="220" height="220" /><h3 class="dmr-pilar-title">Do cabeamento ao firewall</h3><p class="dmr-pilar-desc">Instalação física, redes, firewalls, VPNs, nuvem e monitoramento 24/7. Uma equipe integrada cuida de tudo, sem terceirizar pedaços.</p></li><li class="dmr-pilar"><img class="dmr-pilar-icon" src="assets/img/icons3d/icon-cosourcing.svg" alt="" loading="lazy" width="220" height="220" /><h3 class="dmr-pilar-title">Co-sourcing com a TI interna</h3><p class="dmr-pilar-desc">Já tem equipe própria? Atuamos como Nível 3 especializado, complementando o time em vez de competir com ele.</p></li></ul>
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       SERVICOS - Etapa 4
+       Espelha a sexta secao da referencia: cabecalho centralizado e grid de
+       cards com link "Saiba mais" em cada um.
+
+       Cinco cards, nao quatro: a referencia mostra quatro, mas o sitemap da
+       DMR define CINCO servicos e cada um tem pagina propria. Deixar um de
+       fora criaria buraco de navegacao.
+
+       Titulos e descricoes vem da tabela de Servicos do documento de Copy.
+       URLs conforme o mapa do documento de UX, secao 3.
+       ==================================================================== -->
+  <section class="section" id="servicos">
+    <div class="container">
+      <div class="dmr-head" data-reveal="up">
+        <div class="section-subtile-wrap">
+          <div class="subtitle-wrap w-variant-89dd2e21-7faa-27ca-a536-110057684450" data-wf--subtitle--variant="borders">
+            <div class="subtitle-flex-wrap">
+              <span class="dmr-eyebrow-dot" aria-hidden="true"></span>
+              <div class="subtitle-text">Portfólio de soluções</div>
+            </div>
+          </div>
+        </div>
+        <h2 class="section-title margin-bottom">Cada empresa precisa de uma TI diferente. <span class="section-title-mark">Montamos a sua.</span></h2>
+        <p class="dmr-head-lead">Diagnosticamos a operação e montamos a infraestrutura que faz sentido para o seu porte, seu setor e seu nível de risco.</p>
+      </div>
+      <!--
+       CARDS DE SERVICO - componente REAL do Arooth (.single-service-wrap),
+       nao a grade generica que existia antes. Pedido explicito: "cards
+       parecidos com esses com essas animacoes" (arooth.webflow.io/services).
+
+       O HOVER (fundo azul-gradiente sobe preenchendo o card, texto vira
+       branco, o botao "Saiba mais" escuro sai e a copia branca absoluta
+       entra no lugar) NAO e escrito por mim: e o evento ix2 "Service Hover
+       In"/"Service Hover Out" (a-83/a-84), MOUSE_OVER/MOUSE_OUT, alvo por
+       CLASSE (.single-service-wrap, appliesTo:"CLASS") - confirmado direto
+       no bundle assets/vendor/webflow_1c2a8e406a92.js. E generico: qualquer
+       elemento com essa classe recebe o comportamento automaticamente pelo
+       runtime ix2 ja carregado (webflow_0c093dd27e27.js e
+       webflow_760c3ff429ba.js), o MESMO sistema que ja anima os
+       .primary-button do site inteiro. Zero JS novo.
+
+       Isso e DIFERENTE do problema das letras do hero: aquilo era ix3 com
+       alvo por data-w-id especifico de elementos do template Arooth. Isto e
+       ix2 por classe generica - seguro por natureza, sem precisar de script
+       proprio.
+
+       ICONES: 4 arquivos reais baixados de arooth.webflow.io/services
+       (assets/img/services/icon-*.svg), no estilo "vidro 3D gradiente azul"
+       que o cliente pediu para replicar. A DMR tem 5 servicos, o Arooth so
+       tinha 4 nesse conjunto - o icone "wallet" repete em Seguranca E em
+       Cloud/Backup (os dois giram em torno de "proteger o que a empresa
+       guarda"). Ver resumo desta etapa para decisao e alternativa.
+       -->
+      <div class="all-services-wrap"><div class="w-dyn-list"><div role="list" class="services-grid-wrap w-dyn-items" data-reveal-group><div role="listitem" class="w-dyn-item"><div class="single-service-wrap"><div class="service-contents"><div class="single-service-icon-wrap"><img src="assets/img/icons3d/icon-consultoria.svg" loading="lazy" alt="" class="single-service-icon" width="220" height="220" /></div><div class="service-details-wrapper"><div class="single-service-name-wrap"><h3 class="single-service-name">Consultoria em TI</h3></div><p class="single-service-details">Diagnóstico completo da infraestrutura e plano estratégico para eliminar gargalos antes de investir em equipamento.</p></div><div class="service-more-buttons-wrap"><div class="service-more-button"><a href="servicos/consultoria/index.html" class="more-button w-inline-block"><div class="more-button-flex"><div class="more-button-text">Saiba mais</div><div class="more-button-arrow-wrap"><img alt="" class="more-button-arrow" loading="lazy" src="assets/img/6916469f7b4127365127f631_More-_119872f4f3e6.svg" width="10" height="10" /><img alt="" class="more-button-arrow-hover" loading="lazy" src="assets/img/6916469f7b4127365127f631_More-_119872f4f3e6.svg" width="10" height="10" /></div></div></a></div><div class="service-more-button absolute"><a href="servicos/consultoria/index.html" class="more-button w-inline-block"><div class="more-button-flex"><div class="more-button-text w-variant-0c325bc6-e049-52af-d0fe-85d5b21ce01c">Saiba mais</div><div class="more-button-arrow-wrap w-variant-0c325bc6-e049-52af-d0fe-85d5b21ce01c"><img alt="Arrow" class="more-button-arrow" loading="lazy" src="assets/img/6910991e7df760b9063f4b51_Butto_45f34d5b07c8.svg" width="10" height="10" /><img alt="Arrow" class="more-button-arrow-hover" loading="lazy" src="assets/img/6910991e7df760b9063f4b51_Butto_45f34d5b07c8.svg" width="10" height="10" /></div></div></a></div></div></div><div class="single-service-hover-bg"></div></div></div><div role="listitem" class="w-dyn-item"><div class="single-service-wrap"><div class="service-contents"><div class="single-service-icon-wrap"><img src="assets/img/icons3d/icon-integra.svg" loading="lazy" alt="" class="single-service-icon" width="220" height="220" /></div><div class="service-details-wrapper"><div class="single-service-name-wrap"><h3 class="single-service-name">Infraestrutura e Redes</h3></div><p class="single-service-details">Cabeamento estruturado Cat6, Wi-Fi corporativo com cobertura planejada, racks organizados e switches gerenciáveis.</p></div><div class="service-more-buttons-wrap"><div class="service-more-button"><a href="servicos/infraestrutura-redes/index.html" class="more-button w-inline-block"><div class="more-button-flex"><div class="more-button-text">Saiba mais</div><div class="more-button-arrow-wrap"><img alt="" class="more-button-arrow" loading="lazy" src="assets/img/6916469f7b4127365127f631_More-_119872f4f3e6.svg" width="10" height="10" /><img alt="" class="more-button-arrow-hover" loading="lazy" src="assets/img/6916469f7b4127365127f631_More-_119872f4f3e6.svg" width="10" height="10" /></div></div></a></div><div class="service-more-button absolute"><a href="servicos/infraestrutura-redes/index.html" class="more-button w-inline-block"><div class="more-button-flex"><div class="more-button-text w-variant-0c325bc6-e049-52af-d0fe-85d5b21ce01c">Saiba mais</div><div class="more-button-arrow-wrap w-variant-0c325bc6-e049-52af-d0fe-85d5b21ce01c"><img alt="Arrow" class="more-button-arrow" loading="lazy" src="assets/img/6910991e7df760b9063f4b51_Butto_45f34d5b07c8.svg" width="10" height="10" /><img alt="Arrow" class="more-button-arrow-hover" loading="lazy" src="assets/img/6910991e7df760b9063f4b51_Butto_45f34d5b07c8.svg" width="10" height="10" /></div></div></a></div></div></div><div class="single-service-hover-bg"></div></div></div><div role="listitem" class="w-dyn-item"><div class="single-service-wrap"><div class="service-contents"><div class="single-service-icon-wrap"><img src="assets/img/icons3d/icon-seguranca.svg" loading="lazy" alt="" class="single-service-icon" width="220" height="220" /></div><div class="service-details-wrapper"><div class="single-service-name-wrap"><h3 class="single-service-name">Segurança Cibernética & LGPD</h3></div><p class="single-service-details">Firewalls de próxima geração, antivírus gerenciado, VPNs para acesso remoto e adequação completa à LGPD.</p></div><div class="service-more-buttons-wrap"><div class="service-more-button"><a href="servicos/seguranca-lgpd/index.html" class="more-button w-inline-block"><div class="more-button-flex"><div class="more-button-text">Saiba mais</div><div class="more-button-arrow-wrap"><img alt="" class="more-button-arrow" loading="lazy" src="assets/img/6916469f7b4127365127f631_More-_119872f4f3e6.svg" width="10" height="10" /><img alt="" class="more-button-arrow-hover" loading="lazy" src="assets/img/6916469f7b4127365127f631_More-_119872f4f3e6.svg" width="10" height="10" /></div></div></a></div><div class="service-more-button absolute"><a href="servicos/seguranca-lgpd/index.html" class="more-button w-inline-block"><div class="more-button-flex"><div class="more-button-text w-variant-0c325bc6-e049-52af-d0fe-85d5b21ce01c">Saiba mais</div><div class="more-button-arrow-wrap w-variant-0c325bc6-e049-52af-d0fe-85d5b21ce01c"><img alt="Arrow" class="more-button-arrow" loading="lazy" src="assets/img/6910991e7df760b9063f4b51_Butto_45f34d5b07c8.svg" width="10" height="10" /><img alt="Arrow" class="more-button-arrow-hover" loading="lazy" src="assets/img/6910991e7df760b9063f4b51_Butto_45f34d5b07c8.svg" width="10" height="10" /></div></div></a></div></div></div><div class="single-service-hover-bg"></div></div></div><div role="listitem" class="w-dyn-item"><div class="single-service-wrap"><div class="service-contents"><div class="single-service-icon-wrap"><img src="assets/img/icons3d/icon-cloud.svg" loading="lazy" alt="" class="single-service-icon" width="220" height="220" /></div><div class="service-details-wrapper"><div class="single-service-name-wrap"><h3 class="single-service-name">Cloud, Backup e Servidores</h3></div><p class="single-service-details">Backup 3-2-1, NAS, nuvem criptografada e disaster recovery com RPO e RTO definidos.</p></div><div class="service-more-buttons-wrap"><div class="service-more-button"><a href="servicos/cloud-backup/index.html" class="more-button w-inline-block"><div class="more-button-flex"><div class="more-button-text">Saiba mais</div><div class="more-button-arrow-wrap"><img alt="" class="more-button-arrow" loading="lazy" src="assets/img/6916469f7b4127365127f631_More-_119872f4f3e6.svg" width="10" height="10" /><img alt="" class="more-button-arrow-hover" loading="lazy" src="assets/img/6916469f7b4127365127f631_More-_119872f4f3e6.svg" width="10" height="10" /></div></div></a></div><div class="service-more-button absolute"><a href="servicos/cloud-backup/index.html" class="more-button w-inline-block"><div class="more-button-flex"><div class="more-button-text w-variant-0c325bc6-e049-52af-d0fe-85d5b21ce01c">Saiba mais</div><div class="more-button-arrow-wrap w-variant-0c325bc6-e049-52af-d0fe-85d5b21ce01c"><img alt="Arrow" class="more-button-arrow" loading="lazy" src="assets/img/6910991e7df760b9063f4b51_Butto_45f34d5b07c8.svg" width="10" height="10" /><img alt="Arrow" class="more-button-arrow-hover" loading="lazy" src="assets/img/6910991e7df760b9063f4b51_Butto_45f34d5b07c8.svg" width="10" height="10" /></div></div></a></div></div></div><div class="single-service-hover-bg"></div></div></div><div role="listitem" class="w-dyn-item"><div class="single-service-wrap"><div class="service-contents"><div class="single-service-icon-wrap"><img src="assets/img/icons3d/icon-suporte.svg" loading="lazy" alt="" class="single-service-icon" width="220" height="220" /></div><div class="service-details-wrapper"><div class="single-service-name-wrap"><h3 class="single-service-name">Suporte & Infraestrutura</h3></div><p class="single-service-details">Suporte N1, N2 e N3, manutenção preventiva mensal e monitoramento 24/7 de rede, servidores e backup.</p></div><div class="service-more-buttons-wrap"><div class="service-more-button"><a href="servicos/suporte/index.html" class="more-button w-inline-block"><div class="more-button-flex"><div class="more-button-text">Saiba mais</div><div class="more-button-arrow-wrap"><img alt="" class="more-button-arrow" loading="lazy" src="assets/img/6916469f7b4127365127f631_More-_119872f4f3e6.svg" width="10" height="10" /><img alt="" class="more-button-arrow-hover" loading="lazy" src="assets/img/6916469f7b4127365127f631_More-_119872f4f3e6.svg" width="10" height="10" /></div></div></a></div><div class="service-more-button absolute"><a href="servicos/suporte/index.html" class="more-button w-inline-block"><div class="more-button-flex"><div class="more-button-text w-variant-0c325bc6-e049-52af-d0fe-85d5b21ce01c">Saiba mais</div><div class="more-button-arrow-wrap w-variant-0c325bc6-e049-52af-d0fe-85d5b21ce01c"><img alt="Arrow" class="more-button-arrow" loading="lazy" src="assets/img/6910991e7df760b9063f4b51_Butto_45f34d5b07c8.svg" width="10" height="10" /><img alt="Arrow" class="more-button-arrow-hover" loading="lazy" src="assets/img/6910991e7df760b9063f4b51_Butto_45f34d5b07c8.svg" width="10" height="10" /></div></div></a></div></div></div><div class="single-service-hover-bg"></div></div></div></div></div></div>
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       PROBLEMA / DOR - Etapa 4
+       Espelha a setima secao da referencia: cabecalho em tom de risco, tres
+       cards com selo de severidade e uma faixa-ponte ligando a solucao.
+
+       Copy da secao "Problema / Dor (PAS: Pain)" do documento aprovado. Os
+       tres numeros - 40 minutos por dia, R$ 350 mil, 2% do faturamento -
+       estao no texto original e nao foram alterados.
+
+       As cores de risco nao existem no design system: entraram como tokens
+       proprios e foram medidas contra AA antes de serem usadas.
+       ==================================================================== -->
+  <section class="section" id="riscos">
+    <div class="container">
+      <div class="dmr-split dmr-riscos-split">
+        <div class="dmr-split-text" data-reveal="up">
+          <div class="section-subtile-wrap">
+            <div class="subtitle-wrap w-variant-89dd2e21-7faa-27ca-a536-110057684450" data-wf--subtitle--variant="borders">
+              <div class="subtitle-flex-wrap">
+                <span class="dmr-eyebrow-dot is-risco" aria-hidden="true"></span>
+                <div class="subtitle-text is-risco">O custo invisível</div>
+              </div>
+            </div>
+          </div>
+          <h2 class="section-title margin-bottom">A TI invisível <span class="section-title-mark">que custa caro.</span></h2>
+          <p class="dmr-split-lead">Você não percebe — até que percebe. E aí o custo é outro.</p>
+        </div>
+
+        <div class="dmr-media" data-reveal="up" data-reveal-delay="120">
+          <div class="dmr-media-glow" aria-hidden="true"></div>
+          <div class="dmr-media-frame">
+            <img alt="Estratégia de backup 3-2-1 protegendo dados críticos contra ransomware" class="dmr-media-image"
+                 loading="lazy" decoding="async" sizes="(max-width: 991px) 100vw, 44vw"
+                 src="assets/img/riscos-900.webp" srcset="assets/img/riscos-600.webp 600w, assets/img/riscos-900.webp 900w, assets/img/riscos-1376.webp 1376w" width="900" height="506" />
+          </div>
+          <div class="dmr-media-card">
+            <p class="dmr-media-card-number">3-2-1</p>
+            <p class="dmr-media-card-label">Backup blindado</p>
+            <p class="dmr-media-card-desc">Três cópias, duas mídias, uma offline imutável.</p>
+          </div>
+        </div>
+      </div>
+
+      <ul class="dmr-dores" role="list" data-reveal-group><li class="dmr-dor"><img class="dmr-dor-icon" src="assets/img/icons3d/icon-ransom.svg" alt="" loading="lazy" width="220" height="220" /><div class="dmr-dor-head"><h3 class="dmr-dor-title">Backup que não restaura</h3><span class="dmr-dor-selo" data-nivel="risco">Risco letal</span></div><p class="dmr-dor-desc">Um ataque de ransomware pode custar R$ 350 mil em resgate, mais dias de operação perdida. O backup da maioria das empresas não sobrevive porque está na mesma rede que o ataque criptografa.</p></li><li class="dmr-dor"><img class="dmr-dor-icon" src="assets/img/icons3d/icon-lentidao.svg" alt="" loading="lazy" width="220" height="220" /><div class="dmr-dor-head"><h3 class="dmr-dor-title">Chamado que leva horas</h3><span class="dmr-dor-selo" data-nivel="perda">Perda produtiva</span></div><p class="dmr-dor-desc">Sua equipe perde 40 minutos por dia com lentidão na rede. Um chamado que demora deixa o time inteiro parado, e o custo aparece na folha, não na fatura de TI.</p></li><li class="dmr-dor"><img class="dmr-dor-icon" src="assets/img/icons3d/icon-lgpd.svg" alt="" loading="lazy" width="220" height="220" /><div class="dmr-dor-head"><h3 class="dmr-dor-title">Operação fora de conformidade</h3><span class="dmr-dor-selo" data-nivel="multa">Multa da LGPD</span></div><p class="dmr-dor-desc">Multas de LGPD chegam a 2% do faturamento. A maioria das empresas só descobre que está exposta depois da notificação — quando corrigir já não evita a penalidade.</p></li></ul>
+
+      <div class="dmr-ponte" data-reveal="up">
+        <img class="dmr-ponte-icon" src="assets/img/icons3d/icon-ponte.svg" alt="" aria-hidden="true" loading="lazy" width="220" height="220" />
+        <div class="dmr-ponte-texto">
+          <h3 class="dmr-ponte-title">Como a DMR blinda sua operação contra esses riscos?</h3>
+          <p class="dmr-ponte-desc">Eliminamos vulnerabilidades com engenharia robusta de segurança cibernética e monitoramento preditivo.</p>
+        </div>
+        <a class="primary-button w-variant-4c2497dc-c520-3049-f2ee-2eb4bb579d66 w-inline-block" data-wf--primary-button--variant="blue" href="contato/index.html">
+          <div class="primary-button-flex">
+            <div class="primary-button-text-wrap">
+              <div aria-label="Fale Conosco" class="primary-button-text w-variant-4c2497dc-c520-3049-f2ee-2eb4bb579d66">Fale Conosco</div>
+              <div aria-label="Fale Conosco" class="primary-button-text-hover w-variant-4c2497dc-c520-3049-f2ee-2eb4bb579d66">Fale Conosco</div>
+            </div>
+            <div class="primary-button-arrow-wrapper w-variant-4c2497dc-c520-3049-f2ee-2eb4bb579d66"><div class="primary-button-arrow-wrap">
+              <img alt="" class="primary-button-arrow" loading="lazy" src="assets/img/6910991e7df760b9063f4b51_Butto_45f34d5b07c8.svg" width="10" height="10" />
+              <img alt="" class="primary-button-arrow-hover" loading="lazy" src="assets/img/6910991e7df760b9063f4b51_Butto_45f34d5b07c8.svg" width="10" height="10" />
+            </div></div>
+          </div>
+          <div class="primary-button-hover-bg"></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       PERFIS DE EMPRESA - Etapa 4
+       Espelha a oitava secao da referencia: cabecalho centralizado e tres
+       cards, cada um levando ao formulario de contato com um parametro
+       ?perfil= diferente.
+
+       A referencia usa pequena/media/corporativo. A copy aprovada da DMR usa
+       pequena/corporativo(co-sourcing)/seguranca - o recorte que bate com os
+       publicos 1, 2 e 4 do briefing. Fiquei com a copy aprovada: o dropdown
+       do formulario de contato (Etapa 8) precisa usar os MESMOS tres valores
+       de ?perfil=, senao o parametro chega e nao pre-seleciona nada.
+       ==================================================================== -->
+  <section class="section" id="perfis">
+    <div class="container">
+      <div class="dmr-head" data-reveal="up">
+        <div class="section-subtile-wrap">
+          <div class="subtitle-wrap w-variant-89dd2e21-7faa-27ca-a536-110057684450" data-wf--subtitle--variant="borders">
+            <div class="subtitle-flex-wrap">
+              <span class="dmr-eyebrow-dot" aria-hidden="true"></span>
+              <div class="subtitle-text">Soluções por perfil</div>
+            </div>
+          </div>
+        </div>
+        <h2 class="section-title margin-bottom">Qual o tamanho <span class="section-title-mark">do seu desafio?</span></h2>
+        <p class="dmr-head-lead">Projetos sob medida, focados na maturidade tecnológica e nas demandas de cada modelo de negócio.</p>
+      </div>
+      <ul class="dmr-perfis" role="list" data-reveal-group><li class="dmr-perfil"><div><img class="dmr-perfil-icon" src="assets/img/icons3d/icon-pequena.svg" alt="" loading="lazy" width="220" height="220" /><h3 class="dmr-perfil-title">Pequenas empresas</h3><p class="dmr-perfil-desc">Sem equipe de TI interna? Assumimos tudo — da rede ao suporte — como se fôssemos o seu departamento de tecnologia.</p></div><a class="dmr-servico-link" href="/contato?perfil=pequena">Quero uma solução completa<span class="dmr-servico-arrow" aria-hidden="true"></span></a></li><li class="dmr-perfil"><div><img class="dmr-perfil-icon" src="assets/img/icons3d/icon-cosourcing.svg" alt="" loading="lazy" width="220" height="220" /><h3 class="dmr-perfil-title">Médias e grandes empresas</h3><p class="dmr-perfil-desc">Já tem time de TI, mas precisa de especialistas? Atuamos como Nível 3 — co-sourcing que complementa sua equipe sem competir com ela.</p></div><a class="dmr-servico-link" href="/contato?perfil=corporativo">Falar sobre co-sourcing<span class="dmr-servico-arrow" aria-hidden="true"></span></a></li><li class="dmr-perfil"><div><img class="dmr-perfil-icon" src="assets/img/icons3d/icon-segperfil.svg" alt="" loading="lazy" width="220" height="220" /><h3 class="dmr-perfil-title">Empresas preocupadas com segurança</h3><p class="dmr-perfil-desc">LGPD, ransomware, vazamento de dados. Se segurança é a prioridade, começamos pela blindagem e construímos a partir daí.</p></div><a class="dmr-servico-link" href="/contato?perfil=seguranca">Solicitar auditoria de segurança<span class="dmr-servico-arrow" aria-hidden="true"></span></a></li></ul>
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       DEPOIMENTOS
+
+       Porte da secao da referencia do cliente
+       (C:\Users\erick\Desktop\site_dmr_info\src): fundo escuro com foto,
+       titulo e subtitulo centralizados, tres cards de vidro sobrepostos e
+       levemente rotacionados, com estrelas, citacao em italico e avatar.
+
+       O texto continua ILUSTRATIVO - sao os mesmos depoimentos ficticios da
+       referencia, nao citacoes reais de clientes. Trocar quando o cliente
+       tiver os verdadeiros.
+       ==================================================================== -->
+  <section class="section testimonials" id="depoimentos">
+    <div class="glass-bg-glow" aria-hidden="true">
+      <div class="glow-sphere sphere-cyan" style="top: 10%; left: 15%; width: 250px; height: 250px;"></div>
+      <div class="glow-sphere sphere-blue" style="bottom: 10%; right: 15%; width: 350px; height: 350px;"></div>
+    </div>
+    <div class="container">
+      <div class="section-subtile-wrap">
+        <div class="subtitle-wrap w-variant-89dd2e21-7faa-27ca-a536-110057684450" data-wf--subtitle--variant="borders">
+          <div class="subtitle-flex-wrap">
+            <span class="dmr-eyebrow-dot" aria-hidden="true"></span>
+            <div class="subtitle-text">Depoimentos</div>
+          </div>
+        </div>
+      </div>
+      <h2 class="testimonials-title">O que nossos <span class="testimonial-title-mark">clientes dizem</span></h2>
+      <p class="testimonials-subtitle">Empresas que confiam na DMR Info para manter suas operações seguras e eficientes</p>
+      <div class="testimonials-overlap-grid">
+        <div class="float-wrapper">
+          <div class="testimonial-glass-card">
+            <div class="testimonial-stars">
+            <i class="ti ti-star-filled"></i>
+            <i class="ti ti-star-filled"></i>
+            <i class="ti ti-star-filled"></i>
+            <i class="ti ti-star-filled"></i>
+            <i class="ti ti-star-filled"></i>
+            </div>
+            <p class="testimonial-text">"Trocamos de fornecedor de TI depois de um incidente que travou a produção por um dia inteiro. Com a DMR, isso nunca mais aconteceu — e quando algo dá errado, sabemos que a resposta vem em minutos, não em dias."</p>
+            <div class="testimonial-user">
+              <img class="user-avatar" src="assets/img/depoimentos/fernanda-costa.webp" alt="" width="48" height="48" loading="lazy" />
+              <div class="user-meta">
+                <h4 class="testimonial-author">Fernanda Costa</h4>
+                <span class="testimonial-company">Diretora Administrativa, indústria de componentes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="float-wrapper">
+          <div class="testimonial-glass-card card-featured">
+            <div class="testimonial-stars">
+            <i class="ti ti-star-filled"></i>
+            <i class="ti ti-star-filled"></i>
+            <i class="ti ti-star-filled"></i>
+            <i class="ti ti-star-filled"></i>
+            <i class="ti ti-star-filled"></i>
+            </div>
+            <p class="testimonial-text">"A auditoria de segurança que a DMR fez mostrou falhas que a gente nem sabia que existiam, principalmente relacionadas à LGPD. Hoje dormimos tranquilos sabendo que os dados dos nossos clientes estão protegidos."</p>
+            <div class="testimonial-user">
+              <img class="user-avatar" src="assets/img/depoimentos/marcos-aurelio.webp" alt="" width="48" height="48" loading="lazy" />
+              <div class="user-meta">
+                <h4 class="testimonial-author">Marcos Aurélio</h4>
+                <span class="testimonial-company">Sócio-diretor, escritório de advocacia</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="float-wrapper">
+          <div class="testimonial-glass-card">
+            <div class="testimonial-stars">
+            <i class="ti ti-star-filled"></i>
+            <i class="ti ti-star-filled"></i>
+            <i class="ti ti-star-filled"></i>
+            <i class="ti ti-star-filled"></i>
+            <i class="ti ti-star-filled"></i>
+            </div>
+            <p class="testimonial-text">"O que mais pesa pra gente é não ter mais que gerenciar fornecedor de rede, backup e suporte separados. A DMR cuida de tudo integrado, e isso sozinho já pagou o investimento em tempo economizado."</p>
+            <div class="testimonial-user">
+              <img class="user-avatar" src="assets/img/depoimentos/renata-almeida.webp" alt="" width="48" height="48" loading="lazy" />
+              <div class="user-meta">
+                <h4 class="testimonial-author">Renata Almeida</h4>
+                <span class="testimonial-company">Gerente de Operações, rede de clínicas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       PERGUNTAS FREQUENTES - Etapa 4
+       Espelha a 11a secao da referencia, mas o acordeao troca o JS
+       (onclick="toggleFaq") por <details>/<summary> nativo: zero JS proprio,
+       funciona sem depender do runtime do Webflow, e e navegavel por
+       teclado e leitor de tela sem esforco extra.
+
+       As cinco perguntas sao as do briefing 3.3. As respostas usam so fatos
+       ja aprovados na Copy. A pergunta de preco NAO usa numeros do plano de
+       marketing - aquele documento marca as faixas como "confirmar com o
+       cliente", entao nao viram texto publicado.
+       ==================================================================== -->
+  <section class="section" id="faq">
+    <div class="container dmr-faq-container">
+      <div class="dmr-head" data-reveal="up">
+        <div class="section-subtile-wrap">
+          <div class="subtitle-wrap w-variant-89dd2e21-7faa-27ca-a536-110057684450" data-wf--subtitle--variant="borders">
+            <div class="subtitle-flex-wrap">
+              <span class="dmr-eyebrow-dot" aria-hidden="true"></span>
+              <div class="subtitle-text">Perguntas frequentes</div>
+            </div>
+          </div>
+        </div>
+        <h2 class="section-title margin-bottom">Dúvidas <span class="section-title-mark">resolvidas.</span></h2>
+        <p class="dmr-head-lead">Entenda como funciona o suporte corporativo e a engenharia de segurança da DMR.</p>
+      </div>
+      <ul class="dmr-faqs" role="list" data-reveal-group><li><details class="dmr-faq"><summary class="dmr-faq-q"><span>Qual é o tempo de resposta para emergências?</span><span class="dmr-faq-icon" aria-hidden="true"></span></summary><p class="dmr-faq-a">Incidentes críticos recebem resposta em até 20 minutos, com SLA de 4 horas para o atendimento, documentado em contrato — sem ticket genérico e sem fila de espera.</p></details></li><li><details class="dmr-faq"><summary class="dmr-faq-q"><span>Como vocês protegem contra ransomware?</span><span class="dmr-faq-icon" aria-hidden="true"></span></summary><p class="dmr-faq-a">Com a estratégia 3-2-1: três cópias diárias em duas mídias diferentes — NAS local e nuvem criptografada — mais uma cópia offline air-gapped e imutável. Mesmo que o ataque entre na rede, ele não alcança essa cópia.</p></details></li><li><details class="dmr-faq"><summary class="dmr-faq-q"><span>Vocês fazem instalação física ou só gestão remota?</span><span class="dmr-faq-icon" aria-hidden="true"></span></summary><p class="dmr-faq-a">As duas coisas. Somos uma integradora ponta a ponta: cabeamento estruturado, racks e firewalls na parte física, e depois a gestão digital completa — monitoramento, backup e suporte 24/7.</p></details></li><li><details class="dmr-faq"><summary class="dmr-faq-q"><span>Já tenho equipe de TI — qual é o papel de vocês?</span><span class="dmr-faq-icon" aria-hidden="true"></span></summary><p class="dmr-faq-a">Atuamos como Nível 3 especializado, em regime de co-sourcing. Complementamos sua equipe interna nos pontos que exigem especialização, sem competir com ela.</p></details></li><li><details class="dmr-faq"><summary class="dmr-faq-q"><span>Quanto custa? Existe um plano fechado por porte de empresa?</span><span class="dmr-faq-icon" aria-hidden="true"></span></summary><p class="dmr-faq-a">Não trabalhamos com pacote genérico. Cada orçamento é montado depois do diagnóstico, de acordo com o porte, o setor e o nível de risco da sua operação. Solicite uma auditoria gratuita para receber uma proposta sob medida.</p></details></li></ul>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       CTA FINAL / AUDITORIA - Etapa 4
+       Copy exata da secao "CTA Final (Home)" do documento aprovado.
+
+       A referencia embute aqui um formulario completo. Nao reproduzido de
+       proposito: o formulario de contato real e a LP de auditoria sao a
+       Etapa 8 do plano, com o backend ainda em aberto (decisao P5, risco
+       R3). Um formulario sem destino funcional seria pior do que nenhum.
+       Este banner leva para /auditoria, que e onde o formulario de verdade
+       vai morar.
+       ==================================================================== -->
+  <section class="section" id="auditoria-cta">
+    <div class="container">
+      <div class="dmr-cta" data-reveal="up">
+        <div class="dmr-cta-text">
+          <div class="section-subtile-wrap">
+            <div class="subtitle-wrap w-variant-89dd2e21-7faa-27ca-a536-110057684450" data-wf--subtitle--variant="borders">
+              <div class="subtitle-flex-wrap">
+                <span class="dmr-eyebrow-dot" aria-hidden="true"></span>
+                <div class="subtitle-text">Auditoria gratuita</div>
+              </div>
+            </div>
+          </div>
+          <h2 class="section-title margin-bottom">Sua infraestrutura de TI <span class="section-title-mark">aguenta um teste?</span></h2>
+          <p class="dmr-head-lead">Fazemos uma auditoria gratuita da sua rede, servidores, backup e segurança. Você recebe um relatório com vulnerabilidades, riscos e um plano de ação — sem custo e sem compromisso.</p>
+          <p class="dmr-cta-closing">Se sua TI passar no teste, ótimo. Se não passar, você vai saber exatamente o que fazer.</p>
+        </div>
+        <div class="dmr-cta-card">
+          <ul class="dmr-cta-checklist" role="list">
+            <li><span class="dmr-check-icon" aria-hidden="true"></span>Relatório detalhado de vulnerabilidades e riscos</li>
+            <li><span class="dmr-check-icon" aria-hidden="true"></span>Plano de ação priorizado por impacto e urgência</li>
+            <li><span class="dmr-check-icon" aria-hidden="true"></span>Sem custo e sem qualquer compromisso comercial</li>
+          </ul>
+          <a class="primary-button w-variant-4c2497dc-c520-3049-f2ee-2eb4bb579d66 w-inline-block dmr-cta-button" data-wf--primary-button--variant="blue" href="contato/index.html">
+            <div class="primary-button-flex">
+              <div class="primary-button-text-wrap">
+                <div aria-label="Fale Conosco" class="primary-button-text w-variant-4c2497dc-c520-3049-f2ee-2eb4bb579d66">Fale Conosco</div>
+                <div aria-label="Fale Conosco" class="primary-button-text-hover w-variant-4c2497dc-c520-3049-f2ee-2eb4bb579d66">Fale Conosco</div>
+              </div>
+              <div class="primary-button-arrow-wrapper w-variant-4c2497dc-c520-3049-f2ee-2eb4bb579d66"><div class="primary-button-arrow-wrap">
+                <img alt="" class="primary-button-arrow" loading="lazy" src="assets/img/6910991e7df760b9063f4b51_Butto_45f34d5b07c8.svg" width="10" height="10" />
+                <img alt="" class="primary-button-arrow-hover" loading="lazy" src="assets/img/6910991e7df760b9063f4b51_Butto_45f34d5b07c8.svg" width="10" height="10" />
+              </div></div>
+            </div>
+            <div class="primary-button-hover-bg"></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TODO Etapa 4: Problema, Solução, 3 Pilares, Serviços, Como
+       Funciona, Métricas, Perfis, CTA final. Ver plano. -->
+
+  <!-- ====================================================================
+       RODAPE - Etapa 4
+       Classes e estrutura do <footer> original do design system, conteudo
+       conforme UX secao 4.
+
+       TRES coisas deliberadamente diferentes do Arooth original:
+        1. O banner grande "Project In Mind?" foi removido - duplicaria o
+           CTA de auditoria que roda logo acima.
+        2. Redes sociais: so WhatsApp e e-mail entram, os UNICOS canais
+           confirmados no briefing. O original linka Facebook/X/Dribbble/
+           Instagram - inventar esses handles para a DMR seria o mesmo erro
+           do logo "DELL" que apareceu na imagem do hero.
+        3. Newsletter mantida (resolve a Divergencia D4 do plano).
+
+       CNPJ marcado como pendente: o briefing traz "CNPJ: [inserir]", sem
+       valor real. Publicar um numero inventado seria pior que deixar
+       visivelmente incompleto.
+       ==================================================================== -->
+  <footer class="footer">
+    <div class="footer-cta-wrap">
+      <div class="container">
+        <div class="cta-text-wrapper">
+          <div class="cta-links-grid">
+            <a class="cta-social-link-wrap w-inline-block" href="https://wa.me/5511983161635" target="_blank" rel="noopener noreferrer">
+              <div class="cta-social-link-flex">
+                <span class="dmr-footer-social-icon" aria-hidden="true" data-icone="whatsapp"></span>
+                <div class="cta-social-link-text">WhatsApp</div>
+              </div>
+              <div class="cta-link-hover-bg"></div>
+            </a>
+            <a class="cta-social-link-wrap w-inline-block" href="mailto:contato@dmrinfo.com.br">
+              <div class="cta-social-link-flex">
+                <span class="dmr-footer-social-icon" aria-hidden="true" data-icone="mail"></span>
+                <div class="cta-social-link-text">E-mail</div>
+              </div>
+              <div class="cta-link-hover-bg"></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-top-wrap">
+      <div class="container">
+        <div class="footer-flex-wrap">
+          <div class="footer-content-wrap">
+            <a aria-current="page" class="footer-logo-wrap w-nav-brand w--current" href="index.html">
+              <span class="subtitle-text">DMR INFO</span>
+            </a>
+            <p class="footer-details">TI corporativa e segurança cibernética para empresas que não toleram downtime. 10+ anos · São Paulo, SP.</p>
+            <div class="newsletter-form-wrap w-form">
+              <form aria-label="Newsletter Form" data-name="Newsletter Form" id="wf-form-Newsletter-Form" method="get" name="wf-form-Newsletter-Form">
+                <div class="newsletter-field-wrap">
+                  <input class="newsletter-field w-input" data-name="Newsletter Email" id="Newsletter-Email" maxlength="256" name="Newsletter-Email" placeholder="Seu e-mail" required type="email" />
+                  <input class="newsletter-submit w-button" data-wait="" type="submit" value="" />
+                </div>
+              </form>
+              <div aria-label="Newsletter Form success" class="success-message-wrapper w-form-done" role="region" tabindex="-1">
+                <div class="success-message">Inscrição confirmada. Você vai receber nosso conteúdo técnico.</div>
+              </div>
+              <div aria-label="Newsletter Form failure" class="error-message-wrap w-form-fail" role="region" tabindex="-1">
+                <div class="error-message">Algo deu errado. Tente novamente.</div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-right-wrap">
+            <div class="quick-links-flex-wrap">
+              <div class="quick-links-row one">
+                <div class="single-quick-links-wrapper">
+                  <h6 class="quick-links-title">Links rápidos</h6>
+                  <div class="footer-links-flex"><div class="footer-links-row"><a class="footer-link" href="index.html">Início</a><div class="footer-link-divider"></div><a class="footer-link" href="sobre/index.html">Sobre</a></div><div class="footer-links-row"><a class="footer-link" href="#servicos">Serviços</a><div class="footer-link-divider"></div><a class="footer-link" href="blog/index.html">Blog</a></div><div class="footer-links-row"><a class="footer-link" href="contato/index.html">Contato</a></div></div>
+                </div>
+                <div class="single-quick-links-wrapper">
+                  <h6 class="quick-links-title">Serviços</h6>
+                  <div class="footer-links-flex"><div class="footer-links-row"><a class="footer-link" href="servicos/consultoria/index.html">Consultoria em TI</a><div class="footer-link-divider"></div><a class="footer-link" href="servicos/infraestrutura-redes/index.html">Infraestrutura e Redes</a></div><div class="footer-links-row"><a class="footer-link" href="servicos/seguranca-lgpd/index.html">Segurança & LGPD</a><div class="footer-link-divider"></div><a class="footer-link" href="servicos/cloud-backup/index.html">Cloud, Backup e Servidores</a></div><div class="footer-links-row"><a class="footer-link" href="servicos/suporte/index.html">Suporte & Infraestrutura</a></div></div>
+                </div>
+              </div>
+              <div class="quick-links-row two">
+                <div class="single-quick-links-wrapper">
+                  <h6 class="quick-links-title">Contato</h6>
+                  <div class="contact-infos-wrap">
+                    <div class="location-text">Rua Palmera Lacca, 183 – Sala 3 – Sobre Loja</div>
+                    <a class="contact-info-text" href="tel:+551131647640">+55 11 3164-7640</a>
+                    <a class="contact-info-text" href="mailto:contato@dmrinfo.com.br">contato@dmrinfo.com.br</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom-wrap">
+      <div class="container">
+        <div class="footer-copyright-wrap">
+          <div class="copyright-text">DMR Info Tecnologia LTDA · CNPJ: 14.557.762/0001-06 · © 2026 · <a class="copyright-link" href="/privacidade">Política de Privacidade</a> · <a class="copyright-link" href="/termos">Termos de Uso</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bg-overlay"></div>
+  </footer>
+
+</div>
+
+<script src="assets/vendor/jquery-3_47af3278437b.js" type="text/javascript"></script>
+<script src="assets/vendor/webflow_0c093dd27e27.js" type="text/javascript"></script>
+<script src="assets/vendor/webflow_760c3ff429ba.js" type="text/javascript"></script>
+<script src="assets/vendor/webflow_a4bc21d15fc6.js" type="text/javascript"></script>
+<script src="assets/vendor/webflow_1c2a8e406a92.js" type="text/javascript"></script>
+<script src="assets/vendor/gsap_8e6c1f2e24a8.js" type="text/javascript"></script>
+<script src="assets/vendor/SplitText_d547a9f956c9.js" type="text/javascript"></script>
+<script src="assets/vendor/ScrollTrigger_3b69999534fd.js" type="text/javascript"></script>
+<script src="assets/js/dmr-hero.js" type="text/javascript"></script>
+<script src="assets/js/dmr-reveal.js" type="text/javascript"></script>
+<script src="assets/js/dmr-header.js" type="text/javascript"></script>
+</body>
+</html>

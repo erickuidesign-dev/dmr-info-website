@@ -1,0 +1,4295 @@
+/* ==========================================================================
+   DMR Info Tecnologia — camada de marca
+   Carregada DEPOIS de _designsystem.css. Nenhuma regra de componente do
+   design system é reescrita aqui: só tokens e o que é específico do hero DMR.
+   Referência: "Plano - Website DMR Info Tecnologia.md", seção 3 e Etapa 1.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens de marca  (Plano seção 3)
+   -------------------------------------------------------------------------- */
+:root {
+  /* --------------------------------------------------------------------
+     Tipografia
+     Impact nos títulos, Inter no corpo.
+
+     Impact é fonte de sistema: vem no Windows e no macOS, mas NÃO existe em
+     Linux nem em Android. A pilha abaixo cobre isso com faces condensadas
+     pesadas equivalentes antes de cair no sans-serif genérico.
+
+     Impact tem um peso só. As regras do design system pedem 400/500/600/700
+     em vários pontos; todas resolvem para o mesmo desenho, sem erro.
+
+     Inter é SIL OFL, self-hospedada em assets/fonts/inter.css.
+     -------------------------------------------------------------------- */
+  --_fonts---fonts--title-font: Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Narrow Bold", sans-serif;
+  --_fonts---fonts--paragraph-font: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Impact é bem mais estreita e alta que a Instrument Sans que o design
+     system assumia. O tracking negativo herdado fecha demais as letras. */
+  --dmr-title-tracking: 0em;
+
+  /* Azul corporativo DMR — 5,87:1 sobre branco, AA em qualquer tamanho */
+  --primary: #0668ab;
+
+  /* Azul de destaque — 3,68:1 sobre branco.
+     REPROVA AA para texto normal. Usar apenas em:
+       - texto grande (>= 24px, ou >= 19px bold)
+       - elementos gráficos e ícones
+       - estados de hover que não carregam informação sozinhos
+     Ver Plano seção 3 "Verificação de contraste" e risco R2. */
+  --blue-cryola: #3b82f6;
+
+  --eerie-black: #0f172a;
+  --raisin-black: #0f172a;
+
+  /* Neutros mantidos do design system */
+  --independence: #4b5563;
+  --metal-saurus: #6b7280;
+  --ghost-white: #f9f9f9;
+
+  --alice-blue: #eff6fb;
+  --azureish-white: #c9e0f0;
+  --diamond: #b4d8ec;
+  --light-bg: #f4fafd;
+
+  --primary-linear--powder-blue: #044e80;
+  --primary-linear--crayola: #0668ab;
+  --primary-linear--light-blue: #3b82f6;
+
+  --black-70: #0f172ab3;
+
+  /* Gradiente aprovado em "Design System - Arooth para DMR.md" (secao 2) - unica superficie do site com azul saturado, reservada pra blocos de destaque como a faixa de numeros abaixo. Nao e o --primary (esse continua #0668ab, calibrado pra AA em texto): e uma superficie decorativa, o texto por cima e sempre branco. */
+  --dmr-gradient-linear: linear-gradient(135deg, #00359e 0%, #0042c5 50%, #2970ff 100%);
+  --dmr-gradient-glow: linear-gradient(120deg, #6199ff 0%, #0040c1 100%);
+  --text-dark: #060d1a;
+
+  /* --------------------------------------------------------------------
+     Hero DMR — ver Plano Etapa 1.3
+     Cap-height dos glifos no desktop. Os SVGs em assets/glyphs/ são
+     gerados nesse tamanho intrínseco (Instrument Sans wght 700).
+     -------------------------------------------------------------------- */
+  /* Altura de caixa alta dos glifos. Fluida: 180px em 1440px de viewport,
+     encolhendo junto para nao estourar o container em telas menores.
+     Os SVGs em assets/glyphs/ nascem com 180px de altura intrinseca; aqui
+     essa altura passa a ser o teto, nao um valor fixo. */
+  /* Calibrado com o painel fixado em 28% (ver seção 3). Em 1440px a palavra
+     ocupa cerca de 92% da largura: 6 letras + espaço entre palavras + anel. */
+  --dmr-cap-height: clamp(88px, 19.5vw, 340px);
+  /* Em calc, não em em: o gap fica no slot, cuja font-size é a herdada do
+     body (14px). "0.28em" ali valia 4px, não os ~78px pretendidos. Amarrando
+     ao cap-height, o respiro escala junto com a palavra. */
+  --dmr-word-gap: calc(var(--dmr-cap-height) * 0.28);
+}
+
+/* --------------------------------------------------------------------------
+   1b. Tracking dos títulos
+   O design system aplica -0.03em nos h1 a h6, -0.02em em vários títulos e
+   -0.04em no display. Esses valores foram calibrados para a Instrument Sans.
+   A Impact já é condensada por desenho: o tracking negativo cola as letras
+   e prejudica a leitura. Zerado nos elementos de título.
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6,
+.after-banner-title,
+.section-title,
+.inner-banner-title,
+.about-us-title,
+.award-name,
+.service-name,
+.testimonial-title,
+.faq-ans-title,
+.quick-links-title,
+.post-title,
+.sg-number,
+.sg-name {
+  letter-spacing: var(--dmr-title-tracking);
+}
+
+/* Gradiente 120 graus dos headers de tabela do design system */
+.typo-th-wrap {
+  background-image: linear-gradient(170deg, #4a9bd1 50%, #c9e4f2);
+}
+
+/* --------------------------------------------------------------------------
+   2. Hero — fundo
+   O design system traz a foto do template embutida em .banner-wrapper.
+   Substituída aqui. A imagem definitiva depende da decisão P1 do plano
+   (produção de material fotográfico) — ver risco R1.
+   -------------------------------------------------------------------------- */
+/* Gradiente azul vivo pedido pelo cliente (referência: hero "VISION" do
+   Arooth ao vivo) — é o MESMO gradiente 170deg que o design system usa em
+   .typo-th-wrap (linha ~110), só que aplicado ao hero inteiro.
+
+   CONTRASTE (aviso, não corrigido): com esse fundo, --primary (#0668ab) nas
+   letras do banner (.banner-letter, abaixo) mede 2,1:1 no stop mais vivo do
+   gradiente — reprova AA mesmo como texto grande (mínimo 3:1). Cheguei a
+   trocar para --eerie-black (6,38–12,25:1, AA com folga), mas o cliente
+   pediu explicitamente pra manter a cor original da fonte DMR INFO — revertido.
+   Ou seja: a marca prevalece sobre o AA aqui, por decisão do cliente, não
+   por engano. Se precisar resolver os dois ao mesmo tempo no futuro, as
+   opções são: sombra/contorno escuro atrás da letra, ou clarear só o stop
+   de cima do gradiente. Verificado por cálculo de luminância relativa, não
+   estimado. */
+.banner-wrapper {
+  background-image: linear-gradient(170deg, #6199ff 50%, #c0d7ff);
+}
+
+/* Placeholder visível enquanto não há foto definitiva.
+
+   CORREÇÃO DE CONTRASTE: a primeira versão usava um gradiente azul escuro e o
+   texto do painel — --eerie-black no título, --primary no destaque, --metal-
+   saurus no parágrafo — sumia por cima dele.
+
+   O design system foi desenhado para uma FOTO CLARA: .banner-bg-shape sobrepõe
+   um gradiente para branco justamente para garantir texto escuro legível. O
+   placeholder passa a ser claro para respeitar essa premissa.
+
+   Quando a foto definitiva entrar (decisão P1), ela precisa ser clara na área
+   do texto, ou ganhar um scrim branco. Medir o contraste antes de aprovar.
+   Remover este bloco inteiro nessa hora. */
+.banner-bg-wrap.is-placeholder {
+  /* Parada mais escura em #DCEAF6, medida e não estimada. Nesse fundo:
+       --eerie-black  (título)     14,57:1  AA
+       --primary      (destaque)    4,79:1  AA em qualquer tamanho
+       --independence (parágrafo)   6,17:1  AA
+     Com #C9E0F0, que era o valor anterior, o destaque caía para 4,31:1 e
+     só passava como texto grande. */
+  background-image: linear-gradient(145deg, #dceaf6 0%, #eff6fb 42%, #ffffff 100%);
+}
+
+.banner-bg-wrap.is-placeholder .banner-bg-image {
+  display: none;
+}
+
+.banner-placeholder-note {
+  color: var(--independence);
+  font-size: var(--_font-sizes---paragraphs--caption);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  position: absolute;
+  inset: auto auto 1.5rem 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   2b. Hero — texto claro sobre a foto escura
+
+   O design system assume foto CLARA e texto escuro. A imagem entregue é o
+   oposto: luminância mediana de 0,066 na zona do texto. Medido, os três
+   textos do painel reprovavam feio sobre ela:
+
+     título     #0F172A   1,97:1
+     destaque   #0668AB   1,54:1
+     parágrafo  #4B5563   1,20:1
+
+   Nenhum chega perto dos 4,5:1 exigidos. Invertendo a paleta do painel, o
+   contraste resolve sem filtro opaco por cima da foto.
+
+   Vale só DENTRO de .after-banner-wrap. As letras do hero e o parágrafo de
+   baixo ficam sobre o fundo claro da página e seguem escuros.
+   -------------------------------------------------------------------------- */
+.after-banner-wrap .after-banner-title {
+  color: #ffffff;
+}
+
+/* Mesmo gradiente do botao (90deg #2ebbf4 -> #009fe3). Sobre o veu escuro do
+   hero o #2ebbf4 da ~7:1 e o #009fe3 ~4,7:1 - folgado para um titulo de 64px,
+   que so precisa de 3:1. A cor solida fica como fallback se background-clip
+   nao existir. */
+.after-banner-wrap .after-banner-title-mark {
+  color: #2ebbf4;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .after-banner-wrap .after-banner-title-mark {
+    background-image: linear-gradient(90deg, #2ebbf4 0%, #009fe3 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* --white-80 do design system dá 3,90:1 no pior ponto e reprova. 88% de
+   branco sobe para 5,36:1 e mantém a hierarquia contra o título, que é
+   branco puro. */
+.after-banner-wrap .after-banner-details {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* SCRIM — dois calibres, escolhidos pelo estado REAL do vídeo, não por
+   viewport como proxy
+
+   Primeira versão desta regra usava (largura da tela + reduced-motion) para
+   decidir qual véu aplicar, assumindo que "desktop sem reduced-motion" =
+   "o vídeo está tocando". Essa suposição quebra em qualquer falha de JS:
+   GSAP não carrega, autoplay é bloqueado pelo navegador, o arquivo de vídeo
+   falha — em qualquer um desses casos o POSTER (a foto clara) aparece, mas
+   a regra continuaria aplicando o véu leve calibrado para o vídeo escuro, e
+   o contraste do texto reprovaria de novo. É a mesma classe de erro que
+   deixou o hero em branco na Etapa 1, só que invertida.
+
+   Corrigido: o véu FORTE — calibrado para a foto, p95 de luminância 0,368 —
+   é o padrão. Só fica mais leve quando dmr-hero.js confirma, pelo evento
+   'playing' do próprio <video> (não apenas a promise de .play(), que pode
+   resolver sem o navegador chegar a renderizar frame nenhum), que o vídeo
+   está de fato na tela. Sem essa confirmação, o padrão seguro prevalece. */
+.banner-bg-shape {
+  inset: 0;
+  height: 100%;
+  background-image: linear-gradient(
+    90deg,
+    rgba(15, 23, 42, 0) 0%,
+    rgba(15, 23, 42, 0.12) 28%,
+    rgba(15, 23, 42, 0.5) 50%,
+    rgba(15, 23, 42, 0.66) 68%,
+    rgba(15, 23, 42, 0.7) 100%
+  );
+}
+
+/* Vídeo escuro por natureza — medido quadro a quadro (24 fps, 240 frames):
+   luminância mediana 0,003, pior caso (frame mais claro) 0,022 na zona do
+   texto. Nesse nível o texto passa AA em qualquer cor mesmo sem véu — este
+   degradê é só profundidade, e só se aplica quando o vídeo está CONFIRMADO
+   em reprodução. */
+.banner-bg-wrap.is-video-live .banner-bg-shape {
+  background-image: linear-gradient(
+    90deg,
+    rgba(15, 23, 42, 0) 0%,
+    rgba(15, 23, 42, 0.08) 28%,
+    rgba(15, 23, 42, 0.22) 50%,
+    rgba(15, 23, 42, 0.32) 68%,
+    rgba(15, 23, 42, 0.38) 100%
+  );
+}
+
+/* O <video> herda o mesmo enquadramento do <img> de fundo que substitui. */
+.banner-bg-video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+/* Abaixo de 992px e com movimento reduzido, o vídeo não recebe play() (ver
+   dmr-hero.js) — o poster cumpre o mesmo papel visual, então o elemento de
+   vídeo em si some sem perda. */
+@media screen and (max-width: 991px), (prefers-reduced-motion: reduce) {
+  .banner-bg-video {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Hero — letras DMR INFO
+   Sete slots em vez dos cinco do design system. As margens seguem o padrão
+   original de 1.5rem; o slot 04 (o "I" de INFO) ganha o respiro entre as
+   duas palavras.
+   -------------------------------------------------------------------------- */
+/* POR QUE OS SLOTS SE CHAMAM dmr-l1 A dmr-l6
+
+   A config do ix3 em assets/vendor/webflow_1c2a8e406a92.js mira as letras do
+   hero pelas classes .single-banner-letter._01 até ._05 e força as larguras
+   em pixel da palavra "VISION" do template:
+
+     _01 -> 210px     _02 -> 67px     _03 -> 197px
+     _04 -> 67px      _05 -> 197px
+
+   Enquanto os slots daqui usavam essas mesmas classes, o M caía no _02 e era
+   espremido a 67px, recortado no meio pelo overflow:hidden do slot. Era esse
+   o "M deformado" — nunca foi a fonte nem o SVG. E o F aparecia inteiro só
+   porque _06 não existe na config do template.
+
+   Renomeando os slots, a config do Webflow não encontra alvo e as letras
+   ficam inteiramente sob a timeline de dmr-hero.js. O painel, o anel e o
+   ticker continuam nas mãos do Webflow, que é o que se quer preservar.
+
+   ESPAÇAMENTO
+   Sem as classes _0N, as margens de 1.5rem do design system também deixam de
+   se aplicar — e é o desejado: aquilo servia para SVGs recortados justos, sem
+   lateral nenhuma. Texto já traz as laterais embutidas na fonte, e somar as
+   margens por cima abria vãos irregulares. O ritmo vem do desenho da Impact.
+
+   Sobra só o respiro entre as duas palavras.
+
+   Esse respiro fica no SPAN, não no slot. O slot anima só a largura; uma
+   margem nele sobreviveria ao colapso das letras e empurraria o painel para
+   a direita, deixando uma faixa do fundo da página exposta à esquerda — eram
+   os 95px de borda branca. Dentro do span, o overflow:hidden do slot come o
+   respiro junto com a letra. */
+.dmr-l4 .banner-letter {
+  margin-left: var(--dmr-word-gap);
+}
+
+/* O anel encosta no F sem o respiro de palavra */
+.after-banner-wrapper {
+  margin-left: 0;
+}
+
+/* Os glifos são TEXTO VIVO, não imagens.
+
+   A primeira versão usava <img src="glyphs/X.svg"> com fill="currentColor".
+   Dois problemas apareceram na revisão visual:
+
+     1. SVG carregado via <img> é um documento isolado. currentColor não
+        atravessa a fronteira, então as letras saíam pretas em vez de azuis,
+        e nenhum token CSS as alcançava.
+     2. O contorno do M extraído da fonte saiu com contornos auto-inter-
+        sectantes e renderizava deformado — lia-se "D\/R" no lugar de "DMR".
+
+   Texto vivo elimina os dois de uma vez: a cor vem do token, o desenho vem
+   da própria fonte, e a palavra continua selecionável e legível por leitor
+   de tela. Impact é fonte de sistema, então não há arquivo para carregar. */
+.banner-letter {
+  color: var(--primary);
+  font-family: var(--_fonts---fonts--title-font);
+  font-size: var(--dmr-cap-height);
+  /* line-height 1 garante que a caixa nunca fique menor que o desenho da
+     letra. O slot tem overflow:hidden para a animação de largura, e uma
+     caixa curta faria esse recorte comer o topo e a base dos glifos. */
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  font-weight: 400;
+  display: block;
+  overflow: visible;
+}
+
+/* O slot recorta o glifo enquanto a largura anima até zero.
+   O design system limita cada slot a 16% da linha, o que serve para as cinco
+   letras de "VISION". "DMR INFO" tem seis glifos mais o anel, então o teto
+   sobe para caber a palavra sem estourar. */
+.single-banner-letter {
+  width: auto;
+  /* O teto de 16% do design system foi calibrado para as cinco letras de
+     "VISION". Aqui ele só serviria para recortar glifo no meio, que foi o
+     que aconteceu com o M. Quem controla a largura total é --dmr-cap-height. */
+  max-width: none;
+}
+
+/* Largura inicial do painel fixada, em vez de depender do ix3.
+   O design system declara 38% no CSS e o ix3 sobrescreve para 28% ao montar a
+   timeline. Se o ix3 não subir, os 38% estouram a linha e cortam a palavra.
+   Fixando 28% o layout fecha em qualquer cenário, e a animação continua
+   partindo do mesmo ponto. */
+.after-banner-wrapper {
+  width: 28%;
+}
+
+/* O anel fecha a palavra como o "O" de INFO */
+.banner-letter-o {
+  border-color: var(--primary);
+}
+
+/* --------------------------------------------------------------------------
+   3b. Trust bar de parceiros
+
+   O design system não traz uma barra de logos: o que ele tem de mais próximo
+   é .single-award-wrap, um card de 21,75rem de altura, pesado demais para
+   isso. Então a estrutura é própria — mas inteiramente sobre os tokens, sem
+   nenhum valor solto.
+
+   Cada parceiro entra como <img class="dmr-partner-logo-img"> com o logo
+   real da marca (assets/img/tech/*.webp).
+   -------------------------------------------------------------------------- */
+.dmr-partners-lead {
+  color: var(--metal-saurus);
+  font-family: var(--_fonts---fonts--paragraph-font);
+  font-size: var(--_font-sizes---paragraphs--caption);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  font-weight: var(--_font-weight-line-height---font-weights--semibold);
+  letter-spacing: 0.15em;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+/* A faixa rola sozinha, em CSS puro — sem JS e sem depender do ix3.
+   Opacidade baixa em repouso para não competir com o hero, subindo no hover.
+   O movimento pausa no hover, para dar tempo de ler. */
+.dmr-partners-marquee {
+  opacity: 0.45;
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.dmr-partners-marquee:hover {
+  opacity: 0.85;
+}
+
+/* A lista é renderizada duas vezes. Andar até -50% consome exatamente a
+   primeira cópia e reinicia sobre a segunda, sem salto visível. */
+.dmr-partners-track {
+  grid-column-gap: 6rem;
+  flex-flow: row;
+  align-items: baseline;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  animation: dmr-marquee 42s linear infinite;
+}
+
+.dmr-partners-marquee:hover .dmr-partners-track {
+  animation-play-state: paused;
+}
+
+@keyframes dmr-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.dmr-partner {
+  grid-column-gap: 0.75rem;
+  flex-flow: row;
+  flex: none;
+  align-items: baseline;
+  display: flex;
+}
+
+@media screen and (max-width: 767px) {
+  .dmr-partners-track {
+    grid-column-gap: 3.5rem;
+    animation-duration: 30s;
+  }
+}
+
+/* Sem movimento automático para quem pediu menos animação. A faixa vira
+   uma lista estática, centrada e legível. */
+@media (prefers-reduced-motion: reduce) {
+  .dmr-partners-marquee {
+    opacity: 0.85;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .dmr-partners-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto;
+    grid-row-gap: 1rem;
+  }
+
+  .dmr-partner[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3c. Split "Sobre" + cards de métrica
+
+   Duas colunas: texto à esquerda, três cards empilhados à direita. Espelha a
+   terceira seção da referência.
+   -------------------------------------------------------------------------- */
+.dmr-split {
+  grid-column-gap: 4rem;
+  grid-row-gap: 3rem;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  display: grid;
+}
+
+.dmr-split-lead {
+  color: var(--independence);
+  font-size: var(--_font-sizes---paragraphs--medium);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+}
+
+.dmr-split-cta {
+  display: flex;
+}
+
+/* Ponto pulsante da pílula, no lugar do ícone do design system */
+.dmr-eyebrow-dot {
+  background-color: var(--primary);
+  border-radius: 50%;
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  animation: dmr-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes dmr-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.82);
+  }
+}
+
+.dmr-stats {
+  grid-row-gap: 1.5rem;
+  flex-flow: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+/* Card de vidro: fundo branco translúcido sobre o fundo claro da página,
+   subindo levemente no hover. */
+.dmr-stat {
+  border: 1px solid var(--white);
+  border-radius: var(--_spacing-radius---radius--xl);
+  background-color: #ffffff40;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  box-shadow: 0 1px 3px #0f172a12;
+}
+
+.dmr-stat:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px #0f172a1f;
+}
+
+.dmr-stat-top {
+  grid-column-gap: 1rem;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  display: flex;
+}
+
+/* DUAS CAMADAS, de propósito.
+
+   A máscara é pintada pelo background-color do elemento — então o mesmo
+   elemento não pode ter, ao mesmo tempo, o fundo de vidro do quadrado e a
+   cor do glifo: um consome o outro. O quadrado fica no .dmr-stat-icon e o
+   glifo mascarado vai no ::before. */
+.dmr-stat-icon {
+  flex: none;
+  width: 3.25rem;
+  height: 3.25rem;
+  transition: transform 0.3s ease;
+}
+
+.dmr-stat:hover .dmr-stat-icon {
+  transform: scale(1.06);
+}
+
+.dmr-stat-figures {
+  text-align: right;
+}
+
+.dmr-stat-number {
+  color: var(--eerie-black);
+  font-family: var(--_fonts---fonts--title-font);
+  font-size: var(--_font-sizes---headings--h4);
+  line-height: var(--_font-weight-line-height---line-heights--lh-100);
+  letter-spacing: var(--dmr-title-tracking);
+  margin: 0;
+}
+
+.dmr-stat-label {
+  color: var(--primary);
+  font-size: var(--_font-sizes---paragraphs--caption);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  font-weight: var(--_font-weight-line-height---font-weights--semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0.5rem 0 0;
+}
+
+.dmr-stat-desc {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+/* Segundo parágrafo, de apoio: menor e mais claro que o principal, para dar
+   hierarquia dentro da mesma coluna. */
+.dmr-split-support {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   3d. Coluna de mídia com card sobreposto
+   -------------------------------------------------------------------------- */
+.dmr-media {
+  position: relative;
+}
+
+/* Halo difuso atrás da moldura, dando profundidade sem sombra dura */
+.dmr-media-glow {
+  z-index: 0;
+  border-radius: var(--_spacing-radius---radius--3xl);
+  background-image: linear-gradient(135deg, #c9e0f04d, #eff6fb33);
+  position: absolute;
+  inset: -1.5rem;
+  filter: blur(40px);
+}
+
+.dmr-media-frame {
+  z-index: 1;
+  border: 1px solid var(--azureish-white);
+  border-radius: var(--_spacing-radius---radius--xxl);
+  background-color: var(--white);
+  padding: 0.75rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 18px 40px #0f172a1a;
+}
+
+.dmr-media-image {
+  border-radius: var(--_spacing-radius---radius--xl);
+  object-fit: cover;
+  width: 100%;
+  height: 25rem;
+  display: block;
+}
+
+/* Card de vidro transbordando a moldura pelo canto inferior esquerdo.
+
+   Mesma flutuacao dos cards de depoimento (dmr-float-card, definida mais
+   abaixo). Aqui nao precisa de wrapper separado: o card nao tem nenhum
+   outro transform proprio (nao gira, nao escala), entao a animacao pode ir
+   direto na propria propriedade transform sem sobrescrever nada. Fica fora
+   de qualquer overflow:hidden - .dmr-media-frame recorta a imagem, mas o
+   card e irmao dela, nao filho, dentro de .dmr-media (que nao recorta). */
+.dmr-media-card {
+  z-index: 2;
+  border: 1px solid #ffffff8c;
+  border-radius: var(--_spacing-radius---radius--xl);
+  background-color: #ffffff73;
+  max-width: 15rem;
+  padding: 1.5rem;
+  position: absolute;
+  inset: auto auto -1.5rem -1.5rem;
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  box-shadow: 0 10px 28px #0f172a24;
+  animation: dmr-float-card 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.dmr-media-card-number {
+  color: var(--eerie-black);
+  font-family: var(--_fonts---fonts--title-font);
+  font-size: var(--_font-sizes---headings--h4);
+  line-height: var(--_font-weight-line-height---line-heights--lh-100);
+  letter-spacing: var(--dmr-title-tracking);
+  margin: 0;
+}
+
+.dmr-media-card-label {
+  color: var(--primary);
+  font-size: var(--_font-sizes---paragraphs--caption);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  font-weight: var(--_font-weight-line-height---font-weights--semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0.5rem 0 0.5rem;
+}
+
+.dmr-media-card-desc {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+@media screen and (max-width: 991px) {
+  .dmr-split {
+    grid-template-columns: 1fr;
+  }
+
+  .dmr-media {
+    margin-bottom: 2rem;
+  }
+
+  .dmr-media-image {
+    height: 18rem;
+  }
+
+  .dmr-media-card {
+    inset: auto auto -1rem 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dmr-eyebrow-dot {
+    animation: none;
+  }
+
+  .dmr-stat:hover {
+    transform: none;
+  }
+}
+
+
+/* INVERSÃO DA COLUNA DE MÍDIA
+
+   A ordem do DOM continua texto primeiro, imagem depois — é a ordem correta
+   de leitura para leitor de tela e para navegação por teclado. Quem troca é
+   só a ordem VISUAL, via order no grid.
+
+   O card flutuante também vira de lado: com a imagem à esquerda, um card
+   saindo pela esquerda encostaria na borda do container. Saindo pela direita,
+   ele avança sobre a coluna de texto, que é onde há espaço. */
+.dmr-split.is-media-first .dmr-media {
+  order: -1;
+}
+
+.dmr-split.is-media-first .dmr-media-card {
+  inset: auto -1.5rem -1.5rem auto;
+}
+
+@media screen and (max-width: 991px) {
+  .dmr-split.is-media-first .dmr-media-card {
+    inset: auto 0 -1rem auto;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   3e. Diferenciais — cabeçalho centralizado + grid de cards
+   -------------------------------------------------------------------------- */
+.dmr-head {
+  text-align: center;
+  max-width: 46rem;
+  margin: 0 auto 4rem;
+}
+
+.dmr-head-lead {
+  color: var(--independence);
+  font-size: var(--_font-sizes---paragraphs--medium);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.dmr-pilares {
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1.5rem;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+.dmr-pilar {
+  border: 1px solid var(--white);
+  border-radius: var(--_spacing-radius---radius--xl);
+  background-color: #ffffff40;
+  padding: 2rem 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  box-shadow: 0 1px 3px #0f172a12;
+}
+
+.dmr-pilar:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px #0f172a1f;
+}
+
+/* Mesmo padrão de duas camadas dos cards de métrica: o quadrado de vidro no
+   elemento, o glifo mascarado no ::before. */
+.dmr-pilar-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dmr-pilar-title {
+  color: var(--eerie-black);
+  font-size: var(--_font-sizes---headings--h6);
+  line-height: var(--_font-weight-line-height---line-heights--lh-130);
+  letter-spacing: var(--dmr-title-tracking);
+  margin: 0 0 0.75rem;
+}
+
+.dmr-pilar-desc {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+@media screen and (max-width: 991px) {
+  .dmr-pilares { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media screen and (max-width: 600px) {
+  .dmr-pilares { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dmr-pilar:hover { transform: none; }
+}
+
+
+/* --------------------------------------------------------------------------
+   3f. Serviços — grid de cards com link
+   Cinco colunas no desktop largo. A referência usa quatro, mas o sitemap da
+   DMR tem cinco serviços e cada um tem página própria.
+   -------------------------------------------------------------------------- */
+.dmr-servicos {
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1.5rem;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+.dmr-servico {
+  border: 1px solid var(--white);
+  border-radius: var(--_spacing-radius---radius--xl);
+  background-color: #ffffff40;
+  flex-flow: column;
+  justify-content: space-between;
+  padding: 2rem 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  box-shadow: 0 1px 3px #0f172a12;
+}
+
+.dmr-servico:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px #0f172a1f;
+}
+
+.dmr-servico-icon {
+  border: 1px solid #ffffff8c;
+  border-radius: var(--_spacing-radius---radius--sm);
+  background-color: #ffffff70;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  box-shadow: 0 1px 2px #0f172a0f;
+}
+
+.dmr-servico-icon::before {
+  content: "";
+  background-color: var(--primary);
+  width: 1.5rem;
+  height: 1.5rem;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.dmr-servico-icon[data-icone="consultoria"]::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cg fill=%22none%22 stroke=%22currentColor%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22%3E%3Crect width=%228%22 height=%224%22 x=%228%22 y=%222%22 rx=%221%22 ry=%221%22/%3E%3Cpath d=%22M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2%22/%3E%3Cpath d=%22m9 14l2 2l4-4%22/%3E%3C/g%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cg fill=%22none%22 stroke=%22currentColor%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22%3E%3Crect width=%228%22 height=%224%22 x=%228%22 y=%222%22 rx=%221%22 ry=%221%22/%3E%3Cpath d=%22M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2%22/%3E%3Cpath d=%22m9 14l2 2l4-4%22/%3E%3C/g%3E%3C/svg%3E"); }
+.dmr-servico-icon[data-icone="integra"]::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cg fill=%22none%22 stroke=%22currentColor%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22%3E%3Crect width=%226%22 height=%226%22 x=%2216%22 y=%2216%22 rx=%221%22/%3E%3Crect width=%226%22 height=%226%22 x=%222%22 y=%2216%22 rx=%221%22/%3E%3Crect width=%226%22 height=%226%22 x=%229%22 y=%222%22 rx=%221%22/%3E%3Cpath d=%22M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3m-7-4V8%22/%3E%3C/g%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cg fill=%22none%22 stroke=%22currentColor%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22%3E%3Crect width=%226%22 height=%226%22 x=%2216%22 y=%2216%22 rx=%221%22/%3E%3Crect width=%226%22 height=%226%22 x=%222%22 y=%2216%22 rx=%221%22/%3E%3Crect width=%226%22 height=%226%22 x=%229%22 y=%222%22 rx=%221%22/%3E%3Cpath d=%22M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3m-7-4V8%22/%3E%3C/g%3E%3C/svg%3E"); }
+.dmr-servico-icon[data-icone="seguranca"]::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cg fill=%22none%22 stroke=%22currentColor%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22%3E%3Ccircle cx=%2212%22 cy=%2216%22 r=%221%22/%3E%3Crect width=%2218%22 height=%2212%22 x=%223%22 y=%2210%22 rx=%222%22/%3E%3Cpath d=%22M7 10V7a5 5 0 0 1 10 0v3%22/%3E%3C/g%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cg fill=%22none%22 stroke=%22currentColor%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22%3E%3Ccircle cx=%2212%22 cy=%2216%22 r=%221%22/%3E%3Crect width=%2218%22 height=%2212%22 x=%223%22 y=%2210%22 rx=%222%22/%3E%3Cpath d=%22M7 10V7a5 5 0 0 1 10 0v3%22/%3E%3C/g%3E%3C/svg%3E"); }
+.dmr-servico-icon[data-icone="cloud"]::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cg fill=%22none%22 stroke=%22currentColor%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22%3E%3Cpath d=%22M12 13v8m-8-6.101A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242%22/%3E%3Cpath d=%22m8 17l4-4l4 4%22/%3E%3C/g%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cg fill=%22none%22 stroke=%22currentColor%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22%3E%3Cpath d=%22M12 13v8m-8-6.101A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242%22/%3E%3Cpath d=%22m8 17l4-4l4 4%22/%3E%3C/g%3E%3C/svg%3E"); }
+.dmr-servico-icon[data-icone="suporte"]::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cg fill=%22none%22 stroke=%22currentColor%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22%3E%3Cpath d=%22M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2z%22/%3E%3Cpath d=%22M21 16v2a4 4 0 0 1-4 4h-5%22/%3E%3C/g%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cg fill=%22none%22 stroke=%22currentColor%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22%3E%3Cpath d=%22M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2z%22/%3E%3Cpath d=%22M21 16v2a4 4 0 0 1-4 4h-5%22/%3E%3C/g%3E%3C/svg%3E"); }
+
+.dmr-servico-title {
+  color: var(--eerie-black);
+  font-size: var(--_font-sizes---headings--h6);
+  line-height: var(--_font-weight-line-height---line-heights--lh-130);
+  letter-spacing: var(--dmr-title-tracking);
+  margin: 0 0 0.75rem;
+}
+
+.dmr-servico-desc {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.dmr-servico-link {
+  color: var(--primary);
+  grid-column-gap: 0.5rem;
+  align-items: center;
+  margin-top: 1.5rem;
+  font-size: var(--_font-sizes---paragraphs--small);
+  font-weight: var(--_font-weight-line-height---font-weights--semibold);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  display: inline-flex;
+}
+
+/* Seta como máscara, para herdar a cor do link */
+.dmr-servico-arrow {
+  background-color: currentColor;
+  flex: none;
+  width: 0.875rem;
+  height: 0.875rem;
+  transition: transform 0.25s ease;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width=%2210%22 height=%2210%22 viewBox=%220 0 10 10%22 fill=%22none%22 xmlns=%22http://www.w3.org/2000/svg%22%3E %3Cpath d=%22M9.76558 0.750003C9.76558 0.335783 9.42977 1.01328e-06 9.01561 1.01328e-06L2.26561 0C1.8514 0 1.51561 0.335783 1.51561 0.750003C1.51561 1.16421 1.8514 1.5 2.26561 1.5H8.26561V7.5C8.26561 7.91421 8.60139 8.25 9.01561 8.25C9.42977 8.25 9.76558 7.91421 9.76558 7.5V0.750003ZM1.06066 9.76557L9.54597 1.28033L8.48528 0.219673L0 8.70495L1.06066 9.76557Z%22 fill=%22white%22/%3E %3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg width=%2210%22 height=%2210%22 viewBox=%220 0 10 10%22 fill=%22none%22 xmlns=%22http://www.w3.org/2000/svg%22%3E %3Cpath d=%22M9.76558 0.750003C9.76558 0.335783 9.42977 1.01328e-06 9.01561 1.01328e-06L2.26561 0C1.8514 0 1.51561 0.335783 1.51561 0.750003C1.51561 1.16421 1.8514 1.5 2.26561 1.5H8.26561V7.5C8.26561 7.91421 8.60139 8.25 9.01561 8.25C9.42977 8.25 9.76558 7.91421 9.76558 7.5V0.750003ZM1.06066 9.76557L9.54597 1.28033L8.48528 0.219673L0 8.70495L1.06066 9.76557Z%22 fill=%22white%22/%3E %3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.dmr-servico-link:hover .dmr-servico-arrow {
+  transform: translate(3px, -3px);
+}
+
+@media screen and (max-width: 1279px) {
+  .dmr-servicos { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media screen and (max-width: 900px) {
+  .dmr-servicos { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media screen and (max-width: 600px) {
+  .dmr-servicos { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dmr-servico:hover { transform: none; }
+  .dmr-servico-link:hover .dmr-servico-arrow { transform: none; }
+}
+
+
+/* --------------------------------------------------------------------------
+   3g. Problema / Dor — cards de risco + faixa-ponte
+
+   CORES DE RISCO
+   O design system é inteiramente azul e não tem paleta semântica de alerta.
+   Uma seção sobre prejuízo precisa dela. Os três pares foram medidos contra
+   WCAG AA antes de entrar — ver a saída do script que gerou esta seção.
+   -------------------------------------------------------------------------- */
+:root {
+  --dmr-risco-fg: #b91c1c;
+  --dmr-risco-bg: #fee2e2;
+  --dmr-perda-fg: #92400e;
+  --dmr-perda-bg: #fef3c7;
+  --dmr-multa-fg: #9a3412;
+  --dmr-multa-bg: #ffedd5;
+}
+
+/* O eyebrow desta seção sai do azul: o assunto é risco, não serviço. */
+.dmr-eyebrow-dot.is-risco {
+  background-color: var(--dmr-risco-fg);
+}
+
+.subtitle-text.is-risco {
+  color: var(--dmr-risco-fg);
+}
+
+/* O margin-top nao e decorativo: o .dmr-media-card (o "3-2-1") e absoluto e
+   transborda 1.5rem abaixo da moldura, entao com margem zero ele caia em cima
+   desta grade. 5rem = as 1.5rem que ele invade mais o respiro real. */
+.dmr-dores {
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 5rem 0 3rem;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+.dmr-dor {
+  border: 1px solid var(--white);
+  border-radius: var(--_spacing-radius---radius--xxl);
+  background-color: #ffffff40;
+  padding: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  box-shadow: 0 1px 3px #0f172a12;
+}
+
+.dmr-dor:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px #0f172a1f;
+}
+
+.dmr-dor-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Selo embaixo do titulo, nao ao lado. Lado a lado ele tem largura fixa
+   (white-space: nowrap) e espremia o titulo em duas linhas estreitas - e so
+   nos cards 2 e 3, o que desalinhava o inicio dos paragrafos na fileira.
+   Empilhado, os tres cards seguem o mesmo ritmo: icone, titulo, selo, texto. */
+.dmr-dor-head {
+  flex-flow: column;
+  align-items: flex-start;
+  row-gap: 0.75rem;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.dmr-dor-title {
+  color: var(--eerie-black);
+  font-size: var(--_font-sizes---headings--h6);
+  line-height: var(--_font-weight-line-height---line-heights--lh-130);
+  letter-spacing: var(--dmr-title-tracking);
+  margin: 0;
+}
+
+.dmr-dor-selo {
+  border-radius: var(--_spacing-radius---radius--button-radius);
+  flex: none;
+  padding: 0.25rem 0.75rem;
+  font-size: var(--_font-sizes---paragraphs--caption);
+  font-weight: var(--_font-weight-line-height---font-weights--semibold);
+  line-height: var(--_font-weight-line-height---line-heights--lh-130);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.dmr-dor-selo[data-nivel="risco"] { color: var(--dmr-risco-fg); background-color: var(--dmr-risco-bg); }
+.dmr-dor-selo[data-nivel="perda"] { color: var(--dmr-perda-fg); background-color: var(--dmr-perda-bg); }
+.dmr-dor-selo[data-nivel="multa"] { color: var(--dmr-multa-fg); background-color: var(--dmr-multa-bg); }
+
+.dmr-dor-desc {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+/* Faixa-ponte: fecha a dor e entrega a saída, para a seção não terminar só
+   no problema. */
+.dmr-ponte {
+  border: 1px solid var(--azureish-white);
+  border-radius: var(--_spacing-radius---radius--xxl);
+  background-color: #ffffff73;
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1.5rem;
+  flex-flow: row;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  display: flex;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+}
+
+.dmr-ponte-icon {
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+}
+
+.dmr-ponte-texto {
+  flex: 1;
+}
+
+.dmr-ponte-title {
+  color: var(--eerie-black);
+  font-size: var(--_font-sizes---paragraphs--medium);
+  line-height: var(--_font-weight-line-height---line-heights--lh-130);
+  letter-spacing: var(--dmr-title-tracking);
+  margin: 0 0 0.25rem;
+}
+
+.dmr-ponte-desc {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+@media screen and (max-width: 991px) {
+  /* Empilhado, o .dmr-media-card ja e absorvido pelo margin-bottom da midia:
+     as 5rem do desktop virariam um buraco no meio da secao. */
+  .dmr-dores { grid-template-columns: 1fr; margin-top: 3rem; }
+  .dmr-ponte { flex-flow: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dmr-dor:hover { transform: none; }
+}
+
+
+/* --------------------------------------------------------------------------
+   3h. Perfis de empresa — reaproveita .dmr-servico-link e .dmr-servico-arrow
+   da seção de Serviços (mesma técnica de link com seta em máscara).
+   -------------------------------------------------------------------------- */
+.dmr-perfis {
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+.dmr-perfil {
+  border: 1px solid var(--white);
+  border-radius: var(--_spacing-radius---radius--xxl);
+  background-color: #ffffff40;
+  flex-flow: column;
+  justify-content: space-between;
+  padding: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  box-shadow: 0 1px 3px #0f172a12;
+}
+
+.dmr-perfil:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px #0f172a1f;
+}
+
+.dmr-perfil-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dmr-perfil-title {
+  color: var(--eerie-black);
+  font-size: var(--_font-sizes---headings--h6);
+  line-height: var(--_font-weight-line-height---line-heights--lh-130);
+  letter-spacing: var(--dmr-title-tracking);
+  margin: 0 0 0.75rem;
+}
+
+.dmr-perfil-desc {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+@media screen and (max-width: 900px) {
+  .dmr-perfis { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dmr-perfil:hover { transform: none; }
+}
+
+
+/* --------------------------------------------------------------------------
+   3i. FAQ — acordeão nativo com <details>/<summary>
+   Sem JS proprio. A referencia usa onclick + max-height animado por JS; aqui
+   o navegador cuida da abertura e o CSS cuida da seta.
+   -------------------------------------------------------------------------- */
+.dmr-faq-container {
+  max-width: 48rem;
+}
+
+.dmr-faqs {
+  grid-row-gap: 1rem;
+  flex-flow: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.dmr-faq {
+  border: 1px solid var(--white);
+  border-radius: var(--_spacing-radius---radius--xl);
+  background-color: #ffffff40;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  box-shadow: 0 1px 3px #0f172a12;
+}
+
+.dmr-faq[open] {
+  border-color: var(--azureish-white);
+}
+
+.dmr-faq-q {
+  cursor: pointer;
+  grid-column-gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  display: flex;
+  list-style: none;
+}
+
+.dmr-faq-q::-webkit-details-marker {
+  display: none;
+}
+
+.dmr-faq-q span:first-child {
+  color: var(--eerie-black);
+  font-size: var(--_font-sizes---paragraphs--medium);
+  font-weight: var(--_font-weight-line-height---font-weights--medium);
+  line-height: var(--_font-weight-line-height---line-heights--lh-130);
+  letter-spacing: -0.02em;
+}
+
+/* Ícone construído em CSS puro: duas barras que formam "+", a vertical
+   recolhe a 0 quando o <details> abre, sobrando o "−". */
+.dmr-faq-icon {
+  background-color: var(--alice-blue);
+  border-radius: 50%;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+}
+
+.dmr-faq-icon::before,
+.dmr-faq-icon::after {
+  content: "";
+  background-color: var(--primary);
+  border-radius: 1px;
+  width: 0.75rem;
+  height: 2px;
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.25s ease;
+}
+
+.dmr-faq-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.dmr-faq[open] .dmr-faq-icon::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.dmr-faq-a {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0;
+  padding: 0 1.5rem 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   3j. CTA final / Auditoria
+   -------------------------------------------------------------------------- */
+.dmr-cta {
+  border: 1px solid var(--azureish-white);
+  border-radius: var(--_spacing-radius---radius--3xl);
+  background-color: #eff6fb40;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  grid-column-gap: 3rem;
+  grid-row-gap: 2rem;
+  grid-template-rows: auto;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  padding: 3rem;
+  display: grid;
+}
+
+.dmr-cta-closing {
+  color: var(--independence);
+  font-size: var(--_font-sizes---paragraphs--medium);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.dmr-cta-card {
+  border: 1px solid var(--white);
+  border-radius: var(--_spacing-radius---radius--xl);
+  background-color: #ffffff66;
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  padding: 2rem;
+  box-shadow: 0 10px 28px #0f172a1a;
+}
+
+.dmr-cta-checklist {
+  grid-row-gap: 1rem;
+  flex-flow: column;
+  margin: 0 0 2rem;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.dmr-cta-checklist li {
+  color: var(--eerie-black);
+  grid-column-gap: 0.75rem;
+  align-items: flex-start;
+  font-size: var(--_font-sizes---paragraphs--regular);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  display: flex;
+}
+
+.dmr-check-icon {
+  background-color: var(--primary);
+  border-radius: 50%;
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.125rem;
+}
+
+.dmr-check-icon::before {
+  content: "";
+  background-color: var(--white);
+  width: 0.625rem;
+  height: 0.625rem;
+  display: block;
+  margin: 0.3125rem;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cpath fill=%22none%22 stroke=%22currentColor%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22 d=%22M20 6L9 17l-5-5%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cpath fill=%22none%22 stroke=%22currentColor%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22 d=%22M20 6L9 17l-5-5%22/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.dmr-cta-button {
+  width: 100%;
+  justify-content: center;
+}
+
+.dmr-cta-button .primary-button-flex {
+  justify-content: center;
+}
+
+@media screen and (max-width: 991px) {
+  .dmr-cta {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3k. Rodapé — ajustes de conteúdo por cima das classes do design system
+
+   O footer reaproveita as classes do Arooth. Aqui entram só os ícones
+   sociais por máscara (mesma técnica dos logos de parceiro) e o corte do
+   banner CTA gigante que o Arooth tinha no topo do rodapé.
+   -------------------------------------------------------------------------- */
+/* Cor fixa, não currentColor: o markup não tem o wrapper .cta-social-link-
+   -icon que o design system usa para fixar --eerie-black, e sem ele o ícone
+   herdava a cor padrão de link do navegador (o azul que apareceu na
+   primeira versão). Fixando aqui, o WhatsApp e o e-mail saem no mesmo tom
+   do texto ao lado, como um par. */
+.dmr-footer-social-icon {
+  background-color: var(--eerie-black);
+  width: 1.125rem;
+  height: 1.125rem;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.dmr-footer-social-icon[data-icone="whatsapp"] {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cpath fill=%22currentColor%22 d=%22M17.472 14.382c-.297-.149-1.758-.867-2.03-.967c-.273-.099-.471-.148-.67.15c-.197.297-.767.966-.94 1.164c-.173.199-.347.223-.644.075c-.297-.15-1.255-.463-2.39-1.475c-.883-.788-1.48-1.761-1.653-2.059c-.173-.297-.018-.458.13-.606c.134-.133.298-.347.446-.52s.198-.298.298-.497c.099-.198.05-.371-.025-.52s-.669-1.612-.916-2.207c-.242-.579-.487-.5-.669-.51a13 13 0 0 0-.57-.01c-.198 0-.52.074-.792.372c-.272.297-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074s2.096 3.2 5.077 4.487c.709.306 1.262.489 1.694.625c.712.227 1.36.195 1.871.118c.571-.085 1.758-.719 2.006-1.413s.248-1.289.173-1.413c-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214l-3.741.982l.998-3.648l-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884c2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.82 11.82 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.9 11.9 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cpath fill=%22currentColor%22 d=%22M17.472 14.382c-.297-.149-1.758-.867-2.03-.967c-.273-.099-.471-.148-.67.15c-.197.297-.767.966-.94 1.164c-.173.199-.347.223-.644.075c-.297-.15-1.255-.463-2.39-1.475c-.883-.788-1.48-1.761-1.653-2.059c-.173-.297-.018-.458.13-.606c.134-.133.298-.347.446-.52s.198-.298.298-.497c.099-.198.05-.371-.025-.52s-.669-1.612-.916-2.207c-.242-.579-.487-.5-.669-.51a13 13 0 0 0-.57-.01c-.198 0-.52.074-.792.372c-.272.297-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074s2.096 3.2 5.077 4.487c.709.306 1.262.489 1.694.625c.712.227 1.36.195 1.871.118c.571-.085 1.758-.719 2.006-1.413s.248-1.289.173-1.413c-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214l-3.741.982l.998-3.648l-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884c2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.82 11.82 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.9 11.9 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413%22/%3E%3C/svg%3E");
+}
+
+.dmr-footer-social-icon[data-icone="mail"] {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cg fill=%22none%22 stroke=%22currentColor%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22%3E%3Cpath d=%22m22 7l-8.991 5.727a2 2 0 0 1-2.009 0L2 7%22/%3E%3Crect width=%2220%22 height=%2216%22 x=%222%22 y=%224%22 rx=%222%22/%3E%3C/g%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221em%22 height=%221em%22 viewBox=%220 0 24 24%22%3E%3Cg fill=%22none%22 stroke=%22currentColor%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22%3E%3Cpath d=%22m22 7l-8.991 5.727a2 2 0 0 1-2.009 0L2 7%22/%3E%3Crect width=%2220%22 height=%2216%22 x=%222%22 y=%224%22 rx=%222%22/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* NAO era display:inline - era float. .w-nav-brand, reaproveitada do mesmo
+   padrao da navbar, tem float:left no design system. Um float sai do fluxo
+   normal e o proximo bloco (.footer-details) escoa TEXTO ao redor dele, em
+   vez de comecar abaixo - e o que colava "DMR INFO" no paragrafo seguinte.
+   display:block sozinho nao resolve, porque float continua ativo mesmo em
+   elementos block. Sem logo real da DMR, o slot usa texto dentro do mesmo
+   <a> que a navbar usa; aqui, fora da barra de navegacao, o float nao tem
+   função nenhuma. */
+.footer-logo-wrap {
+  float: none;
+  display: block;
+}
+
+
+@media screen and (max-width: 767px) {
+  .dmr-cta {
+    padding: 1.5rem;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   3l. Intercalação de fundo entre seções
+   Dez seções seguidas em branco liso não davam nenhum ritmo à página. Aqui
+   alterna branco / --light-bg por ID, com uma linha de 1px na emenda — a
+   mesma ideia do "border-t border-b" que a referência usa entre blocos.
+   Não mexe na classe .section: usa seletor de ID para não arriscar afetar
+   nenhuma outra instância de .section fora desta página.
+   -------------------------------------------------------------------------- */
+#parceiros,
+#suporte,
+#servicos,
+#perfis {
+  background-color: var(--light-bg);
+  border-top: 1px solid var(--azureish-white);
+  border-bottom: 1px solid var(--azureish-white);
+}
+
+/* --------------------------------------------------------------------------
+   3m. Reveal no scroll — [data-reveal] e [data-reveal-group]
+
+   Sem classe de ocultação por CSS. O estado inicial (opacity:0, y deslocado)
+   só existe se o dmr-reveal.js conseguir rodar e criar o tween via GSAP; se
+   o script falhar por qualquer motivo, os elementos ficam no estado padrão
+   do CSS, que é totalmente visível. Foi exatamente o oposto disso — ocultar
+   por <style> e torcer para o JS assumir depois — que deixou o hero em
+   branco na Etapa 1. Não repetido aqui.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal-group] > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   3n. Logos reais de tecnologia na esteira
+
+   Substituem os nomes em texto/tier. Sao PNGs entregues pelo cliente em
+   "02 - Assets/Originais/Logos Tecnologias (PNG)", recortados (remove a margem transparente excedente) e
+   convertidos para WebP em assets/img/tech/. Sem selo de tier: so os 5
+   originais tinham essa informacao confirmada no briefing, e aplicar tier a
+   uns e nao a outros no mesmo carrossel ficaria inconsistente e, pior,
+   sugeriria certificacao para quem nao tem uma confirmada.
+
+   Escala de cinza -> cor no hover e o padrao usual para tiras de logo raster
+   multicoloridas - o equivalente ao "fica azul no hover" que os icones
+   vetoriais (Ubiquiti) ja tem, mas aplicavel a uma logomarca colorida real
+   sem reduzi-la a uma silhueta.
+   -------------------------------------------------------------------------- */
+.dmr-partner-logo-img {
+  height: 1.75rem;
+  width: auto;
+  filter: grayscale(1);
+  opacity: 0.85;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+
+.dmr-partner:hover .dmr-partner-logo-img {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dmr-partner-logo-img {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Hero — responsivo
+   A timeline de scroll é desligada abaixo de 992px (mesmos breakpoints do
+   design system). Nesses tamanhos o hero precisa de um estado estático
+   legível: painel já expandido e letras fora do fluxo.
+   Ver Plano Etapa 1.6, passo 7.
+   -------------------------------------------------------------------------- */
+@media screen and (max-width: 991px) {
+  .banner-vh-wrap {
+    height: auto;
+  }
+
+  .banner-sticky-wrap {
+    position: relative;
+    height: auto;
+  }
+
+  /* NAO esconder .banner-letters-row: o .after-banner-wrapper (todo o
+     conteudo do hero - titulo, texto e botoes) mora dentro dela. Esconder a
+     linha deixava o hero vazio no mobile. As letras gigantes ja saem pelo
+     .single-banner-letter do design system nesta mesma largura. */
+  .banner-letters-row {
+    display: block;
+    width: 100%;
+  }
+
+  .banner-letters-flex {
+    display: block;
+    width: 100%;
+  }
+
+  .banner-wrapper {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .after-banner-wrapper {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .after-banner-inner,
+  .banner-letter-o {
+    border-radius: 0;
+  }
+
+  .banner-letter-o {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+}
+
+/* --------------------------------------------------------------------------
+   5. Acessibilidade
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  /* Mesmo motivo do bloco mobile: escondendo a linha, o hero inteiro sumia -
+     aqui em qualquer largura, para quem pede menos movimento. */
+  .single-banner-letter {
+    display: none;
+  }
+
+  .banner-letters-row,
+  .banner-letters-flex {
+    display: block;
+    width: 100%;
+  }
+
+  .banner-vh-wrap {
+    height: auto;
+  }
+
+  .banner-sticky-wrap {
+    position: relative;
+  }
+
+  .after-banner-wrapper {
+    width: 100%;
+    height: 100vh;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Cores hardcoded no design system
+   Seis declarações do design system escrevem o hex do Arooth direto na regra,
+   sem passar por variável — então o override de :root da seção 1 não as
+   alcança. Encontradas na validação da Etapa 0. Corrigidas uma a uma.
+
+   As duas primeiras são as graves: atingem o hero em produção.
+   -------------------------------------------------------------------------- */
+
+/* .after-banner-title-mark é o span destacado do h1 do hero.
+   Sem esta regra, "Sua TI também não." sairia no azul do Arooth. */
+.after-banner-title-mark {
+  color: var(--primary);
+}
+
+.after-banner-title-line {
+  background-color: var(--primary);
+}
+
+/* Swatch de gradiente da página de validação de tokens */
+.single-sg-color-wrap._06 {
+  background-image: linear-gradient(
+    var(--primary-linear--powder-blue),
+    var(--primary-linear--crayola) 50%,
+    var(--primary-linear--light-blue)
+  );
+}
+
+/* Tints com alfa — usados a partir da Etapa 8 (contato) */
+.contact-checkbox,
+.single-member-social-link.member-single {
+  background-color: #eff6fb29;
+}
+
+/* Sombra do card de depoimento — segue o novo tom escuro */
+.single-testimonial-wrap {
+  box-shadow: 0 2px 8px #0f172a1f;
+}
+
+/* Foco visível — o design system não define nenhum, e o briefing 12 pede AA */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   Faixa de números — única seção com cor saturada do site
+
+   O site ficou "muito branco" (feedback direto do cliente). A resposta NÃO é
+   um bloco escuro genérico: "Design System - Arooth para DMR.md" seção 1
+   avisa que "a maioria dos sites de TI comete esse erro: telas pretas...
+   visual pesado e genérico" — e prescreve o azul saturado
+   --dmr-gradient-linear pra isso. Os cards de estatística já eram vidro
+   translúcido (.dmr-stat); nesse fundo saturado o efeito vidro-sobre-azul
+   fica mais forte, não precisa mudar a cor dos cards, só o layout (de
+   coluna estreita dentro do split pra faixa horizontal) e o fundo da
+   seção.
+   -------------------------------------------------------------------------- */
+/* O fundo saiu daqui: agora vem de .dmr-dark-band, o mesmo de Diferenciais e
+   Depoimentos. Esta regra guarda so o que e da faixa - o recorte das esferas
+   de brilho, que sao absolutas. */
+.dmr-stats-band {
+  overflow: hidden;
+  position: relative;
+}
+
+.dmr-stats.is-band {
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+}
+
+/* Card na faixa: mesma linguagem dos cards de Diferenciais - icone em cima,
+   numero grande, rotulo, texto. O layout antigo jogava o numero para a
+   direita, longe do icone e desalinhado do paragrafo abaixo. */
+.dmr-stats.is-band .dmr-stat {
+  border-radius: var(--_spacing-radius---radius--xxl);
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+  padding: 2.5rem 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+.dmr-stats.is-band .dmr-stat:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 20px 40px -12px rgba(0, 159, 227, 0.3);
+}
+
+.dmr-stats.is-band .dmr-stat-top {
+  flex-flow: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  grid-row-gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.dmr-stats.is-band .dmr-stat-figures {
+  text-align: left;
+}
+
+.dmr-stats.is-band .dmr-stat-number {
+  color: #ffffff;
+  font-size: var(--_font-sizes---headings--h2);
+}
+
+/* #009fe3 em caixa alta pequena sobre o azul quase preto fica em 3.5:1, abaixo
+   do AA. O #2ebbf4 (inicio do mesmo gradiente) sobe para ~5.3:1. */
+.dmr-stats.is-band .dmr-stat-label {
+  color: #2ebbf4;
+}
+
+.dmr-stats.is-band .dmr-stat-desc {
+  color: #cbd5e1;
+}
+
+@media screen and (max-width: 991px) {
+  .dmr-stats.is-band {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .dmr-stats.is-band {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Fotos novas — seções Sobre e Riscos
+
+   Reaproveita o mesmo componente .dmr-media da seção Suporte (Etapa 3), sem
+   CSS novo pra estrutura — só os números dos cards flutuantes, que usam
+   figuras já aprovadas em outro lugar do site: "15+ anos" (meta description
+   e rodapé) e "3-2-1" (copy do pilar "Backup blindado", seção Diferenciais).
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Cards de serviço reais (.single-service-wrap) — trava do ix3
+
+   O bundle assets/vendor/webflow_1c2a8e406a92.js aplica, por CLASSE (não por
+   data-w-id — confirmado via dump-dom), um estado de entrada
+   (opacity:0, translateY(30px), blur(5px) inline) a qualquer elemento
+   .single-service-wrap, esperando por um ScrollTrigger próprio do template
+   original do Arooth para animá-lo de volta a visível. Nesta página esse
+   ScrollTrigger nunca completa — testado isoladamente (dump-dom): o card
+   fica com opacity:0 computado PARA SEMPRE. É o mesmo tipo de armadilha do
+   ix3 já resolvido no hero (Etapa 1.2), agora numa classe genérica em vez de
+   um data-w-id específico.
+
+   O opacity e o transform (translateY) já são reescritos pelo próprio tween
+   do nosso dmr-reveal.js (data-reveal-group em .services-grid-wrap, já
+   aplicado no HTML) assim que o card cruza a viewport — GSAP escreve
+   diretamente nessas duas propriedades, então elas se corrigem sozinhas.
+   O filter:blur(5px) do Webflow, porém, ninguém limpa: dmr-reveal.js não
+   mexe em filter. Sem esta regra, o card ficaria nítido só depois de opacity
+   resolver, mas permanentemente borrado. */
+.single-service-wrap {
+  filter: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Cards de serviço — menores e lado a lado
+
+   O design system traz .services-grid-wrap em 2 colunas fixas (padding
+   3.75rem, ícone 8.75rem), pensado para 4 cards do Arooth original. Com 5
+   serviços da DMR isso quebra em 3 linhas desiguais. Pedido do cliente:
+   cards menores, todos numa linha só. Escopado a #servicos para não afetar
+   nenhum outro uso de .services-grid-wrap/.single-service-wrap no design
+   system. */
+#servicos .services-grid-wrap {
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1.5rem;
+}
+
+/* Mesma receita de vidro dos outros cards da pagina (.dmr-pilar, .dmr-dor):
+   os de servico eram os unicos em cor chapada. */
+#servicos .single-service-wrap {
+  padding: 2rem 1.5rem;
+  border: 1px solid var(--white);
+  background-color: #ffffff40;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  box-shadow: 0 1px 3px #0f172a12;
+}
+
+#servicos .single-service-icon-wrap {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-bottom: .75rem;
+}
+
+/* Os atributos width/height no <img> existem para reservar espaco e evitar
+   layout shift. Aqui o CSS fixa so a largura do icone, entao a altura do
+   atributo (220px do SVG) vazaria e o icone cobriria o titulo do card. */
+#servicos .single-service-icon {
+  height: auto;
+}
+
+#servicos .single-service-name {
+  font-size: var(--_font-sizes---headings--h6, 1.125rem);
+}
+
+#servicos .single-service-details {
+  font-size: .875rem;
+}
+
+@media screen and (max-width: 991px) {
+  #servicos .services-grid-wrap {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #servicos .services-grid-wrap {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 479px) {
+  #servicos .services-grid-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Ghost button — Área do Cliente (navbar)
+
+   O design system não tem nenhum componente de botão outline/ghost (só
+   .primary-button, sempre com fundo sólido). Em vez de forçar essa classe
+   com overrides pra apagar o fundo e brigar com o hover ix2 do template,
+   é um link próprio: mesma pílula (raio, altura, tipografia) do
+   .primary-button ao lado, mas contorno em vez de preenchimento — leitura
+   correta como ação secundária junto do CTA principal. */
+.dmr-ghost-button {
+  border: 1.5px solid var(--primary);
+  border-radius: var(--_spacing-radius---radius--button-radius);
+  color: var(--primary);
+  white-space: nowrap;
+  padding: 0.75rem 1.5rem;
+  font-size: .9375rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.dmr-ghost-button:hover,
+.dmr-ghost-button:focus-visible {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+@media screen and (max-width: 479px) {
+  .dmr-ghost-button {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Foto da seção Sobre sem fundo (.dmr-media.is-cutout)
+
+   assets/img/sobre-*.webp teve o fundo preto sólido removido (era um canvas
+   atrás dos dois cartões de foto, não faz parte da composição). A imagem já
+   tem sua própria sombra e cantos arredondados desenhados nela — a moldura
+   branca com padding de .dmr-media-frame (pensada pra fotos retangulares
+   comuns, como em Suporte e Riscos) fica sobrando aqui e esconde a
+   transparência atrás de uma caixa. Escopado só a esta instância: as outras
+   duas (.dmr-media sem .is-cutout) continuam com moldura normal.
+
+   object-fit:cover também sai — cortava a composição diagonal dos dois
+   cartões, exatamente o "sem fundo, no tamanho correto" que o pedido do
+   cliente queria evitar. contain preserva a forma inteira. */
+.dmr-media.is-cutout .dmr-media-frame {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.dmr-media.is-cutout .dmr-media-image {
+  object-fit: contain;
+  border-radius: 0;
+  height: auto;
+  /* Sem sombra e sem canto arredondado: pedido explícito de deixar a imagem
+     sozinha, sem nada em volta. O recorte tambem passou a ser retangular
+     (ver remove_bg_sobre5.py) — a foto original nao tem canto arredondado,
+     quem arredondava era a moldura da colagem, que saiu junto com a sombra. */
+  filter: none;
+}
+
+/* --------------------------------------------------------------------------
+   Hero — dados navegando nas linhas da grade
+
+   .banner-border-line (3 divs, linhas verticais) e as bordas superior/
+   inferior de .banner-borders-flex já existem no design system — só
+   sobrepomos um traço claro animado em cima de cada uma. Cada linha vertical
+   ganha DOIS traços (::before desce, ::after sobe) pra ler como tráfego nos
+   dois sentidos, com atraso escalonado por linha pra não pulsar tudo junto.
+   As bordas horizontais (topo/base do grid) recebem o mesmo tratamento, um
+   traço pra cada lado. */
+.banner-border-line {
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-border-line::before,
+.banner-border-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  background-image: linear-gradient(180deg, transparent 0%, #ffffff 50%, transparent 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 30%;
+  opacity: 0.85;
+}
+
+.banner-border-line::before {
+  animation: dmr-flow-down 3.4s linear infinite;
+}
+
+.banner-border-line::after {
+  animation: dmr-flow-up 3.4s linear infinite;
+  animation-delay: -1.7s;
+}
+
+.banner-border-line:nth-child(2)::before,
+.banner-border-line:nth-child(2)::after {
+  animation-delay: -0.9s;
+}
+
+.banner-border-line:nth-child(3)::before,
+.banner-border-line:nth-child(3)::after {
+  animation-delay: -2.5s;
+}
+
+.banner-borders-flex {
+  position: relative;
+}
+
+.banner-borders-flex::before,
+.banner-borders-flex::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 30%;
+  height: 1px;
+  background-image: linear-gradient(90deg, transparent 0%, #ffffff 50%, transparent 100%);
+  opacity: 0.85;
+}
+
+.banner-borders-flex::before {
+  top: -1px;
+  animation: dmr-flow-right 4.2s linear infinite;
+}
+
+.banner-borders-flex::after {
+  bottom: -1px;
+  animation: dmr-flow-left 4.2s linear infinite;
+  animation-delay: -2.1s;
+}
+
+@keyframes dmr-flow-down {
+  0% {
+    background-position-y: -30%;
+  }
+  100% {
+    background-position-y: 130%;
+  }
+}
+
+@keyframes dmr-flow-up {
+  0% {
+    background-position-y: 130%;
+  }
+  100% {
+    background-position-y: -30%;
+  }
+}
+
+@keyframes dmr-flow-right {
+  0% {
+    left: -30%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes dmr-flow-left {
+  0% {
+    left: 100%;
+  }
+  100% {
+    left: -30%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner-border-line::before,
+  .banner-border-line::after,
+  .banner-borders-flex::before,
+  .banner-borders-flex::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   BARRA DE TOPO + HEADER — porte verbatim da referencia do cliente
+
+   Copiado de C:\Users\erick\Desktop\site_dmr_info\src\assets\css\
+   (variables.css, reset.css, style.css, components.css). As tentativas
+   anteriores adaptavam a navbar flutuante do Webflow com overrides e por
+   isso nunca batiam: la o header e uma barra branca full-width sticky.
+   Aqui as regras sao as mesmas do original, com os tokens resolvidos para
+   os valores literais da referencia e o .container reescopado (o do design
+   system tem 83rem, o da referencia tem 1200px).
+   -------------------------------------------------------------------------- */
+.top-bar *,
+.header * {
+  box-sizing: border-box;
+}
+
+.top-bar ul,
+.header ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* :where() zera a especificidade — na referencia esse reset e `a { color:
+   inherit }`, seletor de elemento (0-0-1), que PERDE para .btn-sm (0-1-0).
+   Escrito como `.top-bar a` viraria 0-1-1 e ganharia, deixando o "Area do
+   Cliente" preto em vez de azul. */
+:where(.top-bar, .header) a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.top-bar .container,
+.header .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* --- BARRA AZUL (Topo) --- */
+.top-bar {
+  position: relative;
+  font-size: 0.82rem;
+  overflow: hidden;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  line-height: 1.6;
+}
+
+.top-bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: calc(50% + 150px);
+  background: linear-gradient(90deg, #0668ab 0%, #009fe3 100%);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 2rem) 100%, 0 100%);
+}
+
+.top-bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.5rem 0;
+}
+
+.contact-info {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.contact-info span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ffffff;
+}
+
+.contact-info .ti {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.social-icons a {
+  color: #009fe3;
+  transition: transform 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.social-icons .ti {
+  font-size: 2rem;
+}
+
+.social-icons a:hover {
+  color: #0668ab;
+  transform: translateY(-2px);
+}
+
+.btn-sm {
+  color: #009fe3;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.btn-sm .ti {
+  font-size: 1.1rem;
+}
+
+.btn-sm:hover {
+  color: #0668ab;
+}
+
+/* --------------------------------------------------------------------------
+   Container do header (barra de topo + menu)
+
+   Pedido: o menu NAO aparece na abertura do site — o hero entra limpo, sem
+   nada por cima — e desce quando o usuario comeca a rolar.
+
+   Por isso os dois viram um bloco fixo unico: assim o hero ocupa a tela
+   inteira desde o primeiro frame (nao fica empurrado pra baixo por um header
+   em fluxo normal) e o bloco desliza pra dentro sem mexer no layout.
+
+   Sem JS o bloco fica VISIVEL (a classe .is-hidden e que esconde, e quem a
+   coloca e o script). Se o JS falhar, o menu aparece — nunca o contrario. */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.site-header.is-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header {
+    transition: none;
+  }
+}
+
+/* --- HEADER --- */
+/* Vidro: o .site-header e fixed e transparente, entao e esta barra que fica
+   sobre o conteudo. Translucida com blur, a pagina passa por baixo em vez de
+   sumir atras de um bloco branco. O saturate compensa a lavagem de cor que o
+   blur causa. */
+.header {
+  background-color: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(201, 224, 240, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  z-index: 1000;
+  padding: 0.75rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-list {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.nav-list a {
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #334155;
+  transition: color 0.2s;
+}
+
+.nav-list a:hover {
+  color: #009fe3;
+}
+
+/* --- BOTAO (components.css da referencia) --- */
+/* .dmr-mobile-cta entra junto: e o mesmo botao, so que dentro do painel
+   mobile, que vive fora do <header> para nao herdar o blur dele.
+
+   line-height 1.5 igual a do .primary-button-text e a do .dmr-ghost-btn: sem
+   ela este botao fechava em 51px contra os 56px dos outros dois, com o mesmo
+   padding e a mesma fonte. A diferenca vinha so da altura da linha. */
+.header .btn,
+.dmr-mobile-cta {
+  line-height: 1.5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+}
+
+.header .btn-primary,
+.dmr-mobile-cta {
+  background: linear-gradient(90deg, #2ebbf4 0%, #009fe3 100%);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 159, 227, 0.2);
+}
+
+.header .btn-primary:hover,
+.dmr-mobile-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 159, 227, 0.4);
+  background: linear-gradient(90deg, #009fe3 0%, #2ebbf4 100%);
+}
+
+.header .btn i,
+.dmr-mobile-cta i {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.header .btn:hover i {
+  transform: translateX(4px);
+}
+
+@media screen and (max-width: 991px) {
+  .contact-info {
+    display: none;
+  }
+
+  .top-bar-container {
+    justify-content: flex-end;
+  }
+
+  .top-bar::before {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Todos os .primary-button no padrao do botao do menu
+
+   Pedido: "deixe todos os botoes no padrao do botao do menu nav bar, com a
+   escrita dentro em maiusculo". Sao 5 instancias (hero, Sobre, Suporte,
+   ponte de Riscos e CTA final). Em vez de trocar o markup de cada uma —
+   estrutura Webflow com camada de texto duplicada, setas em <img> e um
+   .primary-button-hover-bg que o ix2 anima — o componente e reestilizado
+   aqui com o mesmo desenho do .btn-primary da navbar.
+
+   O que precisa ser neutralizado:
+   - .primary-button-hover-bg: preenchimento solido que o ix2 desliza no
+     hover; sobre o gradiente novo viraria uma mancha. Desligado, o hover
+     passa a ser a inversao do gradiente, igual ao botao do menu.
+   - .primary-button-text-hover: a copia de texto que o ix2 troca junto com
+     esse preenchimento. Sem ele, nao tem funcao.
+   - as setas em <img>: sao SVGs azuis/escuros, ilegiveis sobre o gradiente,
+     e <img> nao herda cor. Viram mascara branca no proprio wrap.
+   -------------------------------------------------------------------------- */
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  background-image: linear-gradient(90deg, #2ebbf4 0%, #009fe3 100%);
+  box-shadow: 0 4px 10px rgba(0, 159, 227, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible;
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 159, 227, 0.4);
+  background-image: linear-gradient(90deg, #009fe3 0%, #2ebbf4 100%);
+}
+
+.primary-button .primary-button-text {
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.primary-button .primary-button-text-hover,
+.primary-button .primary-button-hover-bg,
+.primary-button .primary-button-arrow,
+.primary-button .primary-button-arrow-hover {
+  display: none;
+}
+
+.primary-button .primary-button-flex {
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* O design system envolve a seta num circulo solido de 2,25rem. No botao do
+   menu a seta e solta, entao o circulo sai. */
+.primary-button .primary-button-arrow-wrapper {
+  background-color: transparent;
+  border-radius: 0;
+  width: auto;
+  height: auto;
+}
+
+.primary-button .primary-button-arrow-wrap {
+  width: 1.2rem;
+  height: 1.2rem;
+  background-color: #ffffff;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width=%2210%22 height=%2210%22 viewBox=%220 0 10 10%22 fill=%22none%22 xmlns=%22http://www.w3.org/2000/svg%22%3E %3Cpath d=%22M9.76558 0.750003C9.76558 0.335783 9.42977 1.01328e-06 9.01561 1.01328e-06L2.26561 0C1.85139 0 1.51561 0.335783 1.51561 0.750003C1.51561 1.16421 1.85139 1.5 2.26561 1.5H8.26561V7.5C8.26561 7.91421 8.60139 8.25 9.01561 8.25C9.42977 8.25 9.76558 7.91421 9.76558 7.5V0.750003ZM1.06066 9.76557L9.54597 1.28033L8.48528 0.219673L0 8.70495L1.06066 9.76557Z%22 fill=%22%230040C1%22/%3E %3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg width=%2210%22 height=%2210%22 viewBox=%220 0 10 10%22 fill=%22none%22 xmlns=%22http://www.w3.org/2000/svg%22%3E %3Cpath d=%22M9.76558 0.750003C9.76558 0.335783 9.42977 1.01328e-06 9.01561 1.01328e-06L2.26561 0C1.85139 0 1.51561 0.335783 1.51561 0.750003C1.51561 1.16421 1.85139 1.5 2.26561 1.5H8.26561V7.5C8.26561 7.91421 8.60139 8.25 9.01561 8.25C9.42977 8.25 9.76558 7.91421 9.76558 7.5V0.750003ZM1.06066 9.76557L9.54597 1.28033L8.48528 0.219673L0 8.70495L1.06066 9.76557Z%22 fill=%22%230040C1%22/%3E %3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  transition: transform 0.3s ease;
+}
+
+.primary-button:hover .primary-button-arrow-wrap {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary-button,
+  .primary-button .primary-button-arrow-wrap {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   1. Headline do hero centralizada
+
+   As letras ja vinham centradas pelo .banner-letters-flex, mas o bloco de
+   baixo (frase + botao) estava com justify-content:space-between, jogando o
+   texto na esquerda e o botao na ponta direita — era isso que desalinhava a
+   leitura do hero. Passa a empilhar centralizado.
+   -------------------------------------------------------------------------- */
+.banner-content-bottom {
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.banner-details-wrap {
+  max-width: 34rem;
+}
+
+/* O bloco frase + botao fica ancorado no rodape do hero (justify-content:
+   flex-end do design system) e as letras ficam centradas na tela. Com padding
+   fixo, toda a altura extra de telas altas virava um buraco entre as letras e
+   a frase - 141px numa tela de 950.
+
+   O calc trava esse vao em 48px: metade da viewport menos (metade das letras
+   + altura do bloco + os 48). Assim a sobra vai para baixo do botao, onde ela
+   some contra a borda da tela, em vez de rachar o hero no meio. O max protege
+   telas baixas, onde o calc ficaria pequeno demais e o texto encostaria nas
+   letras. */
+@media screen and (min-width: 992px) {
+  .banner-content-wrapper {
+    padding-bottom: max(7.5rem, calc(50vh - 20.5rem));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Destaques em gradiente, no lugar do azul chapado
+
+   Mesmo gradiente dos botoes (90deg #2ebbf4 -> #009fe3), recortado no texto.
+   A cor solida fica como fallback: se background-clip:text nao existir, o
+   texto continua legivel em azul em vez de sumir transparente.
+   -------------------------------------------------------------------------- */
+.section-title-mark,
+.testimonial-title-mark,
+.subtitle-text,
+.dmr-stat-label,
+.dmr-media-card-label {
+  color: #009fe3;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .section-title-mark,
+  .testimonial-title-mark {
+    background-image: linear-gradient(90deg, #2ebbf4 0%, #009fe3 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Depoimentos — porte da referencia do cliente
+   (src/assets/css/motion-hover.css + style.css)
+   -------------------------------------------------------------------------- */
+/* O fundo escuro e um seletor compartilhado, nao uma copia: a secao de
+   Diferenciais usa a mesma foto e o mesmo gradiente, entao trocar a imagem
+   aqui muda as duas de uma vez e elas nao saem do lugar uma da outra. */
+.testimonials,
+.dmr-dark-band {
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(135deg, rgba(2, 6, 23, 0.95) 0%, rgba(2, 6, 23, 0.8) 100%),
+    url("../img/section-testimonials.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-top: 1px solid #1e293b;
+  border-bottom: 1px solid #1e293b;
+  color: #ffffff;
+}
+
+/* 7.5rem = os mesmos 120px de padding vertical de todas as outras secoes.
+   Antes eram 10rem, unico ritmo diferente da pagina. */
+.testimonials {
+  padding: 7.5rem 0;
+  text-align: center;
+}
+
+/* As esferas de brilho sao absolutas; sem contexto proprio no conteudo elas
+   pintariam por cima do texto, que e estatico. */
+.dmr-dark-band > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Inversao do conteudo da faixa: os cards de vidro claro sumiriam sobre o
+   fundo escuro, e o texto em eerie-black ficaria ilegivel. */
+.dmr-dark-band .section-title,
+.dmr-dark-band .dmr-pilar-title {
+  color: #ffffff;
+}
+
+.dmr-dark-band .dmr-head-lead {
+  color: #94a3b8;
+}
+
+.dmr-dark-band .dmr-pilar-desc {
+  color: #cbd5e1;
+}
+
+/* A pilula de eyebrow vem branca solida do design system - sobre o fundo
+   escuro ela virava uma mancha clara. Vidro, como os cards da faixa. */
+/* Nas secoes claras a pilula tambem vira vidro, para nao ser o unico
+   elemento de cor chapada no meio de cards translucidos. */
+.subtitle-wrap {
+  background-color: #ffffff59;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+}
+
+.dmr-dark-band .subtitle-wrap,
+.testimonials .subtitle-wrap {
+  background-color: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.dmr-dark-band .dmr-pilar {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+.dmr-dark-band .dmr-pilar:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 20px 40px -12px rgba(0, 159, 227, 0.3);
+}
+
+/* Sem font-family propria: o h2 herda a fonte de titulo do design system,
+   igual a todas as outras secoes. A excecao anterior (fonte de corpo, 2.25rem
+   fixos) era heranca do porte da referencia e destoava do resto do site. */
+.testimonials-title {
+  color: #ffffff;
+  font-size: var(--_font-sizes---headings--h2);
+  font-weight: var(--_font-weight-line-height---font-weights--regular);
+  line-height: var(--_font-weight-line-height---line-heights--lh-120);
+  letter-spacing: var(--dmr-title-tracking);
+  margin-bottom: 1rem;
+}
+
+.testimonials-subtitle {
+  color: #94a3b8;
+  font-size: var(--_font-sizes---paragraphs--medium);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.glass-bg-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.glow-sphere {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+}
+
+.sphere-cyan {
+  background: #00f2fe;
+}
+
+.sphere-blue {
+  background: #009fe3;
+}
+
+.testimonials-overlap-grid {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  max-width: 1200px;
+  margin: 4.5rem auto 0;
+  padding: 2rem 1rem;
+  position: relative;
+}
+
+/* O wrapper existe justamente para separar as duas transformacoes: a
+   rotacao/escala do leque fica no .testimonial-glass-card e a flutuacao fica
+   aqui. Se as duas dividissem a mesma propriedade transform, a animacao
+   sobrescreveria o rotate() de cada carta e o leque desmontaria. */
+.testimonials-overlap-grid .float-wrapper {
+  flex: 1;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  animation: dmr-float-card 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Duracoes diferentes (nao so delays) para as tres cartas nunca voltarem a
+   sincronizar - com o mesmo periodo elas se realinhariam a cada ciclo e o
+   movimento pareceria um bloco unico subindo e descendo.
+
+   O z-index tambem mora aqui, e nao mais so na carta: animar o wrapper cria
+   um contexto de empilhamento proprio, entao o z-index de dentro dele deixa
+   de competir com o das outras cartas e a ordem passaria a ser a do HTML -
+   a terceira carta cobriria a do meio. */
+.testimonials-overlap-grid .float-wrapper:nth-child(1) {
+  animation-duration: 7s;
+  animation-delay: -1.5s;
+  z-index: 1;
+}
+
+.testimonials-overlap-grid .float-wrapper:nth-child(2) {
+  animation-duration: 5.5s;
+  z-index: 3;
+}
+
+.testimonials-overlap-grid .float-wrapper:nth-child(3) {
+  animation-duration: 6.5s;
+  animation-delay: -3s;
+  z-index: 2;
+}
+
+/* Congela a flutuacao no hover: sem isso a carta continuaria subindo e
+   descendo por baixo do zoom, e o alvo do mouse ficaria escorregando.
+   O z-index sobe junto para a carta ampliada passar na frente das vizinhas. */
+.testimonials-overlap-grid .float-wrapper:hover,
+.testimonials-overlap-grid .float-wrapper:has(.testimonial-glass-card:hover) {
+  animation-play-state: paused;
+  z-index: 10;
+}
+
+@keyframes dmr-float-card {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+.testimonial-glass-card {
+  flex: 1;
+  max-width: 380px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 24px;
+  padding: 3.5rem 2.5rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+.testimonials-overlap-grid .float-wrapper:nth-child(1) .testimonial-glass-card {
+  transform: rotate(-3.5deg) translateY(15px) translateX(25px);
+  z-index: 1;
+}
+
+.testimonials-overlap-grid .float-wrapper:nth-child(2) .testimonial-glass-card {
+  transform: scale(1.03) rotate(0deg);
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+}
+
+.testimonials-overlap-grid .float-wrapper:nth-child(3) .testimonial-glass-card {
+  transform: rotate(3.5deg) translateY(15px) translateX(-25px);
+  z-index: 2;
+}
+
+/* O hover endireita a carta (rotate 0) e a traz pra frente. O translateY
+   negativo soma com a flutuacao ja congelada do wrapper, entao o salto e
+   sempre a partir de onde a carta estava - nunca de um ponto fixo. */
+/* O .float-wrapper entra no seletor so para igualar a especificidade das
+   regras de repouso (que usam :nth-child): sem ele o transform do leque
+   vencia o do hover e as cartas laterais nao ampliavam. */
+.testimonials-overlap-grid .float-wrapper .testimonial-glass-card:hover {
+  transform: scale(1.1) translateY(-20px) rotate(0deg);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 35px 70px -15px rgba(0, 159, 227, 0.35);
+}
+
+/* A do meio ja nasce em 1.03; sem um alvo maior o zoom dela mal apareceria
+   ao lado do das outras duas. */
+.testimonials-overlap-grid .float-wrapper:nth-child(2) .testimonial-glass-card:hover {
+  transform: scale(1.14) translateY(-20px) rotate(0deg);
+}
+
+.testimonial-stars {
+  color: #fbbf24;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* Tamanho por token e sem italico: nenhum outro texto do site e italico, e
+   era isso que fazia a secao parecer de outra tipografia. */
+.testimonial-glass-card .testimonial-text {
+  font-size: var(--_font-sizes---paragraphs--medium);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  color: #e2e8f0;
+  margin-bottom: 2.5rem;
+}
+
+.testimonial-user {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: auto;
+}
+
+/* Agora e a propria foto (<img>), nao uma caixa com icone dentro: por isso
+   object-fit em vez de flex/centralizacao, e a borda azul vira so um anel
+   em volta do retrato. */
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 159, 227, 0.35);
+  object-fit: cover;
+  display: block;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.testimonial-glass-card:hover .user-avatar {
+  border-color: rgba(0, 242, 254, 0.6);
+  box-shadow: 0 0 15px rgba(0, 159, 227, 0.35);
+}
+
+.user-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mesmo caso do titulo da secao: o h4 volta a herdar a fonte de titulo do
+   design system, como os demais nomes proprios do site. */
+.user-meta h4 {
+  font-size: var(--_font-sizes---headings--h6);
+  line-height: var(--_font-weight-line-height---line-heights--lh-130);
+  letter-spacing: var(--dmr-title-tracking);
+  color: #ffffff;
+  margin: 0 0 0.25rem 0;
+}
+
+.user-meta span {
+  font-size: var(--_font-sizes---paragraphs--caption);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  color: #94a3b8;
+}
+
+@media screen and (max-width: 991px) {
+  .testimonials-overlap-grid {
+    flex-flow: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .testimonials-overlap-grid .float-wrapper:nth-child(1) .testimonial-glass-card,
+  .testimonials-overlap-grid .float-wrapper:nth-child(2) .testimonial-glass-card,
+  .testimonials-overlap-grid .float-wrapper:nth-child(3) .testimonial-glass-card {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-glass-card,
+  .user-avatar {
+    transition: none;
+  }
+
+  .testimonials-overlap-grid .float-wrapper,
+  .dmr-media-card {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Painel do hero (after-banner) — headline centralizada + ghost button
+
+   Este e o painel que entra sobre o video no scroll do hero. Era ele o
+   "headline da section hero" do pedido — nao as letras DMR INFO, que ja
+   estavam centradas (medido: bloco 64..1372 num container de 1424).
+
+   O ghost usa o MESMO gradiente do botao solido, so que na borda: o
+   gradiente vai no fundo do elemento e um mask-composite recorta o miolo,
+   deixando so o anel de 2px. E o jeito de ter borda em gradiente sem
+   border-image (que nao respeita border-radius em todos os browsers).
+   -------------------------------------------------------------------------- */
+/* O design system usa margin-left:auto pra encostar o bloco na direita do
+   container (layout original do Arooth). Com margem dos dois lados ele volta
+   pro centro da tela — o .after-banner-wrap ja e 100vw, entao centralizar
+   aqui centraliza na viewport, nao so na coluna.
+
+   max-width maior que os 35,5rem originais para os dois botoes caberem lado
+   a lado sem quebrar linha. */
+.after-banner-content-wrap {
+  max-width: 44rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+/* O painel usava padding-top fixo de 196px, o que deixava o bloco encostado
+   no topo e ~400px de vazio embaixo. Centralizado, a sobra se divide igual em
+   cima e embaixo em qualquer altura de tela. */
+@media screen and (min-width: 992px) {
+  .after-banner-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 0;
+  }
+
+  .after-banner-wrap > .container {
+    width: 100%;
+  }
+}
+
+.after-banner-content-wrap .after-banner-details {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dmr-hero-actions {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* line-height 1.5 igual a do .primary-button-text: sem isso o ghost fecha em
+   50px contra os 56px do primary, porque o texto do primary vive num filho
+   com line-height propria e o do ghost herda a do wrap (1.1). */
+.dmr-ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  position: relative;
+  color: #2ebbf4;
+  background-color: transparent;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dmr-ghost-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(90deg, #2ebbf4 0%, #009fe3 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+/* Mesma animacao do .primary-button: mesmo lift, mesma sombra, mesma
+   duracao. A diferenca fica so no estado de repouso (contorno x
+   preenchimento). O gradiente entra no hover porque, sem preenchimento, o
+   texto branco sumia sobre fundo claro. */
+.dmr-ghost-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 159, 227, 0.4);
+  background-image: linear-gradient(90deg, #009fe3 0%, #2ebbf4 100%);
+  color: #ffffff;
+}
+
+.dmr-ghost-btn:hover::before {
+  background: linear-gradient(90deg, #009fe3 0%, #2ebbf4 100%);
+}
+
+.dmr-ghost-btn-arrow {
+  width: 1rem;
+  height: 1rem;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width=%2210%22 height=%2210%22 viewBox=%220 0 10 10%22 fill=%22none%22 xmlns=%22http://www.w3.org/2000/svg%22%3E %3Cpath d=%22M9.76558 0.750003C9.76558 0.335783 9.42977 1.01328e-06 9.01561 1.01328e-06L2.26561 0C1.85139 0 1.51561 0.335783 1.51561 0.750003C1.51561 1.16421 1.85139 1.5 2.26561 1.5H8.26561V7.5C8.26561 7.91421 8.60139 8.25 9.01561 8.25C9.42977 8.25 9.76558 7.91421 9.76558 7.5V0.750003ZM1.06066 9.76557L9.54597 1.28033L8.48528 0.219673L0 8.70495L1.06066 9.76557Z%22 fill=%22%230040C1%22/%3E %3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg width=%2210%22 height=%2210%22 viewBox=%220 0 10 10%22 fill=%22none%22 xmlns=%22http://www.w3.org/2000/svg%22%3E %3Cpath d=%22M9.76558 0.750003C9.76558 0.335783 9.42977 1.01328e-06 9.01561 1.01328e-06L2.26561 0C1.85139 0 1.51561 0.335783 1.51561 0.750003C1.51561 1.16421 1.85139 1.5 2.26561 1.5H8.26561V7.5C8.26561 7.91421 8.60139 8.25 9.01561 8.25C9.42977 8.25 9.76558 7.91421 9.76558 7.5V0.750003ZM1.06066 9.76557L9.54597 1.28033L8.48528 0.219673L0 8.70495L1.06066 9.76557Z%22 fill=%22%230040C1%22/%3E %3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  transition: transform 0.3s ease;
+}
+
+.dmr-ghost-btn:hover .dmr-ghost-btn-arrow {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dmr-ghost-btn,
+  .dmr-ghost-btn-arrow {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Navegação mobile, faixa de contato e indicador de scroll
+
+   Quatro pedidos que se cruzam no mesmo componente, por isso ficam juntos:
+   hambúrguer no mobile, faixa de endereço que recolhe no scroll, header que
+   não pisca na abertura e a seta de scroll do hero.
+   -------------------------------------------------------------------------- */
+
+/* O header entra animado, mas na primeira pintura ele já precisa estar fora
+   da tela — sem isso a transição roda do nada e o menu "pisca". O script
+   inline do index.html põe esta classe junto com .is-hidden e o
+   dmr-header.js a remove no primeiro quadro seguinte. */
+.site-header.sem-transicao {
+  transition: none;
+}
+
+/* --- Faixa de contato que recolhe no scroll --- */
+/* Recolhe por max-height em vez de display:none para a saída ser animável.
+   O overflow é o que impede o conteúdo de vazar durante o recolhimento. */
+.top-bar {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+  max-height: 4rem;
+}
+
+.site-header.is-scrolled .top-bar {
+  max-height: 0;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .top-bar {
+    transition: none;
+  }
+}
+
+/* --- Botão hambúrguer --- */
+.dmr-nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid rgba(201, 224, 240, 0.9);
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.dmr-nav-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-color: var(--primary);
+}
+
+.dmr-nav-toggle-bar {
+  display: block;
+  width: 1.25rem;
+  height: 2px;
+  margin: 0 auto;
+  border-radius: 2px;
+  background-color: var(--eerie-black);
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+/* X: a primeira e a terceira barra giram até se cruzarem no centro, a do meio
+   some. O translateY é metade do passo entre barras (5px de gap + 2px). */
+.dmr-nav-toggle[aria-expanded="true"] .dmr-nav-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.dmr-nav-toggle[aria-expanded="true"] .dmr-nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.dmr-nav-toggle[aria-expanded="true"] .dmr-nav-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* --- Painel do menu mobile --- */
+.dmr-mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem 1.5rem 2rem;
+  background-color: rgba(255, 255, 255, 0.75);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(201, 224, 240, 0.7);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+  max-height: calc(100vh - 5rem);
+  overflow-y: auto;
+}
+
+.dmr-mobile-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.dmr-mobile-nav a {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(201, 224, 240, 0.6);
+  color: var(--eerie-black);
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.dmr-mobile-nav a:hover,
+.dmr-mobile-nav a:focus-visible {
+  color: var(--primary);
+}
+
+.dmr-mobile-cta {
+  justify-content: center;
+  text-align: center;
+}
+
+.dmr-mobile-contato {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+}
+
+.dmr-mobile-contato a {
+  color: var(--metal-saurus);
+  text-decoration: none;
+}
+
+.dmr-mobile-contato i {
+  color: var(--primary);
+  margin-right: 0.5rem;
+}
+
+@media screen and (max-width: 991px) {
+  .header .nav,
+  .header .btn-primary {
+    display: none;
+  }
+
+  .dmr-nav-toggle {
+    display: flex;
+  }
+
+  .dmr-mobile-menu:not([hidden]) {
+    display: flex;
+  }
+
+  /* --- Hero: layout próprio para telas pequenas ---
+     Sem as letras gigantes e sem o pin do scroll, o hero vira um bloco
+     simples: foto cobrindo a tela, véu escuro por cima para o texto ter
+     contraste, e o conteúdo centralizado. */
+  .after-banner-wrapper,
+  .after-banner-inner,
+  .after-banner-wrap {
+    min-height: 100vh;
+  }
+
+  /* A foto vive dentro de .banner-bg-wrap (absolute, z-index -1), que se
+     ajusta a .after-banner-wrap - por isso e o wrap que precisa ter a altura
+     da tela, nao o .after-banner-inner. */
+  .after-banner-wrap {
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding: 6rem 0 7rem;
+  }
+
+  .banner-bg-wrap .banner-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Veu dentro da propria camada da foto: fica acima da imagem (z-index 0) e
+     abaixo do texto, que esta fora de .banner-bg-wrap. */
+  .banner-bg-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: linear-gradient(180deg, rgba(2, 6, 23, 0.78) 0%, rgba(2, 6, 23, 0.5) 45%, rgba(2, 6, 23, 0.88) 100%);
+  }
+
+  .navbar-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+  }
+
+  .after-banner-content-wrap {
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .dmr-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .dmr-hero-actions .primary-button,
+  .dmr-hero-actions .dmr-ghost-btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* --- Indicador de scroll do hero --- */
+/* Cor escura por padrao: a abertura do hero no desktop e o gradiente azul
+   claro, onde branco sumiria. No mobile o hero e foto com veu escuro, entao
+   la ele inverte para branco. */
+.dmr-scroll-cue {
+  position: fixed;
+  left: 50%;
+  bottom: 1rem;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transform: translateX(-50%);
+  color: rgba(15, 23, 42, 0.65);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+/* Some assim que a leitura começa: depois do primeiro scroll ele já cumpriu
+   a função e só atrapalharia o conteúdo que sobe. */
+.dmr-scroll-cue.is-oculto {
+  opacity: 0;
+}
+
+.dmr-scroll-mouse {
+  position: relative;
+  display: block;
+  width: 1.5rem;
+  height: 2rem;
+  border: 2px solid currentColor;
+  border-radius: 1rem;
+}
+
+.dmr-scroll-wheel {
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  width: 3px;
+  height: 0.5rem;
+  margin-left: -1.5px;
+  border-radius: 2px;
+  background-color: currentColor;
+  animation: dmr-scroll-wheel 1.8s ease-in-out infinite;
+}
+
+.dmr-scroll-chevron {
+  display: block;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  animation: dmr-scroll-chevron 1.8s ease-in-out infinite;
+}
+
+.dmr-scroll-label {
+  font-size: var(--_font-sizes---paragraphs--caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@keyframes dmr-scroll-wheel {
+  0% {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+@keyframes dmr-scroll-chevron {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: rotate(45deg) translate(0, 0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: rotate(45deg) translate(2px, 2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dmr-scroll-wheel,
+  .dmr-scroll-chevron {
+    animation: none;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .dmr-scroll-cue {
+    bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .dmr-scroll-label {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Páginas internas
+
+   Na home o header fica escondido durante a abertura, então a primeira seção
+   pode começar em zero. Nas páginas internas ele está visível desde o topo e
+   é fixo: sem esta folga, a faixa de contato mais a barra do menu (juntas,
+   ~124px) cobririam o começo do conteúdo. 15rem = esses 124px mais o respiro
+   normal de seção.
+   -------------------------------------------------------------------------- */
+.pagina-interna {
+  padding-top: 15rem;
+}
+
+@media screen and (max-width: 991px) {
+  .pagina-interna {
+    padding-top: 11rem;
+  }
+}
+
+/* Na página interna o cabeçalho da seção é o único filho do bloco, então a
+   margem inferior dele viraria vazio morto antes da próxima seção. */
+.pagina-interna .dmr-head {
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   9. Blog — cards de pauta
+
+   Os selos existentes são todos de risco (vermelho/âmbar/laranja), porque
+   nasceram na seção de dores. A categoria de um artigo não é um alerta:
+   ganha uma variante neutra, no azul da marca.
+   -------------------------------------------------------------------------- */
+.dmr-dor-selo[data-nivel="pauta"] {
+  color: #0668ab;
+  background-color: #e3f2fb;
+}
+
+.dmr-dark-band .dmr-dor-selo[data-nivel="pauta"] {
+  color: #2ebbf4;
+  background-color: rgba(46, 187, 244, 0.14);
+}
+
+/* O selo é inline por padrão (nasceu dentro de um flex) e o ícone é um <img>,
+   também inline: soltos, os dois dividiam a mesma linha. Bloco em ambos põe o
+   selo onde ele pertence, entre o ícone e o título. */
+.dmr-pilar > .dmr-pilar-icon {
+  display: block;
+}
+
+.dmr-pilar .dmr-dor-selo {
+  display: block;
+  width: fit-content;
+  margin-bottom: 0.75rem;
+}
+
+/* Status da pauta: discreto, alinhado ao rodapé do card. Sai quando o artigo
+   for publicado e o card virar link. */
+.dmr-pauta-status {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--caption);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 1rem 0 0;
+}
+
+.dmr-pauta-status::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  background-color: #94a3b8;
+  vertical-align: middle;
+}
+
+.dmr-dark-band .dmr-pauta-status {
+  color: #94a3b8;
+}
+
+/* --------------------------------------------------------------------------
+   10. Página Sobre — copy v2.0
+
+   Três componentes que a estrutura nova pediu e não existiam: o CTA dentro do
+   cabeçalho de seção, a tabela de certificações e o bloco de promessa.
+   -------------------------------------------------------------------------- */
+
+/* O hero da Sobre termina em botão, coisa que os cabeçalhos da home não têm. */
+.dmr-head-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* Certificações: duas colunas — o que é, e o que garante para o cliente. Não
+   é <table> porque não há dado tabular cruzando linha e coluna; é uma lista
+   de definições, e <dl> é o elemento que diz isso. */
+.dmr-certs {
+  margin: 0;
+  border: 1px solid var(--azureish-white);
+  border-radius: var(--_spacing-radius---radius--xxl);
+  background-color: #ffffff40;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  overflow: hidden;
+}
+
+.dmr-cert-linha {
+  display: grid;
+  grid-template-columns: 20rem 1fr;
+  grid-column-gap: 2rem;
+  align-items: baseline;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--azureish-white);
+}
+
+.dmr-cert-linha:last-child {
+  border-bottom: 0;
+}
+
+.dmr-cert-nome {
+  color: var(--eerie-black);
+  font-size: var(--_font-sizes---paragraphs--medium);
+  font-weight: var(--_font-weight-line-height---font-weights--semibold);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.dmr-cert-garantia {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .dmr-cert-linha {
+    grid-template-columns: 1fr;
+    grid-row-gap: 0.5rem;
+    padding: 1.5rem;
+  }
+}
+
+/* Promessa: coluna estreita e centrada. O primeiro parágrafo é maior porque
+   são os três cenários — é o que precisa ser lido primeiro. */
+.dmr-promessa {
+  max-width: 46rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.dmr-promessa-cenarios {
+  color: #ffffff;
+  font-size: var(--_font-sizes---paragraphs--medium);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0 0 2rem;
+}
+
+.dmr-promessa-texto {
+  color: #cbd5e1;
+  font-size: var(--_font-sizes---paragraphs--small);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+}
+
+.dmr-promessa-destaque {
+  color: #ffffff;
+  font-family: var(--_fonts---fonts--title-font);
+  font-size: var(--_font-sizes---headings--h5);
+  line-height: var(--_font-weight-line-height---line-heights--lh-130);
+  letter-spacing: var(--dmr-title-tracking);
+  margin: 2.5rem 0 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Texto de apoio abaixo do botão do CTA. */
+.dmr-cta-apoio {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--caption);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  text-align: center;
+  margin: 1rem 0 0;
+}
+
+/* --------------------------------------------------------------------------
+   11. Página de Serviços
+
+   Cinco blocos de serviço com o mesmo desenho: texto de um lado, card de
+   entregáveis do outro, alternando o lado a cada serviço.
+   -------------------------------------------------------------------------- */
+
+/* Inverte a ordem visual sem mexer na ordem do HTML — o texto continua vindo
+   antes do card para quem lê por leitor de tela ou navega por teclado. */
+.dmr-split.is-invertido > *:first-child {
+  order: 2;
+}
+
+/* O card de entregáveis é o .dmr-cta-card do CTA, reaproveitado. Aqui ele
+   precisa de um cabeçalho com ícone. */
+.dmr-servico-card-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--azureish-white);
+}
+
+.dmr-servico-card-icon {
+  flex: none;
+  width: 3rem;
+  height: auto;
+}
+
+.dmr-servico-card-title {
+  color: var(--eerie-black);
+  font-size: var(--_font-sizes---headings--h6);
+  line-height: var(--_font-weight-line-height---line-heights--lh-130);
+  letter-spacing: var(--dmr-title-tracking);
+  margin: 0;
+}
+
+/* Tabela da visão geral. Aqui é dado tabular de verdade — serviço cruzando
+   dois atributos —, então é <table>, com scope nas células de cabeçalho. */
+.dmr-tabela-wrap {
+  border: 1px solid var(--azureish-white);
+  border-radius: var(--_spacing-radius---radius--xxl);
+  background-color: #ffffff40;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  overflow-x: auto;
+}
+
+.dmr-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.dmr-tabela thead th {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--caption);
+  font-weight: var(--_font-weight-line-height---font-weights--semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--azureish-white);
+  white-space: nowrap;
+}
+
+.dmr-tabela tbody tr {
+  border-bottom: 1px solid var(--azureish-white);
+}
+
+.dmr-tabela tbody tr:last-child {
+  border-bottom: 0;
+}
+
+.dmr-tabela th[scope="row"] {
+  color: var(--eerie-black);
+  font-size: var(--_font-sizes---paragraphs--medium);
+  font-weight: var(--_font-weight-line-height---font-weights--semibold);
+  letter-spacing: -0.02em;
+  padding: 1.5rem 2rem;
+  vertical-align: top;
+  min-width: 16rem;
+}
+
+.dmr-tabela td {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  padding: 1.5rem 2rem;
+  vertical-align: top;
+}
+
+/* Seção de integração: os três contras e o fechamento. */
+.dmr-integracao {
+  max-width: 46rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.dmr-contras {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 32rem;
+  margin: 0 auto 2.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.dmr-contra {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  color: #cbd5e1;
+  font-size: var(--_font-sizes---paragraphs--medium);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  text-align: left;
+}
+
+/* Contraponto do .dmr-check-icon: mesmo tamanho e alinhamento, um X em vez
+   do tique, em vermelho de risco — são os custos de não integrar. */
+.dmr-contra-icon {
+  position: relative;
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.25rem;
+  border-radius: 50%;
+  background-color: var(--dmr-risco-fg);
+}
+
+.dmr-contra-icon::before,
+.dmr-contra-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.5rem;
+  height: 2px;
+  margin: -1px 0 0 -0.25rem;
+  background-color: #ffffff;
+}
+
+.dmr-contra-icon::before {
+  transform: rotate(45deg);
+}
+
+.dmr-contra-icon::after {
+  transform: rotate(-45deg);
+}
+
+.dmr-integracao-texto {
+  color: #cbd5e1;
+  font-size: var(--_font-sizes---paragraphs--medium);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0 0 2rem;
+}
+
+.dmr-integracao-destaque {
+  color: #ffffff;
+  font-family: var(--_fonts---fonts--title-font);
+  font-size: var(--_font-sizes---headings--h5);
+  line-height: var(--_font-weight-line-height---line-heights--lh-130);
+  letter-spacing: var(--dmr-title-tracking);
+  margin: 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* A seta do ghost button aponta para baixo quando o link é uma âncora de
+   scroll na própria página. */
+.dmr-ghost-btn-arrow.is-baixo {
+  transform: rotate(90deg);
+}
+
+@media screen and (max-width: 991px) {
+  .dmr-split.is-invertido > *:first-child {
+    order: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   12. Página de Clientes
+   -------------------------------------------------------------------------- */
+
+/* Prova rápida logo abaixo dos CTAs do hero. */
+.dmr-head-apoio {
+  color: #94a3b8;
+  font-size: var(--_font-sizes---paragraphs--caption);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  margin: 1.5rem 0 0;
+}
+
+/* Setores: um card por segmento, com as três partes da copy (dor, entrega,
+   resultado) em colunas. A do resultado é destacada — é a que o decisor
+   procura. */
+.dmr-setores {
+  display: flex;
+  flex-direction: column;
+  grid-row-gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dmr-setor {
+  border: 1px solid var(--white);
+  border-radius: var(--_spacing-radius---radius--xxl);
+  background-color: #ffffff40;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  padding: 2rem;
+  box-shadow: 0 1px 3px #0f172a12;
+}
+
+.dmr-setor-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.dmr-setor-icon {
+  flex: none;
+  width: 3rem;
+  height: auto;
+}
+
+.dmr-setor-title {
+  color: var(--eerie-black);
+  font-size: var(--_font-sizes---headings--h6);
+  line-height: var(--_font-weight-line-height---line-heights--lh-130);
+  letter-spacing: var(--dmr-title-tracking);
+  margin: 0;
+}
+
+.dmr-setor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 2rem;
+  grid-row-gap: 1.5rem;
+}
+
+.dmr-setor-rotulo {
+  color: var(--primary);
+  font-size: var(--_font-sizes---paragraphs--caption);
+  font-weight: var(--_font-weight-line-height---font-weights--semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+}
+
+.dmr-setor-item.is-resultado .dmr-setor-rotulo {
+  color: var(--dmr-perda-fg);
+}
+
+.dmr-setor-texto {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.dmr-setor-item.is-resultado .dmr-setor-texto {
+  color: var(--eerie-black);
+  font-weight: var(--_font-weight-line-height---font-weights--semibold);
+}
+
+@media screen and (max-width: 991px) {
+  .dmr-setor-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Casos: citação, contexto e os três números do resultado. */
+.dmr-caso-contexto {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+}
+
+.dmr-caso-citacao {
+  margin: 0 0 2rem;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--primary);
+}
+
+.dmr-caso-citacao p {
+  color: var(--eerie-black);
+  font-size: var(--_font-sizes---paragraphs--medium);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
+}
+
+.dmr-caso-citacao footer {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--caption);
+}
+
+.dmr-caso-rotulo {
+  color: var(--primary);
+  font-size: var(--_font-sizes---paragraphs--caption);
+  font-weight: var(--_font-weight-line-height---font-weights--semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+}
+
+.dmr-caso-numeros {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1.5rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--azureish-white);
+}
+
+.dmr-caso-numero {
+  color: var(--eerie-black);
+  font-family: var(--_fonts---fonts--title-font);
+  font-size: var(--_font-sizes---headings--h5);
+  line-height: var(--_font-weight-line-height---line-heights--lh-100);
+  letter-spacing: var(--dmr-title-tracking);
+  margin: 0 0 0.5rem;
+}
+
+.dmr-caso-legenda {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--caption);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .dmr-caso-numeros {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Coluna do "antes" na tabela comparativa: cinza e sem peso, para o olho
+   cair na coluna da direita. */
+.dmr-tabela-antes {
+  color: #94a3b8;
+}
+
+/* Mural de depoimentos: quatro cartões de vidro escuro. */
+.dmr-mural {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dmr-mural-card {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--_spacing-radius---radius--xxl);
+  background-color: rgba(255, 255, 255, 0.04);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  padding: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+.dmr-mural-card blockquote {
+  margin: 0;
+}
+
+.dmr-mural-texto {
+  color: #e2e8f0;
+  font-size: var(--_font-sizes---paragraphs--medium);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+}
+
+.dmr-mural-autor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.dmr-mural-autor strong {
+  color: #ffffff;
+  font-family: var(--_fonts---fonts--title-font);
+  font-size: var(--_font-sizes---headings--h6);
+  letter-spacing: var(--dmr-title-tracking);
+  font-weight: var(--_font-weight-line-height---font-weights--regular);
+}
+
+.dmr-mural-autor span {
+  color: #94a3b8;
+  font-size: var(--_font-sizes---paragraphs--caption);
+}
+
+@media screen and (max-width: 767px) {
+  .dmr-mural {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Etapas da transição: número grande à esquerda, texto à direita. */
+.dmr-etapas {
+  display: flex;
+  flex-direction: column;
+  grid-row-gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dmr-etapa {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  border: 1px solid var(--white);
+  border-radius: var(--_spacing-radius---radius--xxl);
+  background-color: #ffffff40;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  padding: 2rem;
+  box-shadow: 0 1px 3px #0f172a12;
+}
+
+.dmr-etapa-numero {
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-image: linear-gradient(90deg, #2ebbf4 0%, #009fe3 100%);
+  color: #ffffff;
+  font-family: var(--_fonts---fonts--title-font);
+  font-size: var(--_font-sizes---headings--h6);
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.dmr-etapa-title {
+  color: var(--eerie-black);
+  font-size: var(--_font-sizes---headings--h6);
+  line-height: var(--_font-weight-line-height---line-heights--lh-130);
+  letter-spacing: var(--dmr-title-tracking);
+  margin: 0 0 0.5rem;
+}
+
+.dmr-etapa-desc {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--small);
+  line-height: var(--_font-weight-line-height---line-heights--lh-150);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .dmr-etapa {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   13. Uma animação para todos os botões
+
+   O site tinha quatro comportamentos de hover convivendo:
+
+   - .primary-button, .header .btn-primary, .dmr-mobile-cta e .dmr-ghost-btn
+     já subiam 2px com sombra azul e seta deslizando 4px;
+   - .more-button (75 instâncias, os "Saiba mais") não tinha regra nenhuma
+     aqui — herdava a animação do design system;
+   - .dmr-servico-link movia a seta na diagonal, 3px em cada eixo, e não subia;
+   - .dmr-ghost-button preenchia de azul sem subir (classe morta, sem uso no
+     HTML, mantida só para não quebrar quem venha a usá-la).
+
+   Daqui para baixo todos compartilham o mesmo gesto: sobe 2px, mesma sombra,
+   seta desliza 4px na horizontal, mesma duração e mesma curva.
+   -------------------------------------------------------------------------- */
+
+.primary-button,
+.header .btn,
+.dmr-mobile-cta,
+.dmr-ghost-btn,
+.dmr-ghost-button,
+.more-button,
+.dmr-servico-link {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background-image 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.primary-button:hover,
+.header .btn-primary:hover,
+.dmr-mobile-cta:hover,
+.dmr-ghost-btn:hover,
+.dmr-ghost-button:hover,
+.more-button:hover,
+.dmr-servico-link:hover {
+  transform: translateY(-2px);
+}
+
+/* A sombra azul só nos botões que têm corpo — num link de texto ela flutuaria
+   no vazio. */
+.primary-button:hover,
+.header .btn-primary:hover,
+.dmr-mobile-cta:hover,
+.dmr-ghost-btn:hover,
+.dmr-ghost-button:hover {
+  box-shadow: 0 6px 15px rgba(0, 159, 227, 0.4);
+}
+
+/* Todas as setas deslizam o mesmo tanto, no mesmo eixo. */
+.primary-button:hover .primary-button-arrow-wrap,
+.dmr-ghost-btn:hover .dmr-ghost-btn-arrow,
+.header .btn:hover i,
+.dmr-mobile-cta:hover i,
+.more-button:hover .more-button-arrow-wrap,
+.dmr-servico-link:hover .dmr-servico-arrow {
+  transform: translateX(4px);
+}
+
+.primary-button .primary-button-arrow-wrap,
+.dmr-ghost-btn .dmr-ghost-btn-arrow,
+.header .btn i,
+.dmr-mobile-cta i,
+.more-button .more-button-arrow-wrap,
+.dmr-servico-link .dmr-servico-arrow {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* A seta que aponta para baixo (âncora de scroll na própria página) desce em
+   vez de ir para o lado — mesma distância, mesmo tempo. */
+.dmr-ghost-btn:hover .dmr-ghost-btn-arrow.is-baixo {
+  transform: rotate(90deg) translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary-button,
+  .header .btn,
+  .dmr-mobile-cta,
+  .dmr-ghost-btn,
+  .dmr-ghost-button,
+  .more-button,
+  .dmr-servico-link,
+  .primary-button .primary-button-arrow-wrap,
+  .dmr-ghost-btn .dmr-ghost-btn-arrow,
+  .header .btn i,
+  .dmr-mobile-cta i,
+  .more-button .more-button-arrow-wrap,
+  .dmr-servico-link .dmr-servico-arrow {
+    transition: none;
+  }
+
+  .primary-button:hover,
+  .header .btn-primary:hover,
+  .dmr-mobile-cta:hover,
+  .dmr-ghost-btn:hover,
+  .dmr-ghost-button:hover,
+  .more-button:hover,
+  .dmr-servico-link:hover {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   14. Foto no card de pauta do blog
+
+   Sangra até a borda do card: o padding de 2rem 1.5rem é anulado por margem
+   negativa, para a imagem encostar nas laterais e no topo, como capa. O
+   border-radius de cima acompanha o do card; o de baixo fica reto, porque ali
+   a foto encontra o texto.
+   -------------------------------------------------------------------------- */
+.dmr-pauta-foto {
+  display: block;
+  width: calc(100% + 3rem);
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin: -2rem -1.5rem 1.5rem;
+  border-radius: var(--_spacing-radius---radius--xl) var(--_spacing-radius---radius--xl) 0 0;
+}
+
+/* O card vira o recorte da foto: sem isso, a sangria vazaria os cantos
+   arredondados. */
+.dmr-pilar:has(.dmr-pauta-foto) {
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   15. Preenchimento do hover dos cards de serviço
+
+   O design system pinta esse fundo com um gradiente próprio de três paradas
+   (powder-blue → crayola → light-blue), que sobe do azul-marinho ao azul
+   claro e não é o azul da marca. Trocado pelo mesmo gradiente dos botões,
+   para o site ter um azul só.
+
+   O sentido continua sendo 180deg — o preenchimento cresce de baixo para
+   cima (height: 0% → 100%), então um gradiente horizontal ficaria imóvel
+   durante a animação.
+   -------------------------------------------------------------------------- */
+.single-service-hover-bg {
+  background-image: linear-gradient(180deg, #2ebbf4 0%, #009fe3 100%);
+}
+
+/* --------------------------------------------------------------------------
+   16. Sem moldura branca nas fotos de Sobre, Suporte, Riscos e Origem
+
+   .dmr-media-frame nasce com fundo branco + 0.75rem de padding (o "passe-
+   partout" do design system). Pedido do cliente: tirar isso destas fotos da
+   home e da secao "Por que a DMR existe" (#origem) da pagina Sobre. Escopado
+   por id de secao, nao pela classe, porque .dmr-media-frame tambem aparece
+   em qualquer outra secao futura que reaproveite o mesmo componente sem
+   pedir a mesma mudanca.
+   -------------------------------------------------------------------------- */
+#sobre .dmr-media-frame,
+#suporte .dmr-media-frame,
+#riscos .dmr-media-frame,
+#origem .dmr-media-frame {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* --------------------------------------------------------------------------
+   17. Botões de "Saiba mais" na seção Serviços (Portfólio de soluções)
+
+   O círculo da seta usava --primary solido (#0668ab). Escopado a #servicos,
+   igual ao restante das customizacoes desta secao, para nao alterar os
+   "Saiba mais" do resto do site.
+   -------------------------------------------------------------------------- */
+#servicos .more-button-arrow-wrap {
+  background-image: linear-gradient(90deg, #2ebbf4 0%, #009fe3 100%);
+}
+
+/* --------------------------------------------------------------------------
+   18. Fundo do hero da página Sobre
+
+   O hero (#topo) usa .dmr-dark-band, que ate aqui reaproveitava o mesmo
+   fundo abstrato de Numeros/Diferenciais/Promessa. Troca so a foto - o veu
+   continua o mesmo 95%/80% compartilhado com o resto do site.
+
+   Já testamos um veu mais claro (70%/60%) para a foto aparecer mais. A conta
+   de contraste (media da regiao de texto x #94a3b8) fechava em ~5:1, mas na
+   pratica o texto competia com o ruido visual da foto (codigo binario,
+   estrelas) por baixo - media nao captura pontos localizados atras de cada
+   letra. Voltou ao veu padrao do site, que ja e o comprovado nas outras
+   faixas escuras. */
+#topo.dmr-dark-band {
+  background-image: linear-gradient(135deg, rgba(2, 6, 23, 0.95) 0%, rgba(2, 6, 23, 0.8) 100%),
+    url("../img/pagina_sobre-1376.webp");
+}
+
+/* --------------------------------------------------------------------------
+   19. Carrossel de logos — Certificações & estrutura (página Sobre)
+
+   Um logo por vez, em crossfade - nao a esteira contínua da home. Os
+   arquivos sao os MESMOS 5 logos raster coloridos que a esteira da home usa
+   (assets/img/tech/*.webp).
+
+   Mecanica: 5 slides empilhados por position:absolute, cada um com a MESMA
+   keyframe e um animation-delay proprio (0s, 3s, 6s...). O delay so atrasa a
+   primeira volta - depois disso os 5 ficam permanentemente defasados um do
+   outro, girando em loop com o mesmo periodo. Nenhum JS: e o mesmo
+   raciocinio dos outros ciclos do site (dmr-marquee, dmr-pulse), so que aqui
+   cada elemento fica a maior parte do ciclo em opacity:0 e so "acende" na
+   sua fatia de 1/5 do tempo.
+   -------------------------------------------------------------------------- */
+.dmr-certs-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 22rem;
+  overflow: hidden;
+}
+
+.dmr-certs-carousel:hover .dmr-cert-slide {
+  animation-play-state: paused;
+}
+
+.dmr-cert-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  opacity: 0;
+  animation: dmr-cert-slide 15s infinite;
+}
+
+/* Caixa fixa igual para os 5 logos: altura sozinha nao bastava porque cada
+   marca tem uma proporcao bem diferente (Fortinet e um wordmark bem largo e
+   baixo, AWS e quase quadrado) - com altura unica, Fortinet ocupava a largura
+   toda e AWS sobrava minusculo do lado. object-fit:contain encaixa cada
+   logo dentro da MESMA caixa, respeitando a proporcao de cada um. */
+.dmr-cert-slide-logo {
+  width: 14rem;
+  height: 4.5rem;
+  object-fit: contain;
+}
+
+/* 5 fatias de 20% no ciclo de 15s (3s cada): entra, segura ~2,4s, sai, e
+   fica apagado pelo resto da volta ate a proxima vez que chegar sua vez. */
+@keyframes dmr-cert-slide {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  2% {
+    opacity: 1;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  20% {
+    opacity: 0;
+  }
+}
+
+/* Sem a keyframe, o estado parado de .dmr-cert-slide e opacity:0 - os 5
+   ficariam invisiveis ao mesmo tempo. Aqui eles voltam ao fluxo normal,
+   lado a lado e todos visiveis de uma vez, sem depender de nenhum ciclo. */
+@media (prefers-reduced-motion: reduce) {
+  .dmr-certs-carousel {
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .dmr-cert-slide {
+    position: static;
+    inset: auto;
+    opacity: 1;
+    animation: none;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .dmr-certs-carousel {
+    min-height: 16rem;
+  }
+
+  .dmr-cert-slide-logo {
+    width: 10rem;
+    height: 3.25rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   20. Formulário de contato (página Contato)
+
+   Sem backend: o <form> envia por action="mailto:", entao os campos so
+   precisam de name legivel (vira "Nome: valor" no corpo do e-mail). Cartao de
+   vidro igual ao resto do site; campos em cima de --ghost-white para nao se
+   confundirem com o proprio cartao translucido.
+   -------------------------------------------------------------------------- */
+.dmr-form-card {
+  border: 1px solid var(--white);
+  border-radius: var(--_spacing-radius---radius--xxl);
+  background-color: #ffffff40;
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  padding: 2.5rem;
+}
+
+.dmr-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.dmr-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.dmr-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dmr-form-label {
+  color: var(--eerie-black);
+  font-family: var(--_fonts---fonts--paragraph-font);
+  font-size: var(--_font-sizes---paragraphs--small);
+  font-weight: var(--_font-weight-line-height---font-weights--semibold);
+}
+
+.dmr-form-input {
+  width: 100%;
+  border: 1px solid var(--azureish-white);
+  border-radius: var(--_spacing-radius---radius--xs);
+  background-color: var(--ghost-white);
+  color: var(--eerie-black);
+  font-family: var(--_fonts---fonts--paragraph-font);
+  font-size: var(--_font-sizes---paragraphs--small);
+  padding: 0.875rem 1.125rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dmr-form-input::placeholder {
+  color: var(--independence);
+}
+
+.dmr-form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 64, 193, 0.15);
+}
+
+.dmr-form-textarea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+.dmr-form-submit {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
+
+.dmr-form-nota {
+  color: var(--metal-saurus);
+  font-size: var(--_font-sizes---paragraphs--caption);
+  margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .dmr-form-card {
+    padding: 1.75rem;
+  }
+
+  .dmr-form-row {
+    grid-template-columns: 1fr;
+  }
+}

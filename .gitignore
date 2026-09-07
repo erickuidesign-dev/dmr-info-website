@@ -1,0 +1,9 @@
+# Ferramentas internas de desenvolvimento (preview de ícones/tokens), não fazem parte do site publicado
+_dev/
+
+# Backup de logos antigos (webp pre-conversão), superado pelos arquivos atuais em assets/img/tech/
+assets/img/tech - Copia/
+
+# SO / editor
+.DS_Store
+Thumbs.db

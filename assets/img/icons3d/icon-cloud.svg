@@ -1,0 +1,16 @@
+<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="28" y="28" width="164" height="164" rx="40" fill="url(#dmrIconGrad)"/>
+<rect x="28" y="28" width="164" height="164" rx="40" fill="white" fill-opacity="0.08"/>
+<ellipse cx="80" cy="72" rx="58" ry="40" fill="white" fill-opacity="0.22" filter="url(#blur1)"/>
+<rect x="28.5" y="28.5" width="163" height="163" rx="39.5" stroke="white" stroke-opacity="0.35"/>
+<g transform="translate(54.80 54.80) scale(4.60)"><g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"><path d="M12 13v8m-8-6.101A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="m8 17l4-4l4 4"/></g></g>
+<defs>
+<linearGradient id="dmrIconGrad" x1="46" y1="52" x2="192" y2="176" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2ebbf4"/>
+<stop offset="1" stop-color="#009fe3"/>
+</linearGradient>
+<filter id="blur1" x="-50%" y="-50%" width="200%" height="200%">
+<feGaussianBlur stdDeviation="14"/>
+</filter>
+</defs>
+</svg>

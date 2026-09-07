@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<!--
+  DMR Info Tecnologia - Infraestrutura e Redes
+
+  Pagina dedicada do card "Saiba mais" da secao Portfolio de Solucoes (home).
+  Copy reaproveitada de servicos/index.html (secao #infraestrutura-redes), que ja tinha o
+  texto completo escrito e aprovado no estilo do site - so reflui pra uma
+  pagina propria em vez de uma secao dentro da pagina de servicos (que
+  permanece desconectada do nav por decisao anterior).
+-->
+<html class="w-mod-js" lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+  <link rel="icon" type="image/png" href="../../assets/img/favicon-dmr.png" />
+  <link rel="apple-touch-icon" href="../../assets/img/favicon-dmr.png" />
+
+  <title>Infraestrutura e Redes Corporativas · Cabeamento e Wi-Fi · DMR Info</title>
+  <meta name="description" content="Cabeamento estruturado Cat6, Wi-Fi corporativo com cobertura planejada, racks organizados e switches gerenciáveis. Projeto documentado e certificado." />
+
+  <meta property="og:title" content="Infraestrutura e Redes Corporativas · Cabeamento e Wi-Fi · DMR Info" />
+  <meta property="og:description" content="Cabeamento estruturado Cat6, Wi-Fi corporativo com cobertura planejada, racks organizados e switches gerenciáveis. Projeto documentado e certificado." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link href="../../assets/fonts/fonts.css" rel="stylesheet" type="text/css" />
+  <link href="../../assets/fonts/inter.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link href="../../assets/css/_designsystem.css" rel="stylesheet" type="text/css" />
+  <link href="../../assets/css/dmr.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="page-wrapper">
+<div class="site-header" id="site-header">
+  <div class="top-bar">
+    <div class="container top-bar-container">
+      <div class="contact-info">
+        <span><i class="ti ti-phone"></i> +55 11 3164-7640</span>
+        <span><i class="ti ti-mail"></i> contato@dmrinfo.com.br</span>
+        <span><i class="ti ti-map-pin"></i> Rua Palmera Lacca, 183 – Sala 3 – Sobre Loja</span>
+      </div>
+      <div class="top-bar-right">
+        <div class="social-icons">
+          <a href="https://wa.me/5511983161635" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+          <a href="https://www.instagram.com/dmrinfo_?stkn=MW15MThqa202aDZwcA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
+          <a href="https://www.linkedin.com/company/dmr-info-solucoes-tecnologicas/posts/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+        </div>
+        <a href="https://servidorseguro.mysuite2.com.br/client/login.php?sl=dmri" target="_blank" rel="noopener noreferrer" class="btn-sm">
+          <i class="ti ti-headset"></i> Área do Cliente
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="../../index.html">
+          <img src="../../assets/img/logo-header.png" alt="DMR Info Tecnologia" style="height: 50px; width: auto;" width="223" height="101" />
+        </a>
+      </div>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="../../index.html">Início</a></li>
+          <li><a href="../../sobre/index.html">Sobre</a></li>
+          <li><a href="../../index.html#servicos" aria-current="page">Serviços</a></li>
+          <li><a href="../../blog/index.html">Blog</a></li>
+          <li><a href="../../index.html#depoimentos">Clientes</a></li>
+          <li><a href="../../contato/index.html">Contato</a></li>
+        </ul>
+      </nav>
+      <a href="https://wa.me/5511983161635" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Obter Orçamento <i class="ti ti-arrow-right"></i></a>
+      <button class="dmr-nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="dmr-mobile-menu">
+        <span class="dmr-nav-toggle-bar" aria-hidden="true"></span>
+        <span class="dmr-nav-toggle-bar" aria-hidden="true"></span>
+        <span class="dmr-nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Painel do menu mobile. Fora do <header> para o blur do header não virar
+       o fundo do painel, e com hidden por padrão: sem JS ele nunca abre, mas o
+       menu completo continua acessível no header em telas grandes. -->
+  <div class="dmr-mobile-menu" id="dmr-mobile-menu" hidden>
+    <nav class="dmr-mobile-nav" aria-label="Menu principal">
+      <a href="../../index.html">Início</a>
+      <a href="../../sobre/index.html">Sobre</a>
+      <a href="../../index.html#servicos" aria-current="page">Serviços</a>
+      <a href="../../blog/index.html">Blog</a>
+      <a href="../../index.html#depoimentos">Clientes</a>
+      <a href="../../contato/index.html">Contato</a>
+    </nav>
+    <a href="https://wa.me/5511983161635" target="_blank" rel="noopener noreferrer" class="btn btn-primary dmr-mobile-cta">Obter Orçamento <i class="ti ti-arrow-right"></i></a>
+    <div class="dmr-mobile-contato">
+      <a href="tel:+551131647640"><i class="ti ti-phone"></i> +55 11 3164-7640</a>
+      <a href="https://wa.me/5511983161635" target="_blank" rel="noopener noreferrer"><i class="ti ti-brand-whatsapp"></i> +55 11 98316-1635</a>
+      <a href="mailto:contato@dmrinfo.com.br"><i class="ti ti-mail"></i> contato@dmrinfo.com.br</a>
+      <span><i class="ti ti-map-pin"></i> Rua Palmera Lacca, 183 – Sala 3 – Sobre Loja</span>
+    </div>
+  </div>
+  </div>
+
+  <!-- Roda durante o parse, antes do primeiro paint: sem isso o header pisca
+       visível na abertura ate o dmr-header.js rodar no DOMContentLoaded.
+       Continua sendo o JS quem esconde - se este script nao rodar, o menu
+       fica visivel, que e a degradacao segura. -->
+  <script>
+    (function () {
+      var h = document.getElementById("site-header");
+      var temHero = document.querySelector(".banner-section");
+      if (h && temHero && window.scrollY < window.innerHeight * 0.5) h.classList.add("is-hidden", "sem-transicao");
+    })();
+  </script>
+
+  <!-- HERO -->
+  <section class="section dmr-dark-band pagina-interna" id="topo">
+    <div class="glass-bg-glow" aria-hidden="true">
+      <div class="glow-sphere sphere-cyan" style="top: 10%; left: 12%; width: 280px; height: 280px;"></div>
+      <div class="glow-sphere sphere-blue" style="bottom: 8%; right: 12%; width: 320px; height: 320px;"></div>
+    </div>
+    <div class="container">
+      <div class="dmr-head" data-reveal="up">
+        <div class="section-subtile-wrap">
+          <div class="subtitle-wrap w-variant-89dd2e21-7faa-27ca-a536-110057684450" data-wf--subtitle--variant="borders">
+            <div class="subtitle-flex-wrap">
+              <span class="dmr-eyebrow-dot" aria-hidden="true"></span>
+              <div class="subtitle-text">Infraestrutura</div>
+            </div>
+          </div>
+        </div>
+        <h1 class="section-title margin-bottom">Rede lenta é produtividade perdida. <span class="section-title-mark">Rede instável é risco operacional.</span></h1>
+        <p class="dmr-head-lead">Cada 100ms de latência a mais custa produtividade real. Uma rede que cai nos momentos críticos não é um problema de TI — é um problema de negócio.</p>
+        <div class="dmr-head-cta">
+          <a href="../../contato/index.html" class="primary-button w-inline-block">
+            <div class="primary-button-flex">
+              <div class="primary-button-text-wrap">
+                <div aria-label="Fale Conosco" class="primary-button-text">Fale Conosco</div>
+              </div>
+              <div class="primary-button-arrow-wrapper">
+                <div class="primary-button-arrow-wrap"></div>
+              </div>
+            </div>
+          </a>
+          <a href="../../index.html#servicos" class="dmr-ghost-btn">Ver todos os serviços<span class="dmr-ghost-btn-arrow is-baixo" aria-hidden="true"></span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="detalhe">
+    <div class="container">
+      <div class="dmr-split is-invertido">
+        <div class="dmr-split-text" data-reveal="up">
+          <div class="section-subtile-wrap">
+            <div class="subtitle-wrap w-variant-89dd2e21-7faa-27ca-a536-110057684450" data-wf--subtitle--variant="borders">
+              <div class="subtitle-flex-wrap">
+                <span class="dmr-eyebrow-dot" aria-hidden="true"></span>
+                <div class="subtitle-text">O que você recebe</div>
+              </div>
+            </div>
+          </div>
+          <h2 class="section-title margin-bottom">Infraestrutura e Redes</h2>
+          <p class="dmr-split-support">Projetamos e instalamos redes corporativas que aguentam a carga real do seu dia a dia — não a carga teórica do folheto do fabricante. Cabeamento estruturado Cat6, Wi-Fi corporativo com cobertura planejada, racks impecavelmente organizados, switches gerenciáveis e segmentação de rede por departamento.</p>
+          <p class="dmr-split-support"><strong>Cada projeto é documentado e certificado.</strong> Você sabe exatamente o que foi instalado, onde está e como funciona.</p>
+        </div>
+
+        <div class="dmr-cta-card" data-reveal="up" data-reveal-delay="120">
+          <div class="dmr-servico-card-head">
+            <img class="dmr-servico-card-icon" src="../../assets/img/icons3d/icon-integra.svg" alt="" loading="lazy" width="220" height="220" />
+            <h3 class="dmr-servico-card-title">O que você recebe</h3>
+          </div>
+          <ul class="dmr-cta-checklist" role="list">
+            <li class="dmr-cta-check"><span class="dmr-check-icon" aria-hidden="true"></span>Projeto de rede sob medida para o layout do seu escritório</li>
+            <li class="dmr-cta-check"><span class="dmr-check-icon" aria-hidden="true"></span>Cabeamento estruturado Cat6 certificado e documentado</li>
+            <li class="dmr-cta-check"><span class="dmr-check-icon" aria-hidden="true"></span>Wi-Fi corporativo com roaming contínuo e QoS configurado</li>
+            <li class="dmr-cta-check"><span class="dmr-check-icon" aria-hidden="true"></span>Racks, patch panels e switches gerenciáveis com configuração avançada</li>
+            <li class="dmr-cta-check"><span class="dmr-check-icon" aria-hidden="true"></span>Segmentação de rede por departamento (VLANs)</li>
+            <li class="dmr-cta-check"><span class="dmr-check-icon" aria-hidden="true"></span>Documentação técnica completa entregue no final</li>
+          </ul>
+          <div class="dmr-cta-button">
+            <a href="../../contato/index.html" class="primary-button w-inline-block">
+              <div class="primary-button-flex">
+                <div class="primary-button-text-wrap">
+                  <div aria-label="Solicitar Projeto de Rede" class="primary-button-text">Solicitar Projeto de Rede</div>
+                </div>
+                <div class="primary-button-arrow-wrapper">
+                  <div class="primary-button-arrow-wrap"></div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section" id="auditoria">
+    <div class="container">
+      <div class="dmr-cta" data-reveal="up">
+        <div class="dmr-cta-texto">
+          <div class="section-subtile-wrap">
+          <div class="subtitle-wrap w-variant-89dd2e21-7faa-27ca-a536-110057684450" data-wf--subtitle--variant="borders">
+            <div class="subtitle-flex-wrap">
+              <span class="dmr-eyebrow-dot" aria-hidden="true"></span>
+              <div class="subtitle-text">Auditoria gratuita</div>
+            </div>
+          </div>
+        </div>
+          <h2 class="section-title margin-bottom">Não sabe por onde começar? <span class="section-title-mark">Comece pela auditoria gratuita.</span></h2>
+          <p class="dmr-cta-closing">Mapeamos toda a sua infraestrutura — rede, servidores, segurança e backup. Você recebe um relatório com o que está funcionando, o que está vulnerável e o que fazer primeiro.</p>
+        </div>
+
+        <div class="dmr-cta-card">
+          <ul class="dmr-cta-checklist" role="list">
+            <li class="dmr-cta-check"><span class="dmr-check-icon" aria-hidden="true"></span>Sem custo</li>
+            <li class="dmr-cta-check"><span class="dmr-check-icon" aria-hidden="true"></span>Sem compromisso</li>
+            <li class="dmr-cta-check"><span class="dmr-check-icon" aria-hidden="true"></span>Com um especialista, não um vendedor</li>
+          </ul>
+          <div class="dmr-cta-button">
+            <a href="../../contato/index.html" class="primary-button w-inline-block">
+              <div class="primary-button-flex">
+                <div class="primary-button-text-wrap">
+                  <div aria-label="Fale Conosco" class="primary-button-text">Fale Conosco</div>
+                </div>
+                <div class="primary-button-arrow-wrapper">
+                  <div class="primary-button-arrow-wrap"></div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<footer class="footer">
+    <div class="footer-cta-wrap">
+      <div class="container">
+        <div class="cta-text-wrapper">
+          <div class="cta-links-grid">
+            <a class="cta-social-link-wrap w-inline-block" href="https://wa.me/5511983161635" target="_blank" rel="noopener noreferrer">
+              <div class="cta-social-link-flex">
+                <span class="dmr-footer-social-icon" aria-hidden="true" data-icone="whatsapp"></span>
+                <div class="cta-social-link-text">WhatsApp</div>
+              </div>
+              <div class="cta-link-hover-bg"></div>
+            </a>
+            <a class="cta-social-link-wrap w-inline-block" href="mailto:contato@dmrinfo.com.br">
+              <div class="cta-social-link-flex">
+                <span class="dmr-footer-social-icon" aria-hidden="true" data-icone="mail"></span>
+                <div class="cta-social-link-text">E-mail</div>
+              </div>
+              <div class="cta-link-hover-bg"></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-top-wrap">
+      <div class="container">
+        <div class="footer-flex-wrap">
+          <div class="footer-content-wrap">
+            <a aria-current="page" class="footer-logo-wrap w-nav-brand w--current" href="../../index.html">
+              <span class="subtitle-text">DMR INFO</span>
+            </a>
+            <p class="footer-details">TI corporativa e segurança cibernética para empresas que não toleram downtime. 10+ anos · São Paulo, SP.</p>
+            <div class="newsletter-form-wrap w-form">
+              <form aria-label="Newsletter Form" data-name="Newsletter Form" id="wf-form-Newsletter-Form" method="get" name="wf-form-Newsletter-Form">
+                <div class="newsletter-field-wrap">
+                  <input class="newsletter-field w-input" data-name="Newsletter Email" id="Newsletter-Email" maxlength="256" name="Newsletter-Email" placeholder="Seu e-mail" required type="email" />
+                  <input class="newsletter-submit w-button" data-wait="" type="submit" value="" />
+                </div>
+              </form>
+              <div aria-label="Newsletter Form success" class="success-message-wrapper w-form-done" role="region" tabindex="-1">
+                <div class="success-message">Inscrição confirmada. Você vai receber nosso conteúdo técnico.</div>
+              </div>
+              <div aria-label="Newsletter Form failure" class="error-message-wrap w-form-fail" role="region" tabindex="-1">
+                <div class="error-message">Algo deu errado. Tente novamente.</div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-right-wrap">
+            <div class="quick-links-flex-wrap">
+              <div class="quick-links-row one">
+                <div class="single-quick-links-wrapper">
+                  <h6 class="quick-links-title">Links rápidos</h6>
+                  <div class="footer-links-flex"><div class="footer-links-row"><a class="footer-link" href="../../index.html">Início</a><div class="footer-link-divider"></div><a class="footer-link" href="../../sobre/index.html">Sobre</a></div><div class="footer-links-row"><a class="footer-link" href="../../index.html#servicos">Serviços</a><div class="footer-link-divider"></div><a class="footer-link" href="../../blog/index.html">Blog</a></div><div class="footer-links-row"><a class="footer-link" href="../../contato/index.html">Contato</a></div></div>
+                </div>
+                <div class="single-quick-links-wrapper">
+                  <h6 class="quick-links-title">Serviços</h6>
+                  <div class="footer-links-flex"><div class="footer-links-row"><a class="footer-link" href="../consultoria/index.html">Consultoria em TI</a><div class="footer-link-divider"></div><a class="footer-link" href="../infraestrutura-redes/index.html" aria-current="page">Infraestrutura e Redes</a></div><div class="footer-links-row"><a class="footer-link" href="../seguranca-lgpd/index.html">Segurança & LGPD</a><div class="footer-link-divider"></div><a class="footer-link" href="../cloud-backup/index.html">Cloud, Backup e Servidores</a></div><div class="footer-links-row"><a class="footer-link" href="../suporte/index.html">Suporte & Infraestrutura</a></div></div>
+                </div>
+              </div>
+              <div class="quick-links-row two">
+                <div class="single-quick-links-wrapper">
+                  <h6 class="quick-links-title">Contato</h6>
+                  <div class="contact-infos-wrap">
+                    <div class="location-text">Rua Palmera Lacca, 183 – Sala 3 – Sobre Loja</div>
+                    <a class="contact-info-text" href="tel:+551131647640">+55 11 3164-7640</a>
+                    <a class="contact-info-text" href="mailto:contato@dmrinfo.com.br">contato@dmrinfo.com.br</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom-wrap">
+      <div class="container">
+        <div class="footer-copyright-wrap">
+          <div class="copyright-text">DMR Info Tecnologia LTDA · CNPJ: 14.557.762/0001-06 · © 2026 · <a class="copyright-link" href="/privacidade">Política de Privacidade</a> · <a class="copyright-link" href="/termos">Termos de Uso</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bg-overlay"></div>
+  </footer>
+</div>
+<script src="../../assets/vendor/jquery-3_47af3278437b.js" type="text/javascript"></script>
+<script src="../../assets/vendor/webflow_0c093dd27e27.js" type="text/javascript"></script>
+<script src="../../assets/vendor/webflow_760c3ff429ba.js" type="text/javascript"></script>
+<script src="../../assets/vendor/webflow_a4bc21d15fc6.js" type="text/javascript"></script>
+<script src="../../assets/vendor/webflow_1c2a8e406a92.js" type="text/javascript"></script>
+<script src="../../assets/vendor/gsap_8e6c1f2e24a8.js" type="text/javascript"></script>
+<script src="../../assets/vendor/SplitText_d547a9f956c9.js" type="text/javascript"></script>
+<script src="../../assets/vendor/ScrollTrigger_3b69999534fd.js" type="text/javascript"></script>
+<script src="../../assets/js/dmr-hero.js" type="text/javascript"></script>
+<script src="../../assets/js/dmr-reveal.js" type="text/javascript"></script>
+<script src="../../assets/js/dmr-header.js" type="text/javascript"></script>
+
+</body>
+</html>
